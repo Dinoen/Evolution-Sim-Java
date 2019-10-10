@@ -1,21 +1,66 @@
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Rabbit {
 
     private int x = 0;
     private int y = 0;
-    private int movementSpeed = 3;
+    private int movementSpeed = 1;
     public Random randomNumber = new Random();
-    public Rabbit(int x, int y)
+    int newX = randomNumber.nextInt(500);
+    int newY = randomNumber.nextInt(500);
+
+
+
+    public Rabbit(int x, int y) // Contructor
     {
         this.setX(x);
         this.setY(y);
     }
 
-    public void drawRabbit() {
+    public void drawRabbit()  // Graphical representation
+    {
 
         Main.processing.rect(getX(), getY(),10,10);
-        moveDirection();
+        //moveDirection();
+        rabbitMovement();
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rabbitMovement()
+    {
+        int currentX = this.x;
+        int currentY = this.y;
+        if (currentX == newX && currentY == newY)
+        {
+            this.newX = randomNumber.nextInt(Main.processing.width);
+            this.newY = randomNumber.nextInt(Main.processing.height);
+        }
+
+
+
+
+        if (currentX < newX)
+        {
+            x = x + movementSpeed;
+        }
+        if (currentX > newX)
+        {
+            x = x - movementSpeed;
+        }
+        if (currentY < newY)
+        {
+            y = y + movementSpeed;
+        }
+        if (currentY > newY)
+        {
+            y = y - movementSpeed;
+        }
     }
 
     public void moveDirection() {
