@@ -44,14 +44,12 @@ public class Rabbit {
     {
         int currentX = this.x;
         int currentY = this.y;
-        if (currentX == newX && currentY == newY)
+        //if (currentX == newX && currentY == newY)
+        if (currentX < newX-5 || currentX > newX+5 && currentY < newY+5 || currentY > newY-5)
         {
             this.newX = randomNumber.nextInt(Main.processing.width);
             this.newY = randomNumber.nextInt(Main.processing.height);
         }
-
-
-
 
         if (currentX < newX)
         {
