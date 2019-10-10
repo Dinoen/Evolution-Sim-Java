@@ -7,7 +7,7 @@ public class Rabbit {
 
     private int x = 0;
     private int y = 0;
-    private int movementSpeed = 1;
+    private int movementSpeed = 3;
     public Random randomNumber = new Random();
     int newX = randomNumber.nextInt(500);
     int newY = randomNumber.nextInt(500);
@@ -28,7 +28,7 @@ public class Rabbit {
         Main.processing.rect(getX(), getY(),10,10);
         Main.processing.ellipseMode(PConstants.CENTER);
         Main.processing.noFill();
-        Main.processing.ellipse(getX(),getY(),50,50);
+        Main.processing.ellipse(getX(),getY(),100,100);
 
         //moveDirection();
         rabbitMovement();
