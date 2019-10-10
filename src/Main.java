@@ -6,6 +6,7 @@ public class Main extends PApplet {
     public static PApplet processing;
 
     Rabbit rabbitOne = new Rabbit(10,10);
+    Rabbit rabbitTwo = new Rabbit(50,50);
     public static void main (String[] args) {
 
         PApplet.main("Main", args);
@@ -25,6 +26,7 @@ public class Main extends PApplet {
     {
         background(200);
         rabbitOne.drawRabbit();
+        rabbitTwo.drawRabbit();
 
     }
 }

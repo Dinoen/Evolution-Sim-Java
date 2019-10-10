@@ -1,3 +1,5 @@
+import processing.core.PConstants;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +14,7 @@ public class Rabbit {
 
 
 
+
     public Rabbit(int x, int y) // Contructor
     {
         this.setX(x);
@@ -20,8 +23,13 @@ public class Rabbit {
 
     public void drawRabbit()  // Graphical representation
     {
-
+        Main.processing.rectMode(PConstants.CENTER);
+        Main.processing.fill(255);
         Main.processing.rect(getX(), getY(),10,10);
+        Main.processing.ellipseMode(PConstants.CENTER);
+        Main.processing.noFill();
+        Main.processing.ellipse(getX(),getY(),50,50);
+
         //moveDirection();
         rabbitMovement();
 
