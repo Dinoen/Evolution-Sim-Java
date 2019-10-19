@@ -1,3 +1,4 @@
+import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.Random;
@@ -5,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Rabbit {
 
+    PApplet p;
     private int x = 0;
     private int y = 0;
     private int movementSpeed = 3;
@@ -15,20 +17,22 @@ public class Rabbit {
 
 
 
-    public Rabbit(int x, int y) // Contructor
+    public Rabbit(PApplet p, int x, int y) // Contructor
     {
         this.setX(x);
         this.setY(y);
+        this.p = p;
+
     }
 
     public void drawRabbit()  // Graphical representation
     {
-        Main.processing.rectMode(PConstants.CENTER);
-        Main.processing.fill(255);
-        Main.processing.rect(getX(), getY(),10,10);
-        Main.processing.ellipseMode(PConstants.CENTER);
-        Main.processing.noFill();
-        Main.processing.ellipse(getX(),getY(),100,100);
+        p.rectMode(PConstants.CENTER);
+        p.fill(255);
+        p.rect(getX(), getY(),10,10);
+        p.ellipseMode(PConstants.CENTER);
+        p.noFill();
+        p.ellipse(getX(),getY(),100,100);
 
         //moveDirection();
         rabbitMovement();
@@ -47,8 +51,8 @@ public class Rabbit {
         //if (currentX == newX && currentY == newY)
         if (currentX < newX-5 || currentX > newX+5 && currentY < newY+5 || currentY > newY-5)
         {
-            this.newX = randomNumber.nextInt(Main.processing.width);
-            this.newY = randomNumber.nextInt(Main.processing.height);
+            this.newX = randomNumber.nextInt(p.width);
+            this.newY = randomNumber.nextInt(p.height);
         }
 
         if (currentX < newX)
@@ -76,7 +80,7 @@ public class Rabbit {
         switch (a){
 
             case 0:
-                if(x < Main.processing.width){
+                if(x < p.width){
                     this.x += movementSpeed;
                 }
                 break;
@@ -86,7 +90,7 @@ public class Rabbit {
                 }
                 break;
             case 2:
-                if (y < Main.processing.height -3){
+                if (y < p.height -3){
                     this.y += movementSpeed;
                 }
                 break;
