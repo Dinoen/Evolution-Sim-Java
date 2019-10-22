@@ -11,6 +11,9 @@ public class Rabbit {
     public Random randomNumber = new Random();
     int newX = randomNumber.nextInt(500);
     int newY = randomNumber.nextInt(500);
+    private int whatever;
+
+
 
 
 

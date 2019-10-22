@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="" />
+    <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rabbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rabbit.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +72,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570708306337</updated>
-      <workItem from="1570708309705" duration="8753000" />
+      <workItem from="1570708309705" duration="9297000" />
+      <workItem from="1571309460680" duration="346000" />
+      <workItem from="1571322017401" duration="19000" />
+      <workItem from="1571402661061" duration="177000" />
+      <workItem from="1571641496090" duration="183000" />
+      <workItem from="1571736500418" duration="254000" />
     </task>
     <servers />
   </component>
@@ -81,7 +89,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
