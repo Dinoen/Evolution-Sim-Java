@@ -7,15 +7,22 @@ public class Rabbit {
 
     private int x = 0;
     private int y = 0;
-    private int movementSpeed = 3;
+    private int movementSpeed = 1;
+    private int sightDist = 50;
+    private int sizeOfRabbit = 10;
+    private int Hunger = 0; // will go from 0 to 100, increasing with activity
+    private int MAXHunger = 100;
+    private int Thirst = 0;  // will go from 0 to 100, increasing with activity
+    private int MAXThirst = 100;
+    private int urgeToReproduce = 0;
+    private int MAXUrgeToReproduce = 100;
+
+
+
+
     public Random randomNumber = new Random();
-    int newX = randomNumber.nextInt(500);
-    int newY = randomNumber.nextInt(500);
-    private int whatever;
-
-
-
-
+    int newX = randomNumber.nextInt(800); // 800 is the width
+    int newY = randomNumber.nextInt(800); // 800 is the height
 
 
     public Rabbit(int x, int y) // Contructor
@@ -28,10 +35,10 @@ public class Rabbit {
     {
         Main.processing.rectMode(PConstants.CENTER);
         Main.processing.fill(255);
-        Main.processing.rect(getX(), getY(),10,10);
+        Main.processing.rect(getX(), getY(),sizeOfRabbit, sizeOfRabbit);
         Main.processing.ellipseMode(PConstants.CENTER);
         Main.processing.noFill();
-        Main.processing.ellipse(getX(),getY(),100,100);
+        Main.processing.ellipse(getX(),getY(),sightDist,sightDist);
 
         //moveDirection();
         rabbitMovement();
@@ -70,6 +77,7 @@ public class Rabbit {
         {
             y = y - movementSpeed;
         }
+
     }
 
     public void moveDirection() {
