@@ -1,21 +1,20 @@
 import processing.core.PApplet;
 
-import java.util.concurrent.TimeUnit;
-
 public class Main extends PApplet {
-    public static PApplet processing;
 
     Rabbit rabbitOne = new Rabbit(10,10);
     Rabbit rabbitTwo = new Rabbit(50,50);
     Rabbit rabbitThree = new Rabbit(20,30);
     private int widthOfWindow = 800;
     private int heightOfWindow = 800;
-
+    InstantiationTheRabbits instantiation = new InstantiationTheRabbits();
+    newRabbit newBorn = new newRabbit();
 
     public static void main (String[] args) {
 
-        PApplet.main("Main", args);
 
+    public static void main(String[] args) {
+        PApplet.main("Main", args);
     }
 
     public void settings () {
@@ -24,15 +23,24 @@ public class Main extends PApplet {
     }
 
     public void setup() {
-        processing = this;
+        //Setting up the rabbits in the ArrayList
+        System.out.println(instantiation.arrayOfRabbits.size());
+        newBorn.print();
+        instantiation.print2();
+
     }
 
-    public void draw()
-    {
+    public void draw() {
+
         background(200);
-        rabbitOne.drawRabbit();
-        rabbitTwo.drawRabbit();
-        rabbitThree.drawRabbit();
+        //New rabbit function that creates rabbits,
+        newBorn.newRabbitBaby();
+        //Running through the ArrayList to draw the rabbits.
+        instantiation.arrayOfRabbits.get(0).drawRabbit(this);
+        instantiation.arrayOfRabbits.get(0).rabbitMovement();
+
+        instantiation.arrayOfRabbits.get(1).drawRabbit(this);
+        instantiation.arrayOfRabbits.get(1).rabbitMovement();
 
 
     }
