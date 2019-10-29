@@ -3,12 +3,35 @@ import processing.core.PConstants;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 import static processing.core.PApplet.dist;
+
+
+public class Rabbit {
+
+    private int x = 0;
+    private int y = 0;
+    private int movementSpeed = 1;
+    private int sightDist = 50;
+    private int sizeOfRabbit = 10;
+    private int Hunger = 0; // will go from 0 to 100, increasing with activity
+    private int MAXHunger = 100;
+    private int Thirst = 0;  // will go from 0 to 100, increasing with activity
+    private int MAXThirst = 100;
+    private int urgeToReproduce = 0;
+    private int MAXUrgeToReproduce = 100;
+
+
+
 
 public class Rabbit{
 
-    PApplet p = new PApplet();
+
+   
+
+    public Random randomNumber = new Random();
+    int newX = randomNumber.nextInt(800); // 800 is the width
+    int newY = randomNumber.nextInt(800); // 800 is the height
+     PApplet p = new PApplet();
     private float x = 0;
     private float y = 0;
     float currentX;
@@ -20,7 +43,7 @@ public class Rabbit{
     float newX = randomNumber.nextInt(500);
     float newY = randomNumber.nextInt(500);
     int timeUntilMature = 10000;
-    //
+
 
     public Rabbit(PApplet p, int x, int y) // Contructor
     {
@@ -38,6 +61,13 @@ public class Rabbit{
 
     public void drawRabbit(PApplet p)  // Graphical representation
     {
+        Main.processing.rectMode(PConstants.CENTER);
+        Main.processing.fill(255);
+        Main.processing.rect(getX(), getY(),sizeOfRabbit, sizeOfRabbit);
+        Main.processing.ellipseMode(PConstants.CENTER);
+        Main.processing.noFill();
+        Main.processing.ellipse(getX(),getY(),sightDist,sightDist);
+
 
         p.rectMode(PConstants.CENTER);
         p.fill(255);
@@ -77,6 +107,7 @@ public class Rabbit{
         if (currentY > newY) {
             y = y - movementSpeed;
         }
+
     }
 
     public void moveDirection() {

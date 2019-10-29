@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
+
       <change beforePath="$PROJECT_DIR$/.idea/libraries/core.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/core.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mating.java" beforeDir="false" />
+
       <change beforePath="$PROJECT_DIR$/src/Rabbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rabbit.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -207,6 +209,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570708306337</updated>
+
       <workItem from="1570708309705" duration="8753000" />
       <workItem from="1571239287440" duration="1927000" />
       <workItem from="1571476164285" duration="2536000" />
@@ -267,7 +270,9 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
+
+          
+               <option name="RECENTLY_FILTERED_USER_GROUPS">
                 <collection>
                   <UserGroup>
                     <option name="users">
@@ -322,6 +327,7 @@
                   <option value="3" />
                 </list>
               </option>
+
             </State>
           </value>
         </entry>
