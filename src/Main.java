@@ -2,22 +2,16 @@ import processing.core.PApplet;
 
 public class Main extends PApplet {
 
-    Rabbit rabbitOne = new Rabbit(10,10);
-    Rabbit rabbitTwo = new Rabbit(50,50);
-    Rabbit rabbitThree = new Rabbit(20,30);
     private int widthOfWindow = 800;
     private int heightOfWindow = 800;
     InstantiationTheRabbits instantiation = new InstantiationTheRabbits();
     newRabbit newBorn = new newRabbit();
 
-    public static void main (String[] args) {
-
-
     public static void main(String[] args) {
         PApplet.main("Main", args);
     }
 
-    public void settings () {
+    public void settings() {
 
         size(widthOfWindow,heightOfWindow);
     }

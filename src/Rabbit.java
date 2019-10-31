@@ -8,8 +8,11 @@ import static processing.core.PApplet.dist;
 
 public class Rabbit {
 
+    PApplet p = new PApplet();
     private int x = 0;
     private int y = 0;
+    private int currentX = 0;
+    private int currentY = 0;
     private int movementSpeed = 1;
     private int sightDist = 50;
     private int sizeOfRabbit = 10;
@@ -19,30 +22,12 @@ public class Rabbit {
     private int MAXThirst = 100;
     private int urgeToReproduce = 0;
     private int MAXUrgeToReproduce = 100;
-
-
-
-
-public class Rabbit{
-
-
-   
-
+    private int viewDistance = 100;
     public Random randomNumber = new Random();
     int newX = randomNumber.nextInt(800); // 800 is the width
     int newY = randomNumber.nextInt(800); // 800 is the height
-     PApplet p = new PApplet();
-    private float x = 0;
-    private float y = 0;
-    float currentX;
-    float currentY;
-    public int matingCondition = 0;
-    private int viewDistance = 100;
-    private float movementSpeed = 2.0f;
-    public Random randomNumber = new Random();
-    float newX = randomNumber.nextInt(500);
-    float newY = randomNumber.nextInt(500);
-    int timeUntilMature = 10000;
+
+
 
 
     public Rabbit(PApplet p, int x, int y) // Contructor
@@ -53,20 +38,16 @@ public class Rabbit{
 
         int savedTime = p.millis();
         int passedTime = p.millis() - savedTime;
-
-        if (passedTime > timeUntilMature) {
-            matingCondition = 1;
-        }
     }
 
     public void drawRabbit(PApplet p)  // Graphical representation
     {
-        Main.processing.rectMode(PConstants.CENTER);
-        Main.processing.fill(255);
-        Main.processing.rect(getX(), getY(),sizeOfRabbit, sizeOfRabbit);
-        Main.processing.ellipseMode(PConstants.CENTER);
-        Main.processing.noFill();
-        Main.processing.ellipse(getX(),getY(),sightDist,sightDist);
+        p.rectMode(PConstants.CENTER);
+        p.fill(255);
+        p.rect(getX(), getY(),sizeOfRabbit, sizeOfRabbit);
+        p.ellipseMode(PConstants.CENTER);
+        p.noFill();
+        p.ellipse(getX(),getY(),sightDist,sightDist);
 
 
         p.rectMode(PConstants.CENTER);
