@@ -2,27 +2,30 @@ import processing.core.PApplet;
 
 import java.util.Random;
 
-public class Animal {
+abstract class Animal {
 
-    private int visionrange = 10;
-    private boolean alive = true;
-    private boolean hungry = false;
-    private boolean thirsty = false;
-    private int x = 0;
-    private int y = 0;
-    private int movementSpeed = 1;
-    private int sightDist = 50;
-    private int sizeOfAnimal = 10;
-    private int Hunger = 0; // will go from 0 to 100, increasing with activity
-    private int MAXHunger = 100;
-    private int Thirst = 0;  // will go from 0 to 100, increasing with activity
-    private int MAXThirst = 100;
-    private int urgeToReproduce = 0;
-    private int MAXUrgeToReproduce = 100;
+    public int visionrange;
+    public boolean alive;
+    public boolean hungry;
+    public boolean thirsty;
+    public int x;
+    public int y;
+    public int movementSpeed;
+    public int sightDist;
+    public int sizeOfAnimal;
+    public int Hunger; // will go from 0 to 100, increasing with activity
+    public int MAXHunger;
+    public int Thirst;  // will go from 0 to 100, increasing with activity
+    public int MAXThirst;
+    public int urgeToReproduce;
+    public int MAXUrgeToReproduce;
     Random randomNumber = new Random();
 
+    public Animal(){
 
-    public Animal(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+    }
+
+   /* public Animal(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
         this.visionrange = visionrange;
         this.alive = alive;
         this.hungry = hungry;
@@ -38,7 +41,10 @@ public class Animal {
         this.MAXThirst = MAXThirst;
         this.urgeToReproduce = urgeToReproduce;
         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
-    }
+    }*/
+   public Animal (PApplet pApplet){
+
+   }
 
 
     public int getSizeOfAnimal() {

@@ -3,7 +3,7 @@ import java.util.Random;
 public class Fox extends Animal {
 
     public Fox(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfRabbit, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
-        super(visionrange, alive, hungery, thirsty, x, y, movementSpeed, sightDist, sizeOfRabbit, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
+
     }
 
     @Override

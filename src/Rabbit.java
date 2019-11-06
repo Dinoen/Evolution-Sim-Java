@@ -1,16 +1,20 @@
+import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PVector;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Rabbit extends Animal {
+    PVector location;
+    PVector velocity;
 
 
 
-
-    public Rabbit(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
-        super(visionrange, alive, hungry, thirsty, x, y, movementSpeed, sightDist, sizeOfAnimal, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
-
+    public Rabbit(PApplet pApplet, int x, int y){
+        this.x = x;
+        this.y = y;
+        setSizeOfAnimal(50);
     }
 
 
@@ -32,6 +36,14 @@ public class Rabbit extends Animal {
     @Override
     public void setY(int y) {
         super.setY(y);
+    }
+    @Override
+    public int getSizeOfAnimal() {
+        return super.sizeOfAnimal;
+    }
+    @Override
+    public void setSizeOfAnimal(int sizeOfAnimal) {
+        this.sizeOfAnimal = sizeOfAnimal;
     }
 
     @Override
@@ -186,7 +198,26 @@ public class Rabbit extends Animal {
 
     @Override
     public void draw() {
+        
+        location = new PVector(500,100); //OUR NEW X AND Y
+        velocity = new PVector(2.5f, 5); // OUR NEW X AND Y SPEEDS
+        location.add(velocity);
+        if ((location.x > Main.p.width) || (location.x < 0)) {
+            velocity.x = velocity.x * -1;
+        }
+        if ((location.y > Main.p.height) || (location.y < 0)) {
+            velocity.y = velocity.y * -1;
+        }
 
+        // Display circle at x location
+        Main.p.stroke(0);
+        Main.p.fill(175);
+        Main.p.ellipse(location.x,location.y,16,16);
+
+
+
+
+    Main.p.rect(x,y,sizeOfAnimal,sizeOfAnimal);
 
     }//Displaying method
 
