@@ -1,4 +1,7 @@
+import processing.core.PConstants;
+
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Rabbit extends Animal {
 
@@ -106,7 +109,6 @@ public class Rabbit extends Animal {
         super.setSightDist(sightDist);
     }
 
-
     @Override
     public int getMAXHunger() {
         return super.getMAXHunger();
@@ -184,7 +186,8 @@ public class Rabbit extends Animal {
 
     @Override
     public void draw() {
-        super.draw();
+
+
     }//Displaying method
 
 

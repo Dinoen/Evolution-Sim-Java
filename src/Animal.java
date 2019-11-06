@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Animal {
 
-    private int visionrange;
+    private int visionrange = 10;
     private boolean alive = true;
     private boolean hungry = false;
     private boolean thirsty = false;
@@ -12,7 +12,7 @@ public class Animal {
     private int y = 0;
     private int movementSpeed = 1;
     private int sightDist = 50;
-    private int sizeOfAnimal ;
+    private int sizeOfAnimal = 10;
     private int Hunger = 0; // will go from 0 to 100, increasing with activity
     private int MAXHunger = 100;
     private int Thirst = 0;  // will go from 0 to 100, increasing with activity
@@ -32,9 +32,9 @@ public class Animal {
         this.movementSpeed = movementSpeed;
         this.sightDist = sightDist;
         this.sizeOfAnimal = sizeOfAnimal;
-        Hunger = hunger;
+        this.Hunger = hunger;
         this.MAXHunger = MAXHunger;
-        Thirst = thirst;
+        this.Thirst = thirst;
         this.MAXThirst = MAXThirst;
         this.urgeToReproduce = urgeToReproduce;
         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
