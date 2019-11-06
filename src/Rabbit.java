@@ -1,14 +1,15 @@
 import java.util.Random;
 
 public class Rabbit extends Animal {
-    private int urgeToReproduce = 0;
-    private int MAXUrgeToReproduce = 100;
 
-    public Rabbit(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce, int urgeToReproduce1, int MAXUrgeToReproduce1) {
-        super(visionrange, alive, hungery, thirsty, x, y, movementSpeed, sightDist, sizeOfAnimal, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
-        this.urgeToReproduce = urgeToReproduce1;
-        this.MAXUrgeToReproduce = MAXUrgeToReproduce1;
+
+
+
+    public Rabbit(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+        super(visionrange, alive, hungry, thirsty, x, y, movementSpeed, sightDist, sizeOfAnimal, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
+
     }
+
 
     @Override
     public int getX() {
@@ -71,8 +72,8 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public void setHungery(boolean hungery) {
-        super.setHungery(hungery);
+    public void setHungery(boolean hungry) {
+        super.setHungery(hungry);
     }
 
     @Override
@@ -86,8 +87,8 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public boolean isHungery() {
-        return super.isHungery();
+    public boolean isHungry() {
+        return super.isHungry();
     }
 
     @Override

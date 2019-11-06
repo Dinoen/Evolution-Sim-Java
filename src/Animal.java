@@ -1,12 +1,12 @@
+import processing.core.PApplet;
+
 import java.util.Random;
 
 public class Animal {
 
-
-
     private int visionrange;
     private boolean alive = true;
-    private boolean hungery = false;
+    private boolean hungry = false;
     private boolean thirsty = false;
     private int x = 0;
     private int y = 0;
@@ -22,10 +22,10 @@ public class Animal {
     Random randomNumber = new Random();
 
 
-    public Animal(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+    public Animal(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
         this.visionrange = visionrange;
         this.alive = alive;
-        this.hungery = hungery;
+        this.hungry = hungry;
         this.thirsty = thirsty;
         this.x = x;
         this.y = y;
@@ -39,6 +39,7 @@ public class Animal {
         this.urgeToReproduce = urgeToReproduce;
         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
     }
+
 
     public int getSizeOfAnimal() {
         return sizeOfAnimal;
@@ -146,7 +147,7 @@ public class Animal {
     }
 
     public void setHungery(boolean hungery) {
-        this.hungery = hungery;
+        this.hungry = hungery;
     }
 
     public void setThirsty(boolean thirsty) {
@@ -157,8 +158,8 @@ public class Animal {
         this.randomNumber = randomNumber;
     }
 
-    public boolean isHungery() {
-        return hungery;
+    public boolean isHungry() {
+        return hungry;
     }
 
     public boolean isThirsty() {

@@ -148,8 +148,8 @@ public class Fox extends Animal {
     }
 
     @Override
-    public boolean isHungery() {
-        return super.isHungery();
+    public boolean isHungry() {
+        return super.isHungry();
     }
 
     @Override
