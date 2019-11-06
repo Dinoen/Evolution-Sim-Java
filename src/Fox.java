@@ -1,13 +1,9 @@
 import java.util.Random;
 
-public class Rabbit extends Animal {
-    private int urgeToReproduce = 0;
-    private int MAXUrgeToReproduce = 100;
+public class Fox extends Animal {
 
-    public Rabbit(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce, int urgeToReproduce1, int MAXUrgeToReproduce1) {
-        super(visionrange, alive, hungery, thirsty, x, y, movementSpeed, sightDist, sizeOfAnimal, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
-        this.urgeToReproduce = urgeToReproduce1;
-        this.MAXUrgeToReproduce = MAXUrgeToReproduce1;
+    public Fox(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfRabbit, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+        super(visionrange, alive, hungery, thirsty, x, y, movementSpeed, sightDist, sizeOfRabbit, hunger, MAXHunger, thirst, MAXThirst, urgeToReproduce, MAXUrgeToReproduce);
     }
 
     @Override
@@ -61,38 +57,23 @@ public class Rabbit extends Animal {
     }
 
     @Override
+    public void draw() {
+        super.draw();
+    }//Displaying method
+
+    @Override
+    public int getThirst() {
+        return super.getThirst();
+    }
+
+    @Override
+    public void setThirst(int thirst) {
+        super.setThirst(thirst);
+    }
+
+    @Override
     public boolean isAlive() {
         return super.isAlive();
-    }
-
-    @Override
-    public void setAlive(boolean alive) {
-        super.setAlive(alive);
-    }
-
-    @Override
-    public void setHungery(boolean hungery) {
-        super.setHungery(hungery);
-    }
-
-    @Override
-    public void setThirsty(boolean thirsty) {
-        super.setThirsty(thirsty);
-    }
-
-    @Override
-    public void setRandomNumber(Random randomNumber) {
-        super.setRandomNumber(randomNumber);
-    }
-
-    @Override
-    public boolean isHungery() {
-        return super.isHungery();
-    }
-
-    @Override
-    public boolean isThirsty() {
-        return super.isThirsty();
     }
 
     @Override
@@ -147,14 +128,44 @@ public class Rabbit extends Animal {
     }
 
     @Override
+    public void setAlive(boolean alive) {
+        super.setAlive(alive);
+    }
+
+    @Override
+    public void setHungery(boolean hungery) {
+        super.setHungery(hungery);
+    }
+
+    @Override
+    public void setThirsty(boolean thirsty) {
+        super.setThirsty(thirsty);
+    }
+
+    @Override
+    public void setRandomNumber(Random randomNumber) {
+        super.setRandomNumber(randomNumber);
+    }
+
+    @Override
+    public boolean isHungery() {
+        return super.isHungery();
+    }
+
+    @Override
+    public boolean isThirsty() {
+        return super.isThirsty();
+    }
+
+    @Override
     public void EatFood() {
         super.EatFood();
-    }//Method for eating
+    }
 
     @Override
     public void DrinkWater() {
         super.DrinkWater();
-    }//Method for drinking
+    }
 
     @Override
     public void SearchForFood() {
@@ -167,28 +178,9 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public int getThirst() {
-        return super.getThirst();
-    }
-
-    @Override
-    public void setThirst(int thirst) {
-        super.setThirst(thirst);
-    }
-
-    @Override
     public void Movement() {
         super.Movement();
-    }//Movement method
-
-    @Override
-    public void draw() {
-        super.draw();
-    }//Displaying method
+    }
 
 
-
-    public void copulate(){
-
-    }//Copulating method
 }
