@@ -6,8 +6,7 @@ import java.util.Vector;
 public class Main extends PApplet {
     public static PApplet p;
     Rabbit rabbit;
-    PVector location;
-    PVector velocity;
+
 
 
 
@@ -19,8 +18,6 @@ public class Main extends PApplet {
     public void setup() {
         p = this;
         rabbit = new Rabbit(p,50,50);
-        location = new PVector(100,100); //OUR NEW X AND Y
-        velocity = new PVector(2.5f, 5); // OUR NEW X AND Y SPEEDS
 
     }
 
@@ -38,9 +35,10 @@ public class Main extends PApplet {
 
     public void draw() {
 
-
-        Main.p.rect(0,0,width,height);
+        background(200);
+        rabbit.Movement();
         rabbit.draw();
+
 
     }
 }

@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 public class Rabbit extends Animal {
     PVector location;
     PVector velocity;
+    PVector acceleration;
+    float topspeed;
 
 
 
@@ -15,6 +17,9 @@ public class Rabbit extends Animal {
         this.x = x;
         this.y = y;
         setSizeOfAnimal(50);
+        location = new PVector(Main.p.random(Main.p.width), Main.p.random(Main.p.height));
+        velocity = new PVector(0,0);
+        topspeed = 4;
     }
 
 
@@ -192,34 +197,35 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public void Movement() {
-        super.Movement();
+    public void Movement()
+    {
+        // Our algorithm for calculating acceleration:
+        PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
+        PVector dir = PVector.sub(mouse,location);  // Find vector pointing towards mouse
+        dir.normalize();     // Normalize
+        dir.mult(0.5f);       // Scale
+        acceleration = dir;  // Set to acceleration
+
+        // Motion 101!  Velocity changes by acceleration.  Location changes by velocity.
+        velocity.add(acceleration);
+        velocity.limit(topspeed);
+        location.add(velocity);
+
+
+
+
+
     }//Movement method
+
 
     @Override
     public void draw() {
-        
-        location = new PVector(500,100); //OUR NEW X AND Y
-        velocity = new PVector(2.5f, 5); // OUR NEW X AND Y SPEEDS
-        location.add(velocity);
-        if ((location.x > Main.p.width) || (location.x < 0)) {
-            velocity.x = velocity.x * -1;
-        }
-        if ((location.y > Main.p.height) || (location.y < 0)) {
-            velocity.y = velocity.y * -1;
-        }
-
-        // Display circle at x location
         Main.p.stroke(0);
         Main.p.fill(175);
         Main.p.ellipse(location.x,location.y,16,16);
 
-
-
-
-    Main.p.rect(x,y,sizeOfAnimal,sizeOfAnimal);
-
     }//Displaying method
+
 
 
 
