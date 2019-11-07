@@ -6,7 +6,7 @@ import java.util.Vector;
 public class Main extends PApplet {
     public static PApplet p;
     Rabbit rabbit;
-
+    Population populate;
 
 
 
@@ -18,7 +18,7 @@ public class Main extends PApplet {
     public void setup() {
         p = this;
         rabbit = new Rabbit(p,50,50);
-
+        populate = new Population(10);
     }
 
     public void settings() {
@@ -36,8 +36,13 @@ public class Main extends PApplet {
     public void draw() {
 
         background(200);
-        rabbit.Movement();
-        rabbit.draw();
+        /*rabbit.Movement();
+        rabbit.draw();*/
+
+        for (int i = 0; i < populate.arrayOfRabbits.size(); i++) {
+            populate.arrayOfRabbits.get(i).Movement();
+            populate.arrayOfRabbits.get(i).draw();
+        }
 
 
     }
