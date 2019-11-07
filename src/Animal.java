@@ -183,7 +183,7 @@ abstract class Animal {
     public void DrinkWater(){//Drinking Water method
 
     }
-    public void draw(){//Displaying method
+    public void display(){//Displaying method
 
     }
     public void SearchForFood(){//Method for Searching Food

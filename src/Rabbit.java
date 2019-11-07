@@ -1,25 +1,34 @@
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Rabbit extends Animal {
+    PApplet p;
     PVector location;
     PVector velocity;
     PVector acceleration;
     float topspeed;
+    int setNewTargetTimerStartTime;
+    int setNewTargetTimerDurationTime;
+    Random rand;
 
 
-
-    public Rabbit(PApplet pApplet, int x, int y){
+    public Rabbit(PApplet pApplet, int x, int y) {
+        rand = new Random();
+        this.p = pApplet;
         this.x = x;
         this.y = y;
         setSizeOfAnimal(50);
-        location = new PVector(Main.p.random(Main.p.width), Main.p.random(Main.p.height));
-        velocity = new PVector(0,0);
-        topspeed = 4;
+        location = new PVector(p.random(p.width), p.random(p.height));
+        velocity = new PVector(0, 0);
+        topspeed = 2;
+        startSetTargetTimer();
+    }
+
+    public void startSetTargetTimer() {
+        setNewTargetTimerStartTime = p.millis();
+        setNewTargetTimerDurationTime = 5000; //make random later
     }
 
 
@@ -42,10 +51,12 @@ public class Rabbit extends Animal {
     public void setY(int y) {
         super.setY(y);
     }
+
     @Override
     public int getSizeOfAnimal() {
         return super.sizeOfAnimal;
     }
+
     @Override
     public void setSizeOfAnimal(int sizeOfAnimal) {
         this.sizeOfAnimal = sizeOfAnimal;
@@ -197,10 +208,26 @@ public class Rabbit extends Animal {
     }
 
     @Override
-    public void Movement()
-    {
+    public void Movement() {
+
         // Our algorithm for calculating acceleration:
-        PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
+        //PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
+        //PVector randomPosition = new PVector(Main.p.random(Main.p.width),(Main.p.random(Main.p.height)));
+
+        PVector randomPosition = new PVector(rand.nextInt(800), rand.nextInt(800));
+        //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
+        PVector dir = PVector.sub(randomPosition, this.location);
+        dir.normalize();
+        dir.mult(0.5f);
+        //acceleration = dir;
+        velocity.set(dir);
+        //velocity.add(dir);
+        velocity.limit(topspeed);
+        location.add(velocity);
+
+
+
+        /*PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
         PVector dir = PVector.sub(mouse,location);  // Find vector pointing towards mouse
         dir.normalize();     // Normalize
         dir.mult(0.5f);       // Scale
@@ -209,27 +236,37 @@ public class Rabbit extends Animal {
         // Motion 101!  Velocity changes by acceleration.  Location changes by velocity.
         velocity.add(acceleration);
         velocity.limit(topspeed);
-        location.add(velocity);
-
-
-
-
+        location.add(velocity);*/
 
     }//Movement method
 
-
+    //WE NEED AN UPDATE FUNCTION
     @Override
-    public void draw() {
-        Main.p.stroke(0);
-        Main.p.fill(175);
-        Main.p.ellipse(location.x,location.y,16,16);
+    public void display() {
+        p.stroke(0);
+        p.fill(175);
+        p.ellipse(this.location.x,this.location.y, 16, 16);
 
     }//Displaying method
 
+    public void update() {
+        Movement();
+        if(isSetTargetTimerIsOut()) {
+            //we have not a target yet so we have to make a PVector target. We will set a new target by target.set
+            //Call the start timer again. Reset timer
+        }
+    }
+
+    public boolean isSetTargetTimerIsOut() {
+        int timeElapsed = p.millis() - setNewTargetTimerStartTime;
+        return timeElapsed > setNewTargetTimerDurationTime;
+
+    }
 
 
 
-    public void copulate(){
+    public void copulate() {
 
     }//Copulating method
+
 }

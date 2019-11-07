@@ -57,8 +57,8 @@ public class Fox extends Animal {
     }
 
     @Override
-    public void draw() {
-        super.draw();
+    public void display() {
+        super.display();
     }//Displaying method
 
     @Override

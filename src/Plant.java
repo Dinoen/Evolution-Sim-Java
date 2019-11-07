@@ -10,9 +10,9 @@ float y;
 
     }
 
-    public void drawPlant(){
+    public void drawPlant(PApplet p){
 
-        Main.p.rect(x,y,50,50);
+        p.rect(x,y,50,50);
 
     }
 }
