@@ -19,8 +19,5 @@ public class Population {
             arrayOfRabbits.get(i).update();
         }
     }
-    public void print2() {
-        System.out.println(arrayOfRabbits.size());
-    }
 }
 

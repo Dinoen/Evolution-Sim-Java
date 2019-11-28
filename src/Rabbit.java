@@ -22,7 +22,7 @@ public class Rabbit extends Animal {
         setSizeOfAnimal(50);
         location = new PVector(p.random(p.width), p.random(p.height));
         velocity = new PVector(0, 0);
-        topspeed = 2;
+        topspeed = 5;
         startSetTargetTimer();
     }
 
@@ -209,21 +209,32 @@ public class Rabbit extends Animal {
 
     @Override
     public void Movement() {
-
+    PVector randomPosition;
         // Our algorithm for calculating acceleration:
         //PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
         //PVector randomPosition = new PVector(Main.p.random(Main.p.width),(Main.p.random(Main.p.height)));
+        if(isSetTargetTimerIsOut()) {
+            System.out.println("tid er gået");
+            randomPosition = new PVector(p.random(0,800), p.random(0,800));
+            //we have not a target yet so we have to make a PVector target. We will set a new target by target.set
+            //Call the start timer again. Reset timer
+            PVector dir = PVector.sub(randomPosition, this.location);
+            dir.normalize();
+            dir.mult(0.5f);
+            velocity.set(dir);
+            startSetTargetTimer();
 
-        PVector randomPosition = new PVector(rand.nextInt(800), rand.nextInt(800));
+        }
+
         //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
-        PVector dir = PVector.sub(randomPosition, this.location);
-        dir.normalize();
-        dir.mult(0.5f);
+
         //acceleration = dir;
-        velocity.set(dir);
+
         //velocity.add(dir);
         velocity.limit(topspeed);
         location.add(velocity);
+        System.out.println(velocity.x);
+        System.out.println(velocity.y);
 
 
 
@@ -251,10 +262,8 @@ public class Rabbit extends Animal {
 
     public void update() {
         Movement();
-        if(isSetTargetTimerIsOut()) {
-            //we have not a target yet so we have to make a PVector target. We will set a new target by target.set
-            //Call the start timer again. Reset timer
-        }
+
+        this.display();
     }
 
     public boolean isSetTargetTimerIsOut() {
@@ -262,11 +271,4 @@ public class Rabbit extends Animal {
         return timeElapsed > setNewTargetTimerDurationTime;
 
     }
-
-
-
-    public void copulate() {
-
-    }//Copulating method
-
 }

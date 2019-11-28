@@ -4,7 +4,6 @@ import processing.core.PVector;
 import java.util.Vector;
 
 public class Main extends PApplet {
-    //public static PApplet p;
     Rabbit rabbit;
     Population populate;
 
@@ -17,7 +16,7 @@ public class Main extends PApplet {
     }
     public void setup() {
         //rabbit = new Rabbit(p,50,50);
-        populate = new Population(this,10);
+        populate = new Population(this,4);
     }
 
     public void settings() {
@@ -40,10 +39,8 @@ public class Main extends PApplet {
         //need a separate function for the creation of the new target. SetTarget. Timer.
         //Separate update and drawing in all the animal classes.
         //
+        populate.update();
 
-        for (int i = 0; i < populate.arrayOfRabbits.size(); i++) {
-            populate.update();
-            populate.arrayOfRabbits.get(i).display();
-        }
+
     }
 }
