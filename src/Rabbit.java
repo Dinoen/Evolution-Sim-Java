@@ -3,7 +3,7 @@ import processing.core.PVector;
 
 import java.util.Random;
 
-public class Rabbit extends Animal {
+public class Rabbit extends Living {
     PApplet p;
     PVector location;
     PVector velocity;
@@ -12,9 +12,13 @@ public class Rabbit extends Animal {
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
     Random rand;
+    Population fellowRabbits = new Population();
+    float visionRange;
+    final String typeOfAnimal;
+    int movingState;
 
 
-    public Rabbit(PApplet pApplet, int x, int y) {
+    public Rabbit(PApplet pApplet, int x, int y, int ID) {
         rand = new Random();
         this.p = pApplet;
         this.x = x;
@@ -24,6 +28,9 @@ public class Rabbit extends Animal {
         velocity = new PVector(0, 0);
         topspeed = 5;
         startSetTargetTimer();
+        visionRange = 30f;
+        typeOfAnimal = "Rabbit";
+        movingState = 0;
     }
 
     public void startSetTargetTimer() {
@@ -214,7 +221,7 @@ public class Rabbit extends Animal {
         //PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
         //PVector randomPosition = new PVector(Main.p.random(Main.p.width),(Main.p.random(Main.p.height)));
         if(isSetTargetTimerIsOut()) {
-            System.out.println("tid er gået");
+            System.out.println("5 secs");
             randomPosition = new PVector(p.random(0,800), p.random(0,800));
             //we have not a target yet so we have to make a PVector target. We will set a new target by target.set
             //Call the start timer again. Reset timer
@@ -231,10 +238,13 @@ public class Rabbit extends Animal {
         //acceleration = dir;
 
         //velocity.add(dir);
-        velocity.limit(topspeed);
-        location.add(velocity);
-        System.out.println(velocity.x);
-        System.out.println(velocity.y);
+        if(movingState == 0) {
+            velocity.limit(topspeed);
+            location.add(velocity);
+        }
+
+        /*System.out.println(velocity.x);
+        System.out.println(velocity.y);*/
 
 
 
@@ -262,7 +272,7 @@ public class Rabbit extends Animal {
 
     public void update() {
         Movement();
-
+        vision();
         this.display();
     }
 
@@ -270,5 +280,26 @@ public class Rabbit extends Animal {
         int timeElapsed = p.millis() - setNewTargetTimerStartTime;
         return timeElapsed > setNewTargetTimerDurationTime;
 
+    }
+
+    public void vision(){
+        for (int i = 0; i < Main.allEntities.size() ; i++) {
+            for (int j = 0; j < Main.allEntities.get(i).getPopulation().size(); j++) {
+                if (p.dist(this.location.x,this.location.y,Main.allEntities.get(i).getPopulation().get(j).location.x
+                        ,Main.allEntities.get(i).getPopulation().get(j).location.y) < this.visionRange &&
+                        p.dist(this.location.x,this.location.y,Main.allEntities.get(i).getPopulation().get(j).location.x
+                        ,Main.allEntities.get(i).getPopulation().get(j).location.y) != 0.0f){
+                    System.out.println("RABBITS CAN SEE");
+                    if (this.typeOfAnimal.equals(Main.allEntities.get(i).getPopulation().get(j).typeOfAnimal)
+                            && Main.allEntities.get(i).getPopulation().get(j).movingState != 1 && this.movingState != 1){
+                        System.out.println("IT IS ANOTHER RABBIT");
+                        this.movingState = 1;
+                        Main.allEntities.get(i).getPopulation().get(j).movingState = 1;
+                    }
+                }
+            }
+
+        }
+        //System.out.println(Main.allEntities.get(0).getPopulation().get(0));
     }
 }

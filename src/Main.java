@@ -1,12 +1,14 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Vector;
 
 public class Main extends PApplet {
     Rabbit rabbit;
-    Population populate;
-
+    Population populationOfRabbits;
+    public static ArrayList<Population> allEntities;
 
 
     public static void main(String[] args) {
@@ -16,7 +18,11 @@ public class Main extends PApplet {
     }
     public void setup() {
         //rabbit = new Rabbit(p,50,50);
-        populate = new Population(this,4);
+        populationOfRabbits = new Population();
+        populationOfRabbits.createPopulation(this,10,"Rabbit");
+        allEntities = new ArrayList<>();
+        allEntities.add(populationOfRabbits);
+
     }
 
     public void settings() {
@@ -39,7 +45,7 @@ public class Main extends PApplet {
         //need a separate function for the creation of the new target. SetTarget. Timer.
         //Separate update and drawing in all the animal classes.
         //
-        populate.update();
+        populationOfRabbits.update();
 
 
     }

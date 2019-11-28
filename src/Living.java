@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 import java.util.Random;
 
-abstract class Animal {
+abstract class Living {
 
     public int visionrange;
     public boolean alive;
@@ -21,7 +21,7 @@ abstract class Animal {
     public int MAXUrgeToReproduce;
     Random randomNumber = new Random();
 
-    public Animal(){
+    public Living(){
 
     }
 
@@ -42,7 +42,7 @@ abstract class Animal {
         this.urgeToReproduce = urgeToReproduce;
         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
     }*/
-   public Animal (PApplet pApplet){
+   public Living (PApplet pApplet){
 
    }
 

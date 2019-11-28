@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/core.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/core.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evolution-Sim-Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Evolution-Sim-Java.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Living.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Fox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Fox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Population.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Rabbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rabbit.java" afterDir="false" />
@@ -113,7 +112,7 @@
       <workItem from="1573046173251" duration="1961000" />
       <workItem from="1573120503373" duration="7805000" />
       <workItem from="1574776860762" duration="127000" />
-      <workItem from="1574777008719" duration="5552000" />
+      <workItem from="1574777008719" duration="15066000" />
     </task>
     <task id="LOCAL-00001" summary="New Mating.java to test my Github abilities &#10;&#10;(cherry picked from commit db2b4844511cf0139c69d56b59e3d7b01ad0ecf1)">
       <created>1571239987723</created>
