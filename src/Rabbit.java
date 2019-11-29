@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.Random;
@@ -14,16 +15,15 @@ public class Rabbit extends Living {
     Random rand;
     Population fellowRabbits = new Population();
     float visionRange;
-    float speed;
 
 
-    public Rabbit(PApplet pApplet, int x, int y, int ID, boolean readyForMating, float topSpeed, float speed) {
+    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed) {
         rand = new Random();
         this.p = pApplet;
         this.x = x;
         this.y = y;
         setSizeOfAnimal(50);
-        location = new PVector(p.random(p.width), p.random(p.height));
+        location = new PVector(x, y);
         velocity = new PVector(0, 0);
         this.topSpeed = topSpeed;
         startSetTargetTimer(5000);
@@ -31,47 +31,66 @@ public class Rabbit extends Living {
         this.typeOfLiving = "Rabbit";
         movingState = 0;
         this.readyForMating = readyForMating;
-        this.acceleration = new PVector(velocity.x,velocity.y);
-        this.speed = speed;
+        this.acceleration = new PVector(velocity.x, velocity.y);
+        this.movementSpeed = movementSpeed;
     }
 
     public void startSetTargetTimer(int timeToRun) {
         setNewTargetTimerStartTime = p.millis();
         setNewTargetTimerDurationTime = timeToRun; //make random later
     }
+    public void startSetTargetTimerForRabbits(int timeToRun) {
+        setNewTargetTimerStartTime = p.millis();
+        setNewTargetTimerDurationTime = timeToRun; //make random later
+    }
 
     @Override
     public void wanderingMovement() {
-        PVector randomPosition;
-        // Our algorithm for calculating acceleration:
-        //PVector mouse = new PVector(Main.p.mouseX,Main.p.mouseY);
-        //PVector randomPosition = new PVector(Main.p.random(Main.p.width),(Main.p.random(Main.p.height)));
-        if (isSetTargetTimerIsOut()) {
-            System.out.println("5 secs");
-            randomPosition = new PVector(p.random(0, 800), p.random(0, 800));
-            //we have not a target yet so we have to make a PVector target. We will set a new target by target.set
-            //Call the start timer again. Reset timer
-            PVector dir = PVector.sub(randomPosition, this.location);
-            dir.normalize();
-            dir.mult(this.speed);
-            velocity.set(dir);
-            startSetTargetTimer(5000);
-
-        }
-
-        //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
-
+        newLocation();
         velocity.limit(topSpeed);
         velocity.add(acceleration);
         location.add(velocity);
 
+        if (isSetTargetTimerIsOut()) {
+            //("5 secs");
+            PVector dir = PVector.sub(newLocation(), this.location);
+            dir.normalize();
+            dir.mult(this.movementSpeed);
+            velocity.set(dir);
+
+            startSetTargetTimer(5000);
+        }
+
+        if (this.location.x >= p.width / 2 + 400 || this.location.x <= p.width / 2 - 400) {
+           //velocity = new PVector(p.width/2 ,p.height/2);
+            velocity.rotate(p.HALF_PI);
+
+        }
+        if (this.location.y >= p.height / 2 + 400 || this.location.y <= p.height / 2 - 400) {
+            velocity.rotate(p.HALF_PI);
+
+        }
+
+
+
+        //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
         stopWhenSeeingARabbit(vision());
 
-    }//Movement method
+    }
+
+    public PVector newLocation() {
+        PVector newlocation = new PVector();
+        newlocation.x = p.width / 2 + p.random(-400,400);
+        newlocation.y = p.height / 2 + p.random(-400,400);
+
+        return newlocation;
+
+    }
 
     //WE NEED AN UPDATE FUNCTION
     @Override
     public void display() {
+        p.ellipseMode(PConstants.CENTER);
         p.stroke(0);
         p.fill(175);
         p.ellipse(this.location.x, this.location.y, 16, 16);
@@ -100,10 +119,6 @@ public class Rabbit extends Living {
         return timeElapsed > setNewTargetTimerDurationTime;
     }
 
-    public boolean isSetTargetTimerIsOutMating() {
-        int timeElapsed = p.millis() - setNewTargetTimerStartTime;
-        return timeElapsed > setNewTargetTimerDurationTime;
-    }
 
 
     public Living vision() {
@@ -114,7 +129,7 @@ public class Rabbit extends Living {
                         , Main.allEntities.get(i).getPopulation().get(j).location.y) < this.visionRange &&
                         p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getPopulation().get(j).location.x
                                 , Main.allEntities.get(i).getPopulation().get(j).location.y) != 0.0f) {
-                    System.out.println("RABBITS CAN SEE");
+                    //System.out.println("RABBITS CAN SEE");
                     target = Main.allEntities.get(i).getPopulation().get(j);
 
 
@@ -127,7 +142,7 @@ public class Rabbit extends Living {
     public void testMethod(Living target) {
         if (target != null) {
             if (target.typeOfLiving.equals("Rabbit")) {
-                System.out.println("we've found a rabbit");
+                //System.out.println("we've found a rabbit");
             }
         }
     }
@@ -138,7 +153,7 @@ public class Rabbit extends Living {
             if (this.readyForMating && target.readyForMating) {
                 if (this.typeOfLiving.equals(target.typeOfLiving)
                         && target.movingState != 1 && this.movingState != 1) {
-                    System.out.println("IT IS ANOTHER RABBIT");
+                    //System.out.println("IT IS ANOTHER RABBIT");
                     this.movingState = 1;
                     target.movingState = 1;
                 }
@@ -151,11 +166,12 @@ public class Rabbit extends Living {
         if (target.readyForMating && mySelf.readyForMating) {
             for (int i = 0; i < 2; i++) {
                 Main.allEntities.get(0).arrayOfRabbits.add(
-                        new Rabbit(p, (int) this.location.x, (int) this.location.y, Population.populationUniqueID, false,3f, 2f));
+                        new Rabbit(p, (int) this.location.x, (int) this.location.y, Population.populationUniqueID, false, this.topSpeed, reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed)));
                 Population.populationUniqueID++;
             }
             target.readyForMating = false;
             mySelf.readyForMating = false;
+            System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
         }
         if (isSetTargetTimerIsOut()) {
             target.movingState = 0;
@@ -168,7 +184,7 @@ public class Rabbit extends Living {
 
 
     @Override
-    public int getX() {
+    public float getX() {
         return super.getX();
     }
 
@@ -178,7 +194,7 @@ public class Rabbit extends Living {
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return super.getY();
     }
 
@@ -198,7 +214,7 @@ public class Rabbit extends Living {
     }
 
     @Override
-    public int getMovementSpeed() {
+    public float getMovementSpeed() {
         return super.getMovementSpeed();
     }
 

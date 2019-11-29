@@ -8,9 +8,9 @@ abstract class Living {
     public boolean alive;
     public boolean hungry;
     public boolean thirsty;
-    public int x;
-    public int y;
-    public int movementSpeed;
+    public float x;
+    public float y;
+    public float movementSpeed;
     public int sightDist;
     public int sizeOfAnimal;
     public int Hunger; // will go from 0 to 100, increasing with activity
@@ -24,30 +24,30 @@ abstract class Living {
     public boolean readyForMating;
     Random randomNumber = new Random();
 
-    public Living(){
+    public Living() {
 
     }
 
-   /* public Animal(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
-        this.visionrange = visionrange;
-        this.alive = alive;
-        this.hungry = hungry;
-        this.thirsty = thirsty;
-        this.x = x;
-        this.y = y;
-        this.movementSpeed = movementSpeed;
-        this.sightDist = sightDist;
-        this.sizeOfAnimal = sizeOfAnimal;
-        this.Hunger = hunger;
-        this.MAXHunger = MAXHunger;
-        this.Thirst = thirst;
-        this.MAXThirst = MAXThirst;
-        this.urgeToReproduce = urgeToReproduce;
-        this.MAXUrgeToReproduce = MAXUrgeToReproduce;
-    }*/
-   public Living (PApplet pApplet){
+    /* public Animal(int visionrange, boolean alive, boolean hungry, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfAnimal, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+         this.visionrange = visionrange;
+         this.alive = alive;
+         this.hungry = hungry;
+         this.thirsty = thirsty;
+         this.x = x;
+         this.y = y;
+         this.movementSpeed = movementSpeed;
+         this.sightDist = sightDist;
+         this.sizeOfAnimal = sizeOfAnimal;
+         this.Hunger = hunger;
+         this.MAXHunger = MAXHunger;
+         this.Thirst = thirst;
+         this.MAXThirst = MAXThirst;
+         this.urgeToReproduce = urgeToReproduce;
+         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
+     }*/
+    public Living(PApplet pApplet) {
 
-   }
+    }
 
 
     public int getSizeOfAnimal() {
@@ -115,7 +115,7 @@ abstract class Living {
         this.MAXUrgeToReproduce = MAXUrgeToReproduce;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
@@ -123,7 +123,7 @@ abstract class Living {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -131,7 +131,7 @@ abstract class Living {
         this.y = y;
     }
 
-    public int getMovementSpeed() {
+    public float getMovementSpeed() {
         return movementSpeed;
     }
 
@@ -176,23 +176,52 @@ abstract class Living {
     }
 
 
-
-    public void wanderingMovement(){//Movement method
-
-    }
-    public void EatFood(){//Eating Food method
+    public void wanderingMovement() {//Movement method
 
     }
-    public void DrinkWater(){//Drinking Water method
+
+    public void EatFood() {//Eating Food method
 
     }
-    public void display(){//Displaying method
+
+    public void DrinkWater() {//Drinking Water method
 
     }
-    public void SearchForFood(){//Method for Searching Food
+
+    public void display() {//Displaying method
 
     }
-    public void SearchForWater(){//Method for Searching Water
+
+    public void SearchForFood() {//Method for Searching Food
+
+    }
+
+    public void SearchForWater() {//Method for Searching Water
+
+    }
+
+    public float reCombinationSpeed(float femaleSpeed, float maleSpeed) {
+        Random rand = new Random();
+        float ourRandomNumber = rand.nextInt(100);
+
+        if (ourRandomNumber <= 29) {
+            return femaleSpeed;
+        }
+
+        if (ourRandomNumber >= 30 && rand.nextInt() <= 59) {
+            return maleSpeed;
+        }
+
+        float mutatedSpeed = rand.nextFloat();
+        if (ourRandomNumber >= 79) {
+            System.out.println("Mutation has happened");
+            float mutatedMaleSpeed = maleSpeed + 5 /*mutatedSpeed*/;
+            return mutatedMaleSpeed;
+        } else {
+            System.out.println("Mutation has happened");
+            float mutatedFemaleSpeed = femaleSpeed + 5/*mutatedSpeed*/;
+            return  mutatedFemaleSpeed;
+        }
 
     }
 

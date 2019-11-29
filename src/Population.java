@@ -15,7 +15,7 @@ public class Population {
     public void createPopulation(PApplet p ,int populationSize, String typeOfAnimal){
         if (typeOfAnimal == "Rabbit") {
             for (int i = 0; i < populationSize; i++) {
-                Rabbit rabbit = new Rabbit(p, 30, 20, populationUniqueID, true,3f, 1f);
+                Rabbit rabbit = new Rabbit(p, p.random(100f,800f) , p.random(100f,800f), populationUniqueID, true,3f, 1f);
                 arrayOfRabbits.add(rabbit);
                 populationUniqueID++;
             }

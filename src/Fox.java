@@ -7,7 +7,7 @@ public class Fox extends Living {
     }
 
     @Override
-    public int getX() {
+    public float getX() {
         return super.getX();
     }
 
@@ -17,7 +17,7 @@ public class Fox extends Living {
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return super.getY();
     }
 
@@ -27,7 +27,7 @@ public class Fox extends Living {
     }
 
     @Override
-    public int getMovementSpeed() {
+    public float getMovementSpeed() {
         return super.getMovementSpeed();
     }
 
