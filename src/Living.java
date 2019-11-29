@@ -19,6 +19,9 @@ abstract class Living {
     public int MAXThirst;
     public int urgeToReproduce;
     public int MAXUrgeToReproduce;
+    public String typeOfLiving;
+    public int movingState;
+    public boolean readyForMating;
     Random randomNumber = new Random();
 
     public Living(){
@@ -174,7 +177,7 @@ abstract class Living {
 
 
 
-    public void Movement(){//Movement method
+    public void wanderingMovement(){//Movement method
 
     }
     public void EatFood(){//Eating Food method

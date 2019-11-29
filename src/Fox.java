@@ -178,8 +178,8 @@ public class Fox extends Living {
     }
 
     @Override
-    public void Movement() {
-        super.Movement();
+    public void wanderingMovement() {
+        super.wanderingMovement();
     }
 
 
