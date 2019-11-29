@@ -3,43 +3,60 @@ import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.Random;
-
+//Rabbit class
 public class Rabbit extends Living {
+
+    //papplet creation
     PApplet p;
-    PVector location;
-    PVector velocity;
-    PVector acceleration;
+    //make 3 PVectors
+    PVector location; // our current X AND Y
+    PVector velocity; // OUR ANGLE
+    PVector acceleration; // GETTING TO OUR SPEED, which is created later on
+    //create a float controlling topspeed
     float topSpeed;
+    //make ints for timers, in real time
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
+    //make random for random number creation, for positional stuff
     Random rand;
-    Population fellowRabbits = new Population();
+    //visionRange distance the rabbits can see
     float visionRange;
 
-
-    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed) {
+    //constructor, taking all of the inputs it needs to create a new rabbit
+    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender) {
         rand = new Random();
         this.p = pApplet;
+        //making it so the incoming X AND Y is tied to the rabbit instance
         this.x = x;
         this.y = y;
+        //size of animal is the size of the cicle when we draw the rabbits, should be changable later
         setSizeOfAnimal(50);
+        //take the X AND Y input, and puts it in a vector
         location = new PVector(x, y);
+        //angle is nothing to start out with.
         velocity = new PVector(0, 0);
+        // limit the amount of speed the rabbits can achieve
         this.topSpeed = topSpeed;
+        //make a timer, with 5 sec of run, standard timer
         startSetTargetTimer(5000);
+        //distance the rabbits can see from standard
         visionRange = 30f;
+        //defining the type of living, in this case rabbit, for creating different entities in the entities class
         this.typeOfLiving = "Rabbit";
+        //This is the start of the movement queue/system, which needs to work together with the priority system later
         movingState = 0;
+        //seeing if the animal is ready for mating
         this.readyForMating = readyForMating;
+        //make the movement work, with the acceleration, norm of how we learned to use Vectors in processing
         this.acceleration = new PVector(velocity.x, velocity.y);
+        //movement speed the speed of the animal, the default speed
         this.movementSpeed = movementSpeed;
+        //recieving the gender from input
+        this.gender = gender;
     }
 
+    //function which takes an input of time to run, EG 5000 = 5 SECS
     public void startSetTargetTimer(int timeToRun) {
-        setNewTargetTimerStartTime = p.millis();
-        setNewTargetTimerDurationTime = timeToRun; //make random later
-    }
-    public void startSetTargetTimerForRabbits(int timeToRun) {
         setNewTargetTimerStartTime = p.millis();
         setNewTargetTimerDurationTime = timeToRun; //make random later
     }
@@ -62,7 +79,7 @@ public class Rabbit extends Living {
         }
 
         if (this.location.x >= p.width / 2 + 400 || this.location.x <= p.width / 2 - 400) {
-           //velocity = new PVector(p.width/2 ,p.height/2);
+            //velocity = new PVector(p.width/2 ,p.height/2);
             velocity.rotate(p.HALF_PI);
 
         }
@@ -72,7 +89,6 @@ public class Rabbit extends Living {
         }
 
 
-
         //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
         stopWhenSeeingARabbit(vision());
 
@@ -80,8 +96,8 @@ public class Rabbit extends Living {
 
     public PVector newLocation() {
         PVector newlocation = new PVector();
-        newlocation.x = p.width / 2 + p.random(-400,400);
-        newlocation.y = p.height / 2 + p.random(-400,400);
+        newlocation.x = p.width / 2 + p.random(-400, 400);
+        newlocation.y = p.height / 2 + p.random(-400, 400);
 
         return newlocation;
 
@@ -92,7 +108,14 @@ public class Rabbit extends Living {
     public void display() {
         p.ellipseMode(PConstants.CENTER);
         p.stroke(0);
-        p.fill(175);
+
+        if(gender.equals("Male")) {
+            p.fill(0,0,255);
+        }
+        if(gender.equals("Female")){
+            p.fill(255,0,0);
+        }
+
         p.ellipse(this.location.x, this.location.y, 16, 16);
 
     }//Displaying method
@@ -120,17 +143,16 @@ public class Rabbit extends Living {
     }
 
 
-
     public Living vision() {
         Living target = null;
         for (int i = 0; i < Main.allEntities.size(); i++) {
-            for (int j = 0; j < Main.allEntities.get(i).getPopulation().size(); j++) {
-                if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getPopulation().get(j).location.x
-                        , Main.allEntities.get(i).getPopulation().get(j).location.y) < this.visionRange &&
-                        p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getPopulation().get(j).location.x
-                                , Main.allEntities.get(i).getPopulation().get(j).location.y) != 0.0f) {
+            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
+                if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).location.x
+                        , Main.allEntities.get(i).getEntities().get(j).location.y) < this.visionRange &&
+                        p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).location.x
+                                , Main.allEntities.get(i).getEntities().get(j).location.y) != 0.0f) {
                     //System.out.println("RABBITS CAN SEE");
-                    target = Main.allEntities.get(i).getPopulation().get(j);
+                    target = Main.allEntities.get(i).getEntities().get(j);
 
 
                 }
@@ -149,13 +171,16 @@ public class Rabbit extends Living {
 
     public void stopWhenSeeingARabbit(Living target) {
         //if the animals are the same type, stop when getting close.
-        if (target != null) {
-            if (this.readyForMating && target.readyForMating) {
-                if (this.typeOfLiving.equals(target.typeOfLiving)
-                        && target.movingState != 1 && this.movingState != 1) {
-                    //System.out.println("IT IS ANOTHER RABBIT");
-                    this.movingState = 1;
-                    target.movingState = 1;
+
+        if(!gender.equals(this.gender)) {
+            if (target != null) {
+                if (this.readyForMating && target.readyForMating) {
+                    if (this.typeOfLiving.equals(target.typeOfLiving)
+                            && target.movingState != 1 && this.movingState != 1) {
+                        //System.out.println("IT IS ANOTHER RABBIT");
+                        this.movingState = 1;
+                        target.movingState = 1;
+                    }
                 }
             }
         }
@@ -163,15 +188,19 @@ public class Rabbit extends Living {
 
     public void matingFunction(Living target, Living mySelf) {
         //get pair of rabbits
-        if (target.readyForMating && mySelf.readyForMating) {
-            for (int i = 0; i < 2; i++) {
-                Main.allEntities.get(0).arrayOfRabbits.add(
-                        new Rabbit(p, (int) this.location.x, (int) this.location.y, Population.populationUniqueID, false, this.topSpeed, reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed)));
-                Population.populationUniqueID++;
+        if(mySelf.gender.equals("Female")) {
+            if (target.readyForMating && mySelf.readyForMating)  {
+                for (int i = 0; i < 2; i++) {
+                    Main.allEntities.get(0).arrayOfRabbits.add(
+                            new Rabbit(p, (int) this.location.x, (int) this.location.y,
+                                    Entities.entityUniqueID, false, this.topSpeed,
+                                    reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale()));
+                    Entities.entityUniqueID++;
+                }
+                target.readyForMating = false;
+                mySelf.readyForMating = false;
+                System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
             }
-            target.readyForMating = false;
-            mySelf.readyForMating = false;
-            System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
         }
         if (isSetTargetTimerIsOut()) {
             target.movingState = 0;
@@ -182,7 +211,18 @@ public class Rabbit extends Living {
         //spawn two new rabbits
     }
 
-
+    //quick function which spits out either a string "Male" or "Female"
+    public String maleOrFemale(){
+            String gender;
+            Random rand = new Random();
+            if (rand.nextInt(1) == 0){
+                gender = "Male";
+            }
+            else{
+                gender ="Female";
+            }
+            return gender;
+    }
     @Override
     public float getX() {
         return super.getX();

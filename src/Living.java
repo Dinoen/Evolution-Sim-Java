@@ -1,9 +1,10 @@
 import processing.core.PApplet;
-
+ //Used to be our animal superclass
 import java.util.Random;
-
+//superclass, holding all the relevant things for living objects, eg rabbits and foxes
 abstract class Living {
 
+    //easy access to attributes of all living things.
     public int visionrange;
     public boolean alive;
     public boolean hungry;
@@ -22,6 +23,7 @@ abstract class Living {
     public String typeOfLiving;
     public int movingState;
     public boolean readyForMating;
+    public String gender;
     Random randomNumber = new Random();
 
     public Living() {
@@ -48,6 +50,10 @@ abstract class Living {
     public Living(PApplet pApplet) {
 
     }
+
+// Getters and setters for the above attributes
+
+
 
 
     public int getSizeOfAnimal() {
@@ -200,30 +206,40 @@ abstract class Living {
 
     }
 
-    public float reCombinationSpeed(float femaleSpeed, float maleSpeed) {
+    //Getting mommy and daddy genes into the baby rabbit
+    //takes two arguments, which is the speed of both parents
+    public float reCombinationSpeed(float mothersSpeed, float fathersSpeed) {
+        //for now it is random, but later it will have a relation for the food / energy expenditure
+        //create a random generator
         Random rand = new Random();
+        //Make random number from 0-100, so we have a percent chance
         float ourRandomNumber = rand.nextInt(100);
 
-        if (ourRandomNumber <= 29) {
-            return femaleSpeed;
+        //first 45 % chance 0-44, then just return the female original speed
+        if (ourRandomNumber <= 44) {
+            return mothersSpeed;
         }
 
-        if (ourRandomNumber >= 30 && rand.nextInt() <= 59) {
-            return maleSpeed;
+        //next 45% chance of the fathers genes being given to the children
+        if (ourRandomNumber >= 45 && rand.nextInt() <= 89) {
+            return fathersSpeed;
         }
 
+        //reusing a random, which is being
+        //float rand.nextFloat() makes a float from 0-1
         float mutatedSpeed = rand.nextFloat();
-        if (ourRandomNumber >= 79) {
+        //the last 10 percent from original random
+        if (ourRandomNumber >= 90 && ourRandomNumber <= 94) {
             System.out.println("Mutation has happened");
-            float mutatedMaleSpeed = maleSpeed + 5 /*mutatedSpeed*/;
-            return mutatedMaleSpeed;
-        } else {
-            System.out.println("Mutation has happened");
-            float mutatedFemaleSpeed = femaleSpeed + 5/*mutatedSpeed*/;
-            return  mutatedFemaleSpeed;
+            //make new float called mutatedFathersSpeed
+            float mutatedFathersSpeed = fathersSpeed + mutatedSpeed;
+            return mutatedFathersSpeed;
         }
-
+        //Last 5 % of the percent chance from the start of the function
+        else {
+            System.out.println("Mutation has happened");
+            float mutatedMothersSpeed = mothersSpeed + mutatedSpeed;
+            return  mutatedMothersSpeed;
+        }
     }
-
-
 }
