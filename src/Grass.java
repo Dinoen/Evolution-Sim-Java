@@ -39,9 +39,7 @@ public class Grass extends Plant {
         if (p.millis() > grassSpawn + timeintervalSpawn) {
             grassSpawn = p.millis();
 
-
         }
-
     }
 
     public void grassDespawn() {
@@ -51,7 +49,6 @@ public class Grass extends Plant {
             for (int i = 0; i < (int) p.random(0, 4); i++) {
 
                 Main.allEntities.get(1).getEntitiesGrass().remove((int) p.random(0, Main.allEntities.get(1).getEntitiesGrass().size()));
-
 
                 System.out.println("nej");
             }

@@ -18,6 +18,10 @@ public class Rabbit extends Living {
     //make ints for timers, in real time
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
+    int setReadyForMatingStartTime;
+    int setReadyForMatingDurationTime;
+    int timeSinceBirth;
+
     //make random for random number creation, for positional stuff
     Random rand;
     //visionRange distance the rabbits can see
@@ -58,18 +62,18 @@ public class Rabbit extends Living {
         this.gender = gender;
         amountOfChildren = (int) p.random(0, 6);
         this.isKid = isKid;
+        timeSinceBirth = p.millis();
+
 
     }
 
-    //function which takes an input of time to run, EG 5000 = 5 SECS
-    public void startSetTargetTimer(int timeToRun) {
-        setNewTargetTimerStartTime = p.millis();
-        setNewTargetTimerDurationTime = timeToRun; //make random later
-    }
+
 
     //basic movement function
     @Override
     public void wanderingMovement() {
+        seeIfKidIsOldEnoughToBecomeAdult();
+
         //get new location
         newLocation();
         //set topspeed, and this just ties the angle we're going to that MAX speed
@@ -103,11 +107,21 @@ public class Rabbit extends Living {
             velocity.rotate(p.HALF_PI);
 
         }
+        //make the adults have sex again
+        if (isReadyForMatingAgain()) {
+            if (!this.isKid){
+                this.readyForMating = true;
+            }
+            startMatingTimerForRabbit(10000);
+        }
 
 
         //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
         stopWhenSeeingARabbit(vision());
         stopWhenSeeingGrass(vision());
+
+
+
 
     }
 
@@ -134,6 +148,13 @@ public class Rabbit extends Living {
         if (gender.equals("Female")) {
             p.fill(255, 0, 0);
         }
+        if(gender.equals("Male")&&isKid){
+            p.fill(102,255,255);
+        }
+        if(gender.equals("Female")&&isKid){
+            p.fill(255,204,255);
+        }
+
 
         p.ellipse(this.location.x, this.location.y, 16, 16);
 
@@ -164,6 +185,24 @@ public class Rabbit extends Living {
         int timeElapsed = p.millis() - setNewTargetTimerStartTime;
         return timeElapsed > setNewTargetTimerDurationTime;
     }
+    //function which takes an input of time to run, EG 5000 = 5 SECS
+    public void startSetTargetTimer(int timeToRun) {
+        setNewTargetTimerStartTime = p.millis();
+        setNewTargetTimerDurationTime = timeToRun; //make random later
+    }
+
+    public boolean isReadyForMatingAgain() {
+        int timeElapsed = p.millis() - setReadyForMatingStartTime;
+        return timeElapsed > setReadyForMatingDurationTime;
+    }
+    public void startMatingTimerForRabbit(int timeToRun) {
+        setReadyForMatingStartTime = p.millis();
+        setReadyForMatingDurationTime = timeToRun; //make random later
+    }
+
+
+
+
 
 
     public Living vision() {
@@ -292,6 +331,13 @@ public class Rabbit extends Living {
             gender = "Female";
         }
         return gender;
+    }
+
+    public void seeIfKidIsOldEnoughToBecomeAdult(){
+        if (timeSinceBirth + 10000 < p.millis()){
+            this.isKid = false;
+        }
+
     }
 
     @Override
