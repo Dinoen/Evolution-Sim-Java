@@ -61,21 +61,31 @@ public class Rabbit extends Living {
         setNewTargetTimerDurationTime = timeToRun; //make random later
     }
 
+    //basic movement function
     @Override
     public void wanderingMovement() {
+        //get new location
         newLocation();
+        //set topspeed, and this just ties the angle we're going to that MAX speed
+        //setting the maximum speed to be moving along the velocity vector
         velocity.limit(topSpeed);
+        //adding acceleration
         velocity.add(acceleration);
+        //adds the velocity (our angle) to our location
         location.add(velocity);
 
         if (isSetTargetTimerIsOut()) {
             //("5 secs");
-            PVector dir = PVector.sub(newLocation(), this.location);
-            dir.normalize();
-            dir.mult(this.movementSpeed);
-            velocity.set(dir);
+            PVector direction = PVector.sub(newLocation(), this.location);
+            //figure it out for later
+            //setting the magnitude of the vector to 1 (making it easier to scale)
+            direction.normalize();
+            //multiplying the movementSpeed with the direction
+            direction.mult(this.movementSpeed);
+            //set the angle to the same angle as the direction
+            velocity.set(direction);
 
-            startSetTargetTimer(5000);
+            startSetTargetTimer((int)p.random(2000,5000));
         }
 
         if (this.location.x >= p.width / 2 + 400 || this.location.x <= p.width / 2 - 400) {
@@ -95,10 +105,12 @@ public class Rabbit extends Living {
     }
 
     public PVector newLocation() {
+        //make new vector
         PVector newlocation = new PVector();
+        //chose random coordinates from the middle of the screen
         newlocation.x = p.width / 2 + p.random(-400, 400);
         newlocation.y = p.height / 2 + p.random(-400, 400);
-
+        //return the new location
         return newlocation;
 
     }
@@ -146,13 +158,13 @@ public class Rabbit extends Living {
     public Living vision() {
         Living target = null;
         for (int i = 0; i < Main.allEntities.size(); i++) {
-            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
-                if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).location.x
-                        , Main.allEntities.get(i).getEntities().get(j).location.y) < this.visionRange &&
-                        p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).location.x
-                                , Main.allEntities.get(i).getEntities().get(j).location.y) != 0.0f) {
+            for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
+                if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntitiesRabbits().get(j).location.x
+                        , Main.allEntities.get(i).getEntitiesRabbits().get(j).location.y) < this.visionRange &&
+                        p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntitiesRabbits().get(j).location.x
+                                , Main.allEntities.get(i).getEntitiesRabbits().get(j).location.y) != 0.0f) {
                     //System.out.println("RABBITS CAN SEE");
-                    target = Main.allEntities.get(i).getEntities().get(j);
+                    target = Main.allEntities.get(i).getEntitiesRabbits().get(j);
 
 
                 }

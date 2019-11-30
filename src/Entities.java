@@ -6,6 +6,7 @@ import processing.core.PApplet;
 public class Entities {
     //Making Rabbits via ArrayList
     ArrayList<Rabbit> arrayOfRabbits;
+    ArrayList<Grass> arrayOfGrass;
     //making an ID, which is unique-being public and static so we can iterate it whenever we make something new
     public static int entityUniqueID = 0;
 
@@ -13,6 +14,7 @@ public class Entities {
     public Entities() {
         //making a new array, containing rabbits.
         arrayOfRabbits = new ArrayList<>();
+        arrayOfGrass = new ArrayList<>();
         //OTHER ARRAYS OF STUFF OF FOOD FX.
     }
 
@@ -37,8 +39,13 @@ public class Entities {
                     }
                 }
                 break;
-            case "Foxes":
-                //foxcode
+
+            case "Grass":
+                for (int i = 0; i < entityListSize; i++) {
+                    Grass grass = new Grass(p);
+                    arrayOfGrass.add(grass);
+                    //make unique ID later
+                }
                 break;
             default:
                 //Errormessaging
@@ -50,11 +57,22 @@ public class Entities {
     public void update() {
         for (int i = 0; i < arrayOfRabbits.size(); i++) {
                 arrayOfRabbits.get(i).update();
+
         }
+        for (int i = 0; i < arrayOfGrass.size(); i++) {
+
+            arrayOfGrass.get(i).update();
+        }
+
     }
     //one of these getter per arraylist
-    public ArrayList<Rabbit> getEntities() {
+    public ArrayList<Rabbit> getEntitiesRabbits() {
         return arrayOfRabbits;
     }
+
+    public ArrayList<Grass> getEntitiesGrass() {
+        return arrayOfGrass;
+    }
+
 }
 
