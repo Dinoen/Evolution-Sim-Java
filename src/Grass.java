@@ -1,23 +1,28 @@
 import processing.core.PApplet;
-
+import processing.core.PVector;
 public class Grass extends Plant {
 
     float x;
     float y;
     PApplet p;
+    public PVector location;
     float timeintervalSpawn;
     float grassSpawn;
     float timeintervalDespawn;
     float grassDespawn;
 
+
     Grass(PApplet p) {
         this.p = p;
         x = p.random(100f, 800f);
         y = p.random(100f, 800f);
+        location = new PVector(this.x,this.y);
         grassSpawn = p.millis();
         timeintervalSpawn = p.random(3000, 5000);
         grassDespawn = p.millis();
         timeintervalDespawn = p.random(7000, 7000);
+        typeOfLiving = "Grass";
+
     }
 
 
@@ -43,7 +48,6 @@ public class Grass extends Plant {
 
         if (!Main.allEntities.get(1).getEntitiesGrass().isEmpty()) {
 
-
             for (int i = 0; i < (int) p.random(0, 4); i++) {
 
                 Main.allEntities.get(1).getEntitiesGrass().remove((int) p.random(0, Main.allEntities.get(1).getEntitiesGrass().size()));
@@ -59,10 +63,10 @@ public class Grass extends Plant {
     public void update() {
         display();
         grassSpawn();
-        if (p.millis() > grassDespawn + timeintervalDespawn) {
-            grassDespawn();
-            grassDespawn = p.millis();
-        }
+      //  if (p.millis() > grassDespawn + timeintervalDespawn) {
+        //    grassDespawn();
+          //  grassDespawn = p.millis();
+        //}
     }
 
 }
