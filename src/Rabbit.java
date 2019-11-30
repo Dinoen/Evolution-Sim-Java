@@ -334,6 +334,7 @@ public class Rabbit extends Living {
     }
 
     public void seeIfKidIsOldEnoughToBecomeAdult(){
+        // timesincebirth is the start of the kids life, and if 10 seconds have elapsed then the kids become adults
         if (timeSinceBirth + 10000 < p.millis()){
             this.isKid = false;
         }
