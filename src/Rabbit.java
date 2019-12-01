@@ -217,11 +217,8 @@ public class Rabbit extends Living {
                                 , Main.allEntities.get(i).getEntitiesRabbits().get(j).location.y) != 0.0f) {
                     //System.out.println("RABBITS CAN SEE");
                     target = Main.allEntities.get(i).getEntitiesRabbits().get(j);
-
-
                 }
             }
-
             for (int j = 0; j < Main.allEntities.get(i).getEntitiesGrass().size(); j++) {
                 if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntitiesGrass().get(j).location.x
                         , Main.allEntities.get(i).getEntitiesGrass().get(j).location.y) < this.visionRange &&
@@ -232,6 +229,9 @@ public class Rabbit extends Living {
 
                 }
             }
+        }
+        if (target != null) {
+            System.out.println(target.typeOfLiving);
         }
         return target;
     }
@@ -258,40 +258,43 @@ public class Rabbit extends Living {
 
     //this only runs when we see another rabbit, target is the rabbit we se and myself is the rabbit we are, these are inputs
     public void matingFunction(Living target, Living mySelf) {
+
         //get pair of rabbits
-        if (target != null) {
-            if (mySelf.gender.equals("Male") && target.gender.equals("Female")) {
-                //check if myself and the target is ready for mating
-                if (target.readyForMating && mySelf.readyForMating) {
-                    //a loop that runs a random amount of times between 0-6 and create the same amount of new rabbits
-                    for (int i = 0; i < amountOfChildren; i++) {
-                        //will have to check for the array of rabbits insted of 0
-                        Main.allEntities.get(0).arrayOfRabbits.add(
-                                //creatig a new rabbit
-                                new Rabbit(p, (int) this.location.x + -10, (int) this.location.y + -10,
-                                        Entities.entityUniqueID, false, this.topSpeed,
-                                        reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true));
-                        //iterate the unique id
-                        Entities.entityUniqueID++;
+        if (target != null && mySelf != null) {
+            if (target.typeOfLiving.equals("Rabbit")) { //needs to be a rabbit, because we'll get a null pointer exception because grass has no gender
+                if (mySelf.gender.equals("Male") && target.gender.equals("Female")) {
+                    //check if myself and the target is ready for mating
+                    if (target.readyForMating && mySelf.readyForMating) {
+                        //a loop that runs a random amount of times between 0-6 and create the same amount of new rabbits
+                        for (int i = 0; i < amountOfChildren; i++) {
+                            //will have to check for the array of rabbits insted of 0
+                            Main.allEntities.get(0).arrayOfRabbits.add(
+                                    //creatig a new rabbit
+                                    new Rabbit(p, (int) this.location.x + -10, (int) this.location.y + -10,
+                                            Entities.entityUniqueID, false, this.topSpeed,
+                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true));
+                            //iterate the unique id
+                            Entities.entityUniqueID++;
+                        }
+                        //change there ready for mating false so they cant mate for 2 sec
+                        target.readyForMating = false;
+                        mySelf.readyForMating = false;
+                        //print out the array of rabbit so the new rabbits it counted as well
+                        System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
                     }
-                    //change there ready for mating false so they cant mate for 2 sec
-                    target.readyForMating = false;
-                    mySelf.readyForMating = false;
-                    //print out the array of rabbit so the new rabbits it counted as well
-                    System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
                 }
             }
-        }
-        if (target != null) {
-            //move around again after 2 sec
-            if (isSetTargetTimerIsOut()) {
-                target.movingState = 0;
-                mySelf.movingState = 0;
-                startSetTargetTimer(2000);
+            if (target != null) {
+                //move around again after 2 sec
+                if (isSetTargetTimerIsOut()) {
+                    target.movingState = 0;
+                    mySelf.movingState = 0;
+                    startSetTargetTimer(2000);
+                }
             }
+            //mix genes (for speed)
+            //spawn two new rabbits
         }
-        //mix genes (for speed)
-        //spawn two new rabbits
     }
 
     public void stopWhenSeeingGrass(Living target) {
