@@ -52,6 +52,7 @@ public class Main extends PApplet {
         entitiesOfRabbits = new Entities();
         entitiesOfGrass = new Entities();
 
+        //
         updateGraph = new GraphingTheData();
 
         entitiesOfDeadRabbits = new Entities();
