@@ -7,14 +7,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.*;
-import jdk.jfr.Category;
 import processing.core.PApplet;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class GraphingTheData extends Application {
