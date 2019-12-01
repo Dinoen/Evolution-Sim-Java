@@ -7,6 +7,7 @@ public class Entities {
     //Making Rabbits via ArrayList
     ArrayList<Rabbit> arrayOfRabbits;
     ArrayList<Grass> arrayOfGrass;
+    ArrayList<Rabbit> arrayOfDeadRabbits;
     //making an ID, which is unique-being public and static so we can iterate it whenever we make something new
     public static int entityUniqueID = 0;
 
@@ -15,6 +16,7 @@ public class Entities {
         //making a new array, containing rabbits.
         arrayOfRabbits = new ArrayList<>();
         arrayOfGrass = new ArrayList<>();
+        arrayOfDeadRabbits = new ArrayList<>();
         //OTHER ARRAYS OF STUFF OF FOOD FX.
     }
 
@@ -73,6 +75,8 @@ public class Entities {
     public ArrayList<Grass> getEntitiesGrass() {
         return arrayOfGrass;
     }
+
+    public ArrayList<Rabbit> getEntitiesDeadRabbits() { return arrayOfDeadRabbits; }
 
 }
 

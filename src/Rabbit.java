@@ -27,6 +27,7 @@ public class Rabbit extends Living {
     //visionRange distance the rabbits can see
     float visionRange;
     int amountOfChildren;
+    int ID;
 
 
     //constructor, taking all of the inputs it needs to create a new rabbit
@@ -63,6 +64,7 @@ public class Rabbit extends Living {
         amountOfChildren = (int) p.random(0, 6);
         this.isKid = isKid;
         timeSinceBirth = p.millis();
+        this.ID = ID;
 
 
     }
@@ -73,7 +75,7 @@ public class Rabbit extends Living {
     @Override
     public void wanderingMovement() {
         seeIfKidIsOldEnoughToBecomeAdult();
-
+        seeIfRabbitIsOldEnoughToDie();
         //get new location
         newLocation();
         //set topspeed, and this just ties the angle we're going to that MAX speed
@@ -340,6 +342,27 @@ public class Rabbit extends Living {
         }
 
     }
+    public void seeIfRabbitIsOldEnoughToDie(){
+        if (timeSinceBirth + p.random(25000,30000) < p.millis()){
+
+            for (int i = 0; i < Main.allEntities.size() ; i++) {
+                for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size() ; j++) {
+                    //if the currently looked at rabbits id is equal to the current rabbits id
+                    if (Main.allEntities.get(i).getEntitiesRabbits().get(j).ID == this.ID){
+                        //then add the current rabbit to the array of dead rabbits in the deadEntities ArrayLists Of Arraylists
+                        //and then remove it so it will appear dead
+                        Main.allEntities.get(i).getEntitiesRabbits().remove(j);
+                    }
+
+                }
+            }
+            //find this. in the allEntities array
+            //compare the found rabbit.ID to this.ID
+            //Add the found rabbit to a new "heaven" array
+            //remove the found rabbit from ArrayOfRabbits
+        }
+    }
+
 
     @Override
     public float getX() {
