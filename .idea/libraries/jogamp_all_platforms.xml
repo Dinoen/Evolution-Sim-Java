@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jogamp-all-platforms">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jogamp-all-platforms/jar/atomic/gluegen-gl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Desktop/jogamp-all-platforms" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Desktop/jogamp-all-platforms" recursive="false" type="SOURCES" />
+  </library>
+</component>
