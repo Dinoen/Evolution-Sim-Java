@@ -1,4 +1,6 @@
+import javafx.util.Pair;
 import processing.core.PApplet;
+
 import java.util.ArrayList;
 
 
@@ -6,7 +8,13 @@ public class Main extends PApplet {
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
-Entities entitiesOfDeadRabbits;
+
+    GraphingTheData updateGraph;
+    private int startTime;
+    private int durationTime;
+
+    Entities entitiesOfDeadRabbits;
+
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
@@ -18,6 +26,9 @@ Entities entitiesOfDeadRabbits;
     //the Main class
     public static void main(String[] args) {
         PApplet.main("Main", args);
+        GraphingTheData ourGraph = new GraphingTheData();
+        ourGraph.main(args);
+
     }
 
     //Settings class, with window size for the program
@@ -26,10 +37,12 @@ Entities entitiesOfDeadRabbits;
         int heightOfWindow = 900;
         //Size of the program window
         size(widthOfWindow, heightOfWindow);
+
         //making the movement smooth, i think, comes from processing
         smooth();
 
     }
+
     //Setup, which creates all the elements of the program
     public void setup() {
         //our playing field size
@@ -38,12 +51,16 @@ Entities entitiesOfDeadRabbits;
         //our pouplation of rabbits
         entitiesOfRabbits = new Entities();
         entitiesOfGrass = new Entities();
+
+        updateGraph = new GraphingTheData();
+
         entitiesOfDeadRabbits = new Entities();
+
         //instatiating the environment, with the sizes from above
-        theEnvironment = new Environment(this,theGroundWidth,theGroundHeight);
+        theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
-        entitiesOfRabbits.createEntities(this,20,"Rabbit"); //population is the amount of rabbits spawne
+        entitiesOfRabbits.createEntities(this, 20, "Rabbit"); //population is the amount of rabbits spawne
         entitiesOfGrass.createEntities(this, 15, "Grass");
 
         //AllEntities list, which holds all the different population lists
@@ -53,12 +70,15 @@ Entities entitiesOfDeadRabbits;
         //keeps all the moving parts together, making it easier to compare objects fx rabbits finding food or other rabbits
         allEntities.add(entitiesOfRabbits);
         allEntities.add(entitiesOfGrass);
+
         allDeadEntities.add(entitiesOfDeadRabbits);
+
     }
+
     //Drawing, Runs every frame
     public void draw() {
         //Grey background, which removes the tails of the moving elements
-        background(0,0,0);
+        background(0, 0, 0);
         //Running the update function in the environment class, updating the positions of stuff in environment
         //update function is a collection of the methods needing to be updated
         theEnvironment.update();
@@ -68,4 +88,5 @@ Entities entitiesOfDeadRabbits;
         entitiesOfGrass.update();
 
     }
+
 }
