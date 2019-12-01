@@ -258,7 +258,6 @@ public class Rabbit extends Living {
 
     //this only runs when we see another rabbit, target is the rabbit we se and myself is the rabbit we are, these are inputs
     public void matingFunction(Living target, Living mySelf) {
-
         //get pair of rabbits
         if (target != null && mySelf != null) {
             if (target.typeOfLiving.equals("Rabbit")) { //needs to be a rabbit, because we'll get a null pointer exception because grass has no gender
