@@ -6,12 +6,13 @@ public class Main extends PApplet {
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
-
+Entities entitiesOfDeadRabbits;
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
     //An arraylist which holds all the living animals on the field
     public static ArrayList<Entities> allEntities;
+    public static ArrayList<Entities> allDeadEntities;
 
 
     //the Main class
@@ -37,6 +38,7 @@ public class Main extends PApplet {
         //our pouplation of rabbits
         entitiesOfRabbits = new Entities();
         entitiesOfGrass = new Entities();
+        entitiesOfDeadRabbits = new Entities();
         //instatiating the environment, with the sizes from above
         theEnvironment = new Environment(this,theGroundWidth,theGroundHeight);
         //Creating the population of the rabbits.
@@ -46,10 +48,12 @@ public class Main extends PApplet {
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();
+        allDeadEntities = new ArrayList<>();
         //putting all the rabbits into the AllEntities list, in the main class
         //keeps all the moving parts together, making it easier to compare objects fx rabbits finding food or other rabbits
         allEntities.add(entitiesOfRabbits);
         allEntities.add(entitiesOfGrass);
+        allDeadEntities.add(entitiesOfDeadRabbits);
     }
     //Drawing, Runs every frame
     public void draw() {
