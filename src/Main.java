@@ -9,9 +9,6 @@ public class Main extends PApplet {
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
 
-
-    PApplet p;
-
     GraphingTheData updateGraph;
     private int startTime;
     private int durationTime;
@@ -26,19 +23,6 @@ public class Main extends PApplet {
     public static ArrayList<Entities> allDeadEntities;
 
 
-
-    float scale = 1;
-    float xPan = 720;
-    float yPan = 450;
-    boolean zoomIn = false;
-    boolean zoomOut = false;
-    boolean panUp = false;
-    boolean panDown = false;
-    boolean panLeft = false;
-    boolean panRight = false;
-    float panSpeed = 5;
-    float zoomSpeed = (float) 1.04;
-
     //the Main class
     public static void main(String[] args) {
         PApplet.main("Main", args);
@@ -52,8 +36,7 @@ public class Main extends PApplet {
         int widthOfWindow = 900;
         int heightOfWindow = 900;
         //Size of the program window
-        size(widthOfWindow, heightOfWindow, p.P2D);
-
+        size(widthOfWindow, heightOfWindow, this.P2D);
         //making the movement smooth, i think, comes from processing
         smooth();
 
@@ -105,76 +88,5 @@ public class Main extends PApplet {
         entitiesOfGrass.update();
 
 
-        this.translate(this.width/2f, this.height/2f);
-        this.scale(scale);
-        this.translate(-xPan, -yPan);
-        if(zoomIn){
-            scale *= zoomSpeed;
-        }
-        if(zoomOut){
-            scale /= zoomSpeed;
-        }
-        if(panUp){
-            yPan -= panSpeed;
-        }
-        if(panDown){
-            yPan += panSpeed;
-        }
-        if(panLeft){
-            xPan -= panSpeed;
-        }
-        if(panRight){
-            xPan += panSpeed;
-        }
-    }
-
-
-    public void keyPressed(){
-        if(this.keyCode == this.UP){
-            zoomIn = true;
-            zoomOut = false;
-        }
-        if(this.keyCode == this.DOWN){
-            zoomOut = true;
-            zoomIn = false;
-        }
-        if(this.key == 'w'){
-            panUp = true;
-            panDown = false;
-        }
-        if(this.key == 's'){
-            panDown = true;
-            panUp = false;
-        }
-        if(this.key == 'a'){
-            panLeft = true;
-            panRight = false;
-        }
-        if(this.key == 'd'){
-            panRight = true;
-            panLeft = false;
-        }
-    }
-
-    public void keyReleased(){
-        if(this.keyCode == this.UP){
-            zoomIn = false;
-        }
-        if(this.keyCode == this.DOWN){
-            zoomOut = false;
-        }
-        if(this.key == 'w'){
-            panUp = false;
-        }
-        if(this.key == 's'){
-            panDown = false;
-        }
-        if(this.key == 'a'){
-            panLeft = false;
-        }
-        if(this.key == 'd'){
-            panRight = false;
-        }
     }
 }
-
