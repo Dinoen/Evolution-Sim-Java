@@ -3,32 +3,24 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-
 public class Main extends PApplet {
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
-
-    GraphingTheData updateGraph;
-    private int startTime;
-    private int durationTime;
-
     Entities entitiesOfDeadRabbits;
-
+    GraphingTheData updateGraph;
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
+
     //An arraylist which holds all the living animals on the field
     public static ArrayList<Entities> allEntities;
     public static ArrayList<Entities> allDeadEntities;
 
-
-    //the Main class
     public static void main(String[] args) {
         PApplet.main("Main", args);
         GraphingTheData ourGraph = new GraphingTheData();
         ourGraph.main(args);
-
     }
 
     //Settings class, with window size for the program
@@ -36,10 +28,9 @@ public class Main extends PApplet {
         int widthOfWindow = 900;
         int heightOfWindow = 900;
         //Size of the program window
-        size(widthOfWindow, heightOfWindow, this.P2D);
+        size(widthOfWindow, heightOfWindow);
         //making the movement smooth, i think, comes from processing
         smooth();
-
     }
 
     //Setup, which creates all the elements of the program
@@ -50,12 +41,8 @@ public class Main extends PApplet {
         //our pouplation of rabbits
         entitiesOfRabbits = new Entities();
         entitiesOfGrass = new Entities();
-
-
         updateGraph = new GraphingTheData();
-
         entitiesOfDeadRabbits = new Entities();
-
         //instatiating the environment, with the sizes from above
         theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
         //Creating the population of the rabbits.
