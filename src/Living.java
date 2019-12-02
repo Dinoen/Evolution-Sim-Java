@@ -15,8 +15,8 @@ class Living {
     public float movementSpeed;
     public int sightDist;
     public int sizeOfAnimal;
-    public int Hunger; // will go from 0 to 100, increasing with activity
-    public int MAXHunger;
+    public float hunger; // will go from 0 to 100, increasing with activity
+    public int MAXHunger; // 100 at which point they die
     public int Thirst;  // will go from 0 to 100, increasing with activity
     public int MAXThirst;
     public int urgeToReproduce;
@@ -73,12 +73,12 @@ class Living {
     }
 
 
-    public int getHunger() {
-        return Hunger;
+    public float getHunger() {
+        return hunger;
     }
 
     public void setHunger(int hunger) {
-        Hunger = hunger;
+        this.hunger = hunger;
     }
 
     public int getMAXHunger() {

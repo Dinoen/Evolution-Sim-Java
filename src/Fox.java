@@ -37,7 +37,7 @@ public class Fox extends Living {
     }
 
     @Override
-    public int getHunger() {
+    public float getHunger() {
         return super.getHunger();
     }
 

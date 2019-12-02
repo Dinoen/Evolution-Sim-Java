@@ -47,8 +47,8 @@ public class Main extends PApplet {
         theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
-        entitiesOfRabbits.createEntities(this, 20, "Rabbit"); //population is the amount of rabbits spawne
-        entitiesOfGrass.createEntities(this, 15, "Grass");
+        entitiesOfRabbits.createEntities(this, 10, "Rabbit"); //population is the amount of rabbits spawne
+        entitiesOfGrass.createEntities(this, 10, "Grass");
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();
