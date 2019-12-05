@@ -48,6 +48,15 @@ public class Entities {
                     //make unique ID later
                 }
                 break;
+
+            case "Fox":
+                for (int i = 0; i < entityListSize; i++) {
+                    Fox fox = new Fox(p,p.random(100f,800f),p.random(100f,800f),1f,5f);
+                    arrayOfEntities.add(fox);
+                    //make unique ID later
+                }
+                break;
+
             default:
                 //Errormessaging
                 break;

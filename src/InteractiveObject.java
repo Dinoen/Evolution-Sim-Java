@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 
 import java.security.Key;
 
@@ -7,24 +8,28 @@ public class InteractiveObject {
     int interActiveObjectY;
     int interActiveObjectSizeX;
     int interActiveObjectSizeY;
+    boolean font;
     PApplet p;
+    PFont aFont;
+
 
     InteractiveObject() {
         this.interActiveObjectX = 0;
         this.interActiveObjectY = 0;
         this.interActiveObjectSizeX = 0;
         this.interActiveObjectSizeY = 0;
+        font = false;
 
     }
 
-    public InteractiveObject createInteractiveObject(PApplet p, int x, int y, int sX, int sY, String theNameOfYourInteractiveObject) {
+    public InteractiveObject createInteractiveObject(PApplet p, int x, int y, int sX, int sY, String theNameOfYourInteractiveObject, boolean hasFont) {
         this.p = p;
         InteractiveObject name = new InteractiveObject();
         this.interActiveObjectX = x;
         this.interActiveObjectY = y;
         this.interActiveObjectSizeX = sX;
         this.interActiveObjectSizeY = sY;
-
+        this.font = hasFont;
         return name;
     }
 
@@ -32,9 +37,20 @@ public class InteractiveObject {
         p.rect(this.interActiveObjectX, this.interActiveObjectY, this.interActiveObjectSizeX, this.interActiveObjectSizeY);
     }
 
+    /*public void displayFont() {
+        aFont = p.createFont("LetterGothicStd.ttf", 11);
+        p.textFont(aFont);
+        p.text("Start Program\n With random Genes",this.interActiveObjectX,this.interActiveObjectY);
+    }*/
+
     public void update() {
         display();
         KeyPressed();
+
+        /*if(font)
+        {
+            displayFont();
+        }*/
 
     }
 

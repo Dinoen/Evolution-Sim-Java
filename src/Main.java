@@ -7,6 +7,7 @@ public class Main extends PApplet {
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
+    Entities entitiesOfFoxes;
     InteractiveObject openGraph;
     InteractiveObject startTheProgram;
 
@@ -57,14 +58,16 @@ public class Main extends PApplet {
         entitiesOfGrass = new Entities();
         //array of dead rabbits
         entitiesOfDeadRabbits = new Entities();
+        //Array of foxes
+        entitiesOfFoxes = new Entities();
 
         //creating an interactive object that is able to open the graph by the push of a button
         openGraph = new InteractiveObject();
-        openGraph.createInteractiveObject(this, 875, 100, 50, 50, "Square");
+        openGraph.createInteractiveObject(this, 875, 100, 50, 50, "Square",true);
 
         //Instantiating the object that allow us to start the program
         startTheProgram = new InteractiveObject();
-        startTheProgram.createInteractiveObject(this,400,400,50,50,"Square");
+        startTheProgram.createInteractiveObject(this,400,400,50,50,"Square", true);
 
         //instatiating the environment, with the sizes from above
         theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
@@ -72,7 +75,8 @@ public class Main extends PApplet {
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
         entitiesOfRabbits.createEntities(this, 10, "Rabbit"); //population is the amount of rabbits spawne
-        entitiesOfGrass.createEntities(this, 50, "Grass");
+        entitiesOfGrass.createEntities(this, 10, "Grass");
+        entitiesOfFoxes.createEntities(this,2,"Fox");
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();
@@ -80,8 +84,9 @@ public class Main extends PApplet {
 
         //putting all the rabbits into the AllEntities list, in the main class
         //keeps all the moving parts together, making it easier to compare objects fx rabbits finding food or other rabbits
-        allEntities.add(entitiesOfRabbits);
-        allEntities.add(entitiesOfGrass);
+        allEntities.add(0,entitiesOfRabbits);
+        allEntities.add(1,entitiesOfGrass);
+        allEntities.add(2,entitiesOfFoxes);
         allDeadEntities.add(entitiesOfDeadRabbits);
 
     }
@@ -104,6 +109,7 @@ public class Main extends PApplet {
             //Running the update function in the Population class, updating the positions and states of the rabbits.
             entitiesOfRabbits.update();
             entitiesOfGrass.update();
+            entitiesOfFoxes.update();
             openGraph.update();
         }
     }

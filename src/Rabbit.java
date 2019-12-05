@@ -155,8 +155,7 @@ public class Rabbit extends Living {
             p.fill(255, 204, 255);
         }
 
-
-        p.ellipse(this.location.x, this.location.y, 16,16);
+        p.ellipse(this.location.x, this.location.y, 16, 16);
 
     }//Displaying method
 
@@ -178,7 +177,7 @@ public class Rabbit extends Living {
                 break;
 
         }
-        this.display();
+        display();
         hungerFunction();
     }
 
@@ -218,23 +217,25 @@ public class Rabbit extends Living {
         //System.out.println(Main.allEntities.get(1).getEntities().ge);
         //create living thing call target
         Living target = null;
-        //run through all entities
+        //run through all lists of entities
         for (int i = 0; i < Main.allEntities.size(); i++) {
             // run through all rabbits
             for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
                 // checks if the distance is less than the vision range and if the distance is not zero
-                if(Main.allEntities.get(i).getEntities().get(j) != null) {
+                if (Main.allEntities.get(i).getEntities().get(j) != null) {
                     if (p.dist(this.location.x, this.location.y,
                             Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().x
                             , Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().y) < this.visionRange &&
                             p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
                                     , Main.allEntities.get(i).getEntities().get(j).getLocation().y) != 0.0f) {
                         //System.out.println("RABBITS CAN SEE");
+
                         target = Main.allEntities.get(i).getEntities().get(j);
+
                     }
                 }
             }
-            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
+            /*for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
                 if (p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
                         , Main.allEntities.get(i).getEntities().get(j).getLocation().y) < this.visionRange &&
                         p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
@@ -243,7 +244,7 @@ public class Rabbit extends Living {
                     target = Main.allEntities.get(i).getEntities().get(j);
 
                 }
-            }
+            }*/
         }
         if (target != null) {
             //System.out.println(target.typeOfLiving);
@@ -286,7 +287,7 @@ public class Rabbit extends Living {
                                     //creatig a new rabbit
                                     new Rabbit(p, (int) this.location.x + -10, (int) this.location.y + -10,
                                             Entities.entityUniqueID, false, this.topSpeed,
-                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true, setGenerationNumber(mySelf.generationCounter,target.generationCounter)));
+                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true, setGenerationNumber(mySelf.generationCounter, target.generationCounter)));
                             //iterate the unique id
                             Entities.entityUniqueID++;
                         }
@@ -295,19 +296,19 @@ public class Rabbit extends Living {
                         mySelf.readyForMating = false;
                         //print out the array of rabbit so the new rabbits it counted as well
                         System.out.println(Main.allEntities.get(0).arrayOfEntities.size());
-                        
+
                         System.out.println(mySelf.generationCounter);
                     }
                 }
             }
-            if (target != null) {
-                //move around again after 2 sec
-                if (isSetTargetTimerIsOut()) {
-                    target.movingState = 0;
-                    mySelf.movingState = 0;
-                    startSetTargetTimer(2000);
-                }
+
+            //move around again after 2 sec
+            if (isSetTargetTimerIsOut()) {
+                target.movingState = 0;
+                mySelf.movingState = 0;
+                startSetTargetTimer(2000);
             }
+
             //mix genes (for speed)
             //spawn two new rabbits
         }
@@ -315,6 +316,7 @@ public class Rabbit extends Living {
 
     public void stopWhenSeeingGrass(Living target) {
         if (target != null) {
+
             if (target.typeOfLiving.equals("Grass")) {
                 this.movingState = 2;
                 target.movingState = 2;
@@ -324,7 +326,7 @@ public class Rabbit extends Living {
 
     public void eatingFunction(Living target, Living mySelf) {
         if (target != null) {
-            if (this.hunger >= 25f) {
+            if (this.hunger >= 60f) {
                 if (target.typeOfLiving.equals("Grass")) {
                     PVector targetVector = PVector.sub(((Grass) target).location, ((Rabbit) mySelf).location);
                     targetVector.normalize();
@@ -362,7 +364,7 @@ public class Rabbit extends Living {
     //Add the found rabbit to a new "heaven" array
     //remove the found rabbit from ArrayOfRabbits
     public void seeIfRabbitIsOldEnoughToDie() {
-        if (timeSinceBirth + p.random(60000, 65000) < p.millis()) {
+        if (timeSinceBirth + p.random(40000, 45000) < p.millis()) {
             for (int i = 0; i < Main.allEntities.size(); i++) {
                 for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
                     //if the currently looked at rabbits id is equal to the current rabbits id
@@ -371,7 +373,7 @@ public class Rabbit extends Living {
                         //and then remove it so it will appear dead
                         Living x = Main.allEntities.get(i).getEntities().get(j);
                         Main.allEntities.get(i).getEntities().remove(j);
-                        Main.allDeadEntities.get(0).arrayOfEntities.add((Rabbit) x);
+                        Main.allDeadEntities.get(0).arrayOfEntities.add(x);
                         System.out.println(Main.allDeadEntities.get(0).arrayOfEntities.size());
                     }
                 }
@@ -382,27 +384,29 @@ public class Rabbit extends Living {
     public void hungerFunction() {
         //set timer 1 sek
         if (isHungerTimerOut()) {
-            this.hunger = this.hunger + 5f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
+            this.hunger = this.hunger + 10f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
             startHungerTimer(1000);
-            System.out.println(this.hunger);
+            //System.out.println(this.hunger);
         }
 
 
         //increase hunger, based on the movemenet speed, with a penalty for moving too fast, exponential curve
-        if (this.hunger >= 150) {
-            for (int i = 0; i < Main.allEntities.size(); i++) {
-                for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
-                    //if the currently looked at rabbits id is equal to the current rabbits id
-                    if (Main.allEntities.get(i).getEntities().get(j).ID == this.ID) {
-                        //then add the current rabbit to the array of dead rabbits in the deadEntities ArrayLists Of Arraylists
-                        //and then remove it so it will appear dead
-                        Living x = Main.allEntities.get(i).getEntities().get(j);
-                        Main.allEntities.get(i).getEntities().remove(j);
-                        Main.allDeadEntities.get(0).arrayOfEntities.add((Rabbit) x);
-                        System.out.println("Rabbit" + this.ID + "Died of hunger");
-                    }
+        if (this.hunger >= 100) {
+
+            for (int j = 0; j < Main.allEntities.get(0).getEntities().size(); j++) {
+                //if the currently looked at rabbits id is equal to the current rabbits id
+                if (Main.allEntities.get(0).getEntities().get(j).ID == this.ID) {
+                    //then add the current rabbit to the array of dead rabbits in the deadEntities ArrayLists Of Arraylists
+                    //and then remove it so it will appear dead
+                    Living x = Main.allEntities.get(0).getEntities().get(j);
+                    Main.allEntities.get(0).getEntities().remove(j);
+
+                    Main.allDeadEntities.get(0).arrayOfEntities.add(x);
+                    System.out.println("Rabbit" + this.ID + "Died of hunger");
                 }
             }
+
+
         }
         //if 100 hunger, move to heaven array
         //if food is eaten decrease hunger by certain amount EG 10

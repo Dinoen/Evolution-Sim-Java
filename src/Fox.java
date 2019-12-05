@@ -6,20 +6,30 @@ import java.util.Random;
 public class Fox extends Living {
 
     PApplet p;
-
     float topSpeed;
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
     PVector location; // our current X AND Y
     PVector velocity; // OUR ANGLE
     PVector acceleration; // GETTING TO OUR SPEED, which is created later on
+    float visionRange;
 
-    public Fox(PApplet pApplet, float x, float y) {
-        p = pApplet;
+    public Fox(PApplet pApplet, float x, float y, float movementSpeed, float topSpeed) {
+        this.p = pApplet;
         this.x = x;
         this.y = y;
+        location = new PVector(x, y);
+        velocity = new PVector(0, 0);
+        this.acceleration = new PVector(velocity.x, velocity.y);
+        this.movementSpeed = movementSpeed;
+        this.topSpeed = topSpeed;
+        this.typeOfLiving = "Fox";
+        this.visionRange = 20;
+        this.movingState = 0;
+
     }
 
+    @Override
     public void wanderingMovement() {
         newLocation();
         //set topspeed, and this just ties the angle we're going to that MAX speed
@@ -53,20 +63,11 @@ public class Fox extends Living {
             velocity.rotate(p.HALF_PI);
 
         }
+
+        stopWhenSeeingRabbit(vision());
     }
 
-    public boolean isSetTargetTimerIsOut() {
-        int timeElapsed = p.millis() - setNewTargetTimerStartTime;
-        return timeElapsed > setNewTargetTimerDurationTime;
-    }
-
-    //function which takes an input of time to run, EG 5000 = 5 SECS
-    public void startSetTargetTimer(int timeToRun) {
-        setNewTargetTimerStartTime = p.millis();
-        setNewTargetTimerDurationTime = timeToRun; //make random later
-    }
-
-    public PVector newLocation() {
+    private PVector newLocation() {
         //make new vector
         PVector newlocation = new PVector();
         //chose random coordinates from the middle of the screen
@@ -76,16 +77,87 @@ public class Fox extends Living {
         return newlocation;
     }
 
-    @Override
-    public void display(){
-        p.triangle(this.location.x,this.location.y,this.location.x+10,this.location.y+10,this.location.x-10,this.location.y-10);
+    private boolean isSetTargetTimerIsOut() {
+        int timeElapsed = p.millis() - setNewTargetTimerStartTime;
+        return timeElapsed > setNewTargetTimerDurationTime;
     }
 
+    //function which takes an input of time to run, EG 5000 = 5 SECS
+    private void startSetTargetTimer(int timeToRun) {
+        setNewTargetTimerStartTime = p.millis();
+        setNewTargetTimerDurationTime = timeToRun; //make random later
+    }
+
+    public Living vision() {
+        Living target = null;
+        for (int i = 0; i < Main.allEntities.size(); i++) {
+            // run through all rabbits
+            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
+                // checks if the distance is less than the vision range and if the distance is not zero
+                if (Main.allEntities.get(i).getEntities().get(j) != null) {
+                    if (p.dist(this.location.x, this.location.y,
+                            Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().x
+                            , Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().y) < this.visionRange &&
+                            p.dist(this.location.x, this.location.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
+                                    , Main.allEntities.get(i).getEntities().get(j).getLocation().y) != 0.0f) {
+                        //System.out.println("RABBITS CAN SEE");
+
+                        target = Main.allEntities.get(i).getEntities().get(j);
+
+                    }
+                }
+            }
+        }
+        return target;
+    }
+
+    private void stopWhenSeeingRabbit(Living target) {
+        if (target != null) {
+
+            if (target.typeOfLiving.equals("Rabbit")) {
+                this.movingState = 1;
+            }
+        }
+    }
+
+    private void huntingRabbit(Living target, Living mySelf) {
+        if (target != null) {
+            if (target.typeOfLiving.equals("Rabbit")) {
+                PVector targetVector = PVector.sub(((Rabbit) target).location, ((Fox) mySelf).location);
+                targetVector.normalize();
+                targetVector.mult(mySelf.movementSpeed);
+                ((Fox) mySelf).velocity.set(targetVector);
+                //if()
+                Main.allEntities.get(0).arrayOfEntities.remove(((Rabbit) target));
+                //this.hunger = this.hunger - 25f;
+                this.movingState = 0;
+            }
+
+        }
+    }
+
+
+    @Override
+    public void display() {
+
+        p.fill(0);
+        p.triangle(this.location.x, this.location.y, this.location.x + 10, this.location.y + 14, this.location.x - 10, this.location.y + 14);
+
+    }
 
     public void update() {
+
+        switch (movingState) {
+            case 0:
+                wanderingMovement();
+
+                break;
+            case 1:
+                huntingRabbit(vision(),this);
+                break;
+        }
         display();
     }
-
 
     @Override
     public float getX() {
@@ -252,5 +324,9 @@ public class Fox extends Living {
     @Override
     public void SearchForWater() {
         super.SearchForWater();
+    }
+
+    public PVector getLocation() {
+        return location;
     }
 }

@@ -13,7 +13,7 @@ public class Grass extends Plant {
     float grassDespawn;
     public boolean occupied;
     int time;
-    int timer = 7000;
+    int timer = 10000;
 
     Grass(PApplet p, float x, float y) {
         this.p = p;
@@ -94,6 +94,10 @@ public class Grass extends Plant {
     @Override
     public PVector getLocation() {
         return location;
+    }
+
+    public String getTypeOfLiving() {
+        return typeOfLiving;
     }
 
 }
