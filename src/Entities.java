@@ -30,12 +30,12 @@ public class Entities {
                     //change modulus stuff, bcause its messy AF
                     if (i % 2 == 0) {
                         Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Male",false, 0);
-                        arrayOfRabbits.add(rabbit);
+                        arrayOfEntities.add(rabbit);
                         entityUniqueID++;
                     }
                     if (i % 2 == 1) {
                         Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Female",false,0);
-                        arrayOfRabbits.add(rabbit);
+                        arrayOfEntities.add(rabbit);
                         entityUniqueID++;
                     }
                 }

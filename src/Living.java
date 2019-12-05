@@ -272,7 +272,7 @@ class Living {
 
         for (int i = 0; i < Main.allEntities.size(); i++) {
             // run through all rabbits
-            for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
+            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
                 if (latestGeneration < this.generationCounter) {
                     this.generationCounter = latestGeneration;
                 }
