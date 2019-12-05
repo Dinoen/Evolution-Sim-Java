@@ -8,6 +8,7 @@ public class Entities {
     ArrayList<Rabbit> arrayOfRabbits;
     ArrayList<Grass> arrayOfGrass;
     ArrayList<Rabbit> arrayOfDeadRabbits;
+
     //making an ID, which is unique-being public and static so we can iterate it whenever we make something new
     public static int entityUniqueID = 0;
 
@@ -17,11 +18,13 @@ public class Entities {
         arrayOfRabbits = new ArrayList<>();
         arrayOfGrass = new ArrayList<>();
         arrayOfDeadRabbits = new ArrayList<>();
+
         //OTHER ARRAYS OF STUFF OF FOOD FX.
     }
 
     public void createEntities(PApplet p, int entityListSize, String typeOfEntities) {
         //if the type is rabbits
+
         String EntityType = typeOfEntities;
         //Switchcase controlling what kind of list we're making
         switch (EntityType) {
@@ -30,12 +33,12 @@ public class Entities {
                 for (int i = 0; i < entityListSize; i++) {
                     //change modulus stuff, bcause its messy AF
                     if (i % 2 == 0) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, 3f, 1f, "Male",false);
+                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Male",false);
                         arrayOfRabbits.add(rabbit);
                         entityUniqueID++;
                     }
                     if (i % 2 == 1) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, 3f, 1f, "Female",false);
+                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Female",false);
                         arrayOfRabbits.add(rabbit);
                         entityUniqueID++;
                     }

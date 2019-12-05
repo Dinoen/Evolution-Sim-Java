@@ -55,5 +55,15 @@ public class InteractiveObject {
                 System.out.println('A');
             }
         }
+
+        if(p.mousePressed) {
+            System.out.println("GO!");
+            if(p.mouseX >= 400 && p.mouseX <= 450 && p.mouseY >= 400 && p.mouseY <= 450) {
+                System.out.println("The Program Should run now");
+                Main.stateOfProgram = 1;
+            }
+        }
     }
+
+
 }

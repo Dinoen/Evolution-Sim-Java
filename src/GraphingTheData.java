@@ -87,17 +87,23 @@ public class GraphingTheData extends Application {
     }
 
     //we return and int that is the poopulation size of the rabbits
-    public int getTheSize() {
-        int theActualI;
+    public float getTheSize() {
+        float amount = 0;
+        float theSpeedGenesAverage;
 
-        theActualI = (int) Main.allEntities.get(0).getEntitiesRabbits().size();
 
-        return theActualI;
+        for (int i = 0; i < Main.allEntities.get(0).getEntitiesRabbits().size(); i++) {
+            if (Main.allEntities.get(0).getEntitiesRabbits().get(i) != null) {
+                amount = amount+ Main.allEntities.get(0).getEntitiesRabbits().get(i).movementSpeed;
+            }
+        }
+        theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntitiesRabbits().size();
+        return theSpeedGenesAverage;
     }
 
     //returning the time since the program has started
     public int returnMillisecSinceBeginning() {
-        int theTimeInMinutes = (p.millis() / 100);
+        int theTimeInMinutes = (p.millis() / 1000);
         return theTimeInMinutes;
     }
 }

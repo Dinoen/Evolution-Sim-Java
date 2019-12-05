@@ -8,14 +8,15 @@ public class Main extends PApplet {
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;
     InteractiveObject openGraph;
+    InteractiveObject startTheProgram;
 
+    static int stateOfProgram = 0;
     GraphingTheData updateGraph;
     private int startTime;
     private int durationTime;
 
-
     Entities entitiesOfDeadRabbits;
-    GraphingTheData updateGraph;
+    //GraphingTheData updateGraph;
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
@@ -32,8 +33,6 @@ public class Main extends PApplet {
         GraphingTheData ourGraph = new GraphingTheData();
         //running the graph object to display the graph
         ourGraph.main(args);
-
-
     }
 
     //Settings class, with window size for the program
@@ -51,6 +50,7 @@ public class Main extends PApplet {
         //our playing field size
         int theGroundWidth = 800;
         int theGroundHeight = 800;
+
         //our pouplation of rabbits
         entitiesOfRabbits = new Entities();
         //our grass population
@@ -58,8 +58,13 @@ public class Main extends PApplet {
         //array of dead rabbits
         entitiesOfDeadRabbits = new Entities();
 
+        //creating an interactive object that is able to open the graph by the push of a button
         openGraph = new InteractiveObject();
         openGraph.createInteractiveObject(this, 875, 100, 50, 50, "Square");
+
+        //Instantiating the object that allow us to start the program
+        startTheProgram = new InteractiveObject();
+        startTheProgram.createInteractiveObject(this,400,400,50,50,"Square");
 
         //instatiating the environment, with the sizes from above
         theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
@@ -67,7 +72,7 @@ public class Main extends PApplet {
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
         entitiesOfRabbits.createEntities(this, 10, "Rabbit"); //population is the amount of rabbits spawne
-        entitiesOfGrass.createEntities(this, 10, "Grass");
+        entitiesOfGrass.createEntities(this, 50, "Grass");
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();
@@ -87,12 +92,19 @@ public class Main extends PApplet {
         background(0, 0, 0);
         //Running the update function in the environment class, updating the positions of stuff in environment
         //update function is a collection of the methods needing to be updated
-        theEnvironment.update();
-        //update function is a collection of the methods needing to be updated
-        //Running the update function in the Population class, updating the positions and states of the rabbits.
-        entitiesOfRabbits.update();
-        entitiesOfGrass.update();
-        openGraph.update();
 
+        if(stateOfProgram == 0) {
+            startTheProgram.update();
+
+        }
+
+        if(stateOfProgram == 1) {
+            theEnvironment.update();
+            //update function is a collection of the methods needing to be updated
+            //Running the update function in the Population class, updating the positions and states of the rabbits.
+            entitiesOfRabbits.update();
+            entitiesOfGrass.update();
+            openGraph.update();
+        }
     }
 }
