@@ -1,10 +1,91 @@
+import processing.core.PApplet;
+import processing.core.PVector;
+
 import java.util.Random;
 
 public class Fox extends Living {
 
-    public Fox(int visionrange, boolean alive, boolean hungery, boolean thirsty, int x, int y, int movementSpeed, int sightDist, int sizeOfRabbit, int hunger, int MAXHunger, int thirst, int MAXThirst, int urgeToReproduce, int MAXUrgeToReproduce) {
+    PApplet p;
 
+    float topSpeed;
+    int setNewTargetTimerStartTime;
+    int setNewTargetTimerDurationTime;
+    PVector location; // our current X AND Y
+    PVector velocity; // OUR ANGLE
+    PVector acceleration; // GETTING TO OUR SPEED, which is created later on
+
+    public Fox(PApplet pApplet, float x, float y) {
+        p = pApplet;
+        this.x = x;
+        this.y = y;
     }
+
+    public void wanderingMovement() {
+        newLocation();
+        //set topspeed, and this just ties the angle we're going to that MAX speed
+        //setting the maximum speed to be moving along the velocity vector
+        velocity.limit(topSpeed);
+        //adding acceleration
+        velocity.add(acceleration);
+        //adds the velocity (our angle) to our location
+        location.add(velocity);
+
+        if (isSetTargetTimerIsOut()) {
+            //("5 secs");
+            PVector direction = PVector.sub(newLocation(), this.location);
+            //figure it out for later
+            //setting the magnitude of the vector to 1 (making it easier to scale)
+            direction.normalize();
+            //multiplying the movementSpeed with the direction
+            direction.mult(this.movementSpeed);
+            //set the angle to the same angle as the direction
+            velocity.set(direction);
+
+            startSetTargetTimer((int) p.random(2000, 5000));
+        }
+
+        if (this.location.x >= p.width / 2 + 400 || this.location.x <= p.width / 2 - 400) {
+            //velocity = new PVector(p.width/2 ,p.height/2);
+            velocity.rotate(p.HALF_PI);
+
+        }
+        if (this.location.y >= p.height / 2 + 400 || this.location.y <= p.height / 2 - 400) {
+            velocity.rotate(p.HALF_PI);
+
+        }
+    }
+
+    public boolean isSetTargetTimerIsOut() {
+        int timeElapsed = p.millis() - setNewTargetTimerStartTime;
+        return timeElapsed > setNewTargetTimerDurationTime;
+    }
+
+    //function which takes an input of time to run, EG 5000 = 5 SECS
+    public void startSetTargetTimer(int timeToRun) {
+        setNewTargetTimerStartTime = p.millis();
+        setNewTargetTimerDurationTime = timeToRun; //make random later
+    }
+
+    public PVector newLocation() {
+        //make new vector
+        PVector newlocation = new PVector();
+        //chose random coordinates from the middle of the screen
+        newlocation.x = p.width / 2 + p.random(-400, 400);
+        newlocation.y = p.height / 2 + p.random(-400, 400);
+        //return the new location
+        return newlocation;
+    }
+
+    @Override
+    public void display(){
+        p.triangle(this.location.x,this.location.y,this.location.x+10,this.location.y+10,this.location.x-10,this.location.y-10);
+    }
+
+
+    public void update() {
+        display();
+    }
+
 
     @Override
     public float getX() {
@@ -56,10 +137,6 @@ public class Fox extends Living {
         super.setVisionrange(visionrange);
     }
 
-    @Override
-    public void display() {
-        super.display();
-    }//Displaying method
 
     @Override
     public int getThirst() {
@@ -176,11 +253,4 @@ public class Fox extends Living {
     public void SearchForWater() {
         super.SearchForWater();
     }
-
-    @Override
-    public void wanderingMovement() {
-        super.wanderingMovement();
-    }
-
-
 }

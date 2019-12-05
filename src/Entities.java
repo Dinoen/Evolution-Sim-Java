@@ -5,9 +5,8 @@ import processing.core.PApplet;
 //population class which holds the different populations of animals / living things.
 public class Entities {
     //Making Rabbits via ArrayList
-    ArrayList<Rabbit> arrayOfRabbits;
-    ArrayList<Grass> arrayOfGrass;
-    ArrayList<Rabbit> arrayOfDeadRabbits;
+    ArrayList<Living> arrayOfEntities;
+
 
     //making an ID, which is unique-being public and static so we can iterate it whenever we make something new
     public static int entityUniqueID = 0;
@@ -15,10 +14,7 @@ public class Entities {
     //Constructor
     public Entities() {
         //making a new array, containing rabbits.
-        arrayOfRabbits = new ArrayList<>();
-        arrayOfGrass = new ArrayList<>();
-        arrayOfDeadRabbits = new ArrayList<>();
-
+        arrayOfEntities = new ArrayList<Living>();
         //OTHER ARRAYS OF STUFF OF FOOD FX.
     }
 
@@ -48,7 +44,7 @@ public class Entities {
             case "Grass":
                 for (int i = 0; i < entityListSize; i++) {
                     Grass grass = new Grass(p,p.random(100f, 800f),p.random(100f, 800f));
-                    arrayOfGrass.add(grass);
+                    arrayOfEntities.add(grass);
                     //make unique ID later
                 }
                 break;
@@ -60,26 +56,21 @@ public class Entities {
     //update function which runs in the main class, and updates the positions of the entities.
     //Layering the update functions in the classes
     public void update() {
-        for (int i = 0; i < arrayOfRabbits.size(); i++) {
-                arrayOfRabbits.get(i).update();
+
+        for (int i = 0; i < arrayOfEntities.size(); i++) {
+                arrayOfEntities.get(i).update();
 
         }
-        for (int i = 0; i < arrayOfGrass.size(); i++) {
+        for (int i = 0; i < arrayOfEntities.size(); i++) {
 
-            arrayOfGrass.get(i).update();
+            arrayOfEntities.get(i).update();
         }
 
     }
     //one of these getter per arraylist
-    public ArrayList<Rabbit> getEntitiesRabbits() {
-        return arrayOfRabbits;
+    public ArrayList<Living> getEntities() {
+        return arrayOfEntities;
     }
-
-    public ArrayList<Grass> getEntitiesGrass() {
-        return arrayOfGrass;
-    }
-
-    public ArrayList<Rabbit> getEntitiesDeadRabbits() { return arrayOfDeadRabbits; }
 
 }
 
