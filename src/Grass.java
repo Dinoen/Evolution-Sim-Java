@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PVector;
+
 public class Grass extends Plant {
 
     float x;
@@ -11,14 +12,14 @@ public class Grass extends Plant {
     float timeintervalDespawn;
     float grassDespawn;
     public boolean occupied;
-int time;
-int timer = 7000;
+    int time;
+    int timer = 7000;
 
-    Grass(PApplet p,float x , float y) {
+    Grass(PApplet p, float x, float y) {
         this.p = p;
         this.x = x;
         this.y = y;
-        location = new PVector(this.x,this.y);
+        location = new PVector(this.x, this.y);
         grassSpawn = p.millis();
 
         grassDespawn = p.millis();
@@ -32,7 +33,6 @@ int timer = 7000;
     }
 
 
-
     @Override
     public void display() {
         p.stroke(0);
@@ -41,7 +41,7 @@ int timer = 7000;
     }
 
     public void grassSpawn() {
-        if (p.millis() > grassSpawn + timeIntervalSpawn && p.millis() - time >= timer && Main.allEntities.get(1).arrayOfGrass.size() <150) {
+        if (p.millis() > grassSpawn + timeIntervalSpawn && p.millis() - time >= timer && Main.allEntities.get(1).arrayOfEntities.size() < 150) {
 
             PVector targetVector = PVector.sub(
                     newGrassLocation(), this.location);
@@ -50,10 +50,11 @@ int timer = 7000;
             PVector xy = new PVector();
             xy = PVector.add(location, targetVector);
             Grass x = new Grass(p, xy.x, xy.y);
-            Main.allEntities.get(1).arrayOfGrass.add(x);
+            Main.allEntities.get(1).arrayOfEntities.add(x);
             this.time = p.millis();
         }
     }
+
     public PVector newGrassLocation() {
         //make new vector
         PVector newlocation = new PVector();
@@ -84,10 +85,15 @@ int timer = 7000;
     public void update() {
         display();
         grassSpawn();
-      //  if (p.millis() > grassDespawn + timeintervalDespawn) {
+        //  if (p.millis() > grassDespawn + timeintervalDespawn) {
         //    grassDespawn();
-          //  grassDespawn = p.millis();
+        //  grassDespawn = p.millis();
         //}
+    }
+
+    @Override
+    public PVector getLocation() {
+        return location;
     }
 
 }

@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 //Used to be our animal superclass
 import java.util.Random;
 
@@ -27,6 +28,8 @@ class Living {
     public String gender;
     boolean isKid;
     Random randomNumber = new Random();
+    PVector location;
+    int ID;
 
     public Living() {
 
@@ -181,6 +184,7 @@ class Living {
         return thirsty;
     }
 
+    public PVector getLocation() {return location;}
 
     public void wanderingMovement() {//Movement method
 
@@ -203,6 +207,10 @@ class Living {
     }
 
     public void SearchForWater() {//Method for Searching Water
+
+    }
+
+    public void update() {
 
     }
 

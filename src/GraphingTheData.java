@@ -33,11 +33,11 @@ public class GraphingTheData extends Application {
         //initializing the primary stage function
         openGraphWhenMouse = false;
         init(primaryStage);
+        //init1(primaryStage);
         rabbitPopulationSize();
     }
 
     private void init(Stage primaryStage) {
-
         HBox root = new HBox();
         //The scene has its root in the HBox
         Scene scene = new Scene(root, 450, 330);
@@ -48,12 +48,12 @@ public class GraphingTheData extends Application {
         xAxis.setAnimated(true);
 
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Rabbit Population Size");
+        yAxis.setLabel("Average Of Rabbit Speed Genes");
         yAxis.setAnimated(true);
 
         //Creating our linechart and setting the title
         LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-        lineChart.setTitle("Rabbit Population Size");
+        lineChart.setTitle("Graph of Data");
 
         //initializing the data XYChart
         data = new XYChart.Series<>();
@@ -63,7 +63,7 @@ public class GraphingTheData extends Application {
         lineChart.setAnimated(true);
         root.getChildren().add(lineChart);
 
-        primaryStage.setTitle("Graph For Rabbit PopulationSize");
+        primaryStage.setTitle("First Graph");
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -71,7 +71,7 @@ public class GraphingTheData extends Application {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             //here we are sending the data to a que that runsLater or runs when it it supposed to.
             Platform.runLater(() -> {
-                data.getData().add(new XYChart.Data<Number, Number>(returnMillisecSinceBeginning(), getTheSize()));
+                data.getData().add(new XYChart.Data<Number, Number>(returnMillisecSinceBeginning(), getTheAverageSpeedGene()));
             });
         }, 0, 1, TimeUnit.SECONDS);
 
@@ -79,25 +79,68 @@ public class GraphingTheData extends Application {
         //sequentially returning a task object, and we are using fixed rate
     }
 
-    public void rabbitPopulationSize() {
+    private void init1(Stage primaryStage) {
+        HBox root = new HBox();
+        Scene scene = new Scene(root,600,600);
 
-        Platform.runLater(() -> {
-            System.out.println();
-        });
+        NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("Time");
+        xAxis.setAnimated(true);
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("The Overall Population");
+        yAxis.setAnimated(true);
+
+        //Creating our linechart and setting the title
+        LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+        lineChart.setTitle("Graph of Data");
+
+        //initializing the data XYChart
+        data = new XYChart.Series<>();
+
+        lineChart.getData().add(data);
+        lineChart.setAnimated(true);
+        root.getChildren().add(lineChart);
+
+        primaryStage.setTitle("First Graph");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            //here we are sending the data to a que that runsLater or runs when it it supposed to.
+            Platform.runLater(() -> {
+                data.getData().add(new XYChart.Data<Number, Number>(returnMillisecSinceBeginning(), rabbitPopulationSize()));
+            });
+        }, 0, 1, TimeUnit.SECONDS);
+
+    }
+
+    public int rabbitPopulationSize() {
+
+        int theRabbitPopulation = 0;
+
+        for (int i = 0; i < Main.allEntities.get(0).arrayOfEntities.size(); i++) {
+            if(Main.allEntities.get(0).arrayOfEntities.size() != 0) {
+                theRabbitPopulation = Main.allEntities.get(0).arrayOfEntities.size();
+            }
+        }
+
+        return theRabbitPopulation;
     }
 
     //we return and int that is the poopulation size of the rabbits
-    public float getTheSize() {
+    public float getTheAverageSpeedGene() {
         float amount = 0;
         float theSpeedGenesAverage;
 
 
-        for (int i = 0; i < Main.allEntities.get(0).getEntitiesRabbits().size(); i++) {
-            if (Main.allEntities.get(0).getEntitiesRabbits().get(i) != null) {
-                amount = amount+ Main.allEntities.get(0).getEntitiesRabbits().get(i).movementSpeed;
+        for (int i = 0; i < Main.allEntities.get(0).getEntities().size(); i++) {
+            if (Main.allEntities.get(0).getEntities().get(i) != null) {
+                amount = amount+ Main.allEntities.get(0).getEntities().get(i).movementSpeed;
             }
         }
-        theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntitiesRabbits().size();
+        theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntities().size();
         return theSpeedGenesAverage;
     }
 
