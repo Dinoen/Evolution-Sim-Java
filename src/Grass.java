@@ -11,21 +11,26 @@ public class Grass extends Plant {
     float timeintervalDespawn;
     float grassDespawn;
     public boolean occupied;
+int time;
+int timer = 10000;
 
-
-    Grass(PApplet p) {
+    Grass(PApplet p,float x , float y) {
         this.p = p;
-        x = p.random(100f, 800f);
-        y = p.random(100f, 800f);
+        this.x = x;
+        this.y = y;
         location = new PVector(this.x,this.y);
         grassSpawn = p.millis();
-        timeintervalSpawn = p.random(3000, 5000);
+
         grassDespawn = p.millis();
-        timeintervalDespawn = p.random(7000, 7000);
+
         typeOfLiving = "Grass";
+        this.time = p.millis();
+
+
         occupied = false;
 
     }
+
 
 
     @Override
@@ -36,20 +41,19 @@ public class Grass extends Plant {
     }
 
     public void grassSpawn() {
-            PVector targetVector = PVector.sub(newGrassLocation() , this.location);
+        if (p.millis() > grassSpawn + timeintervalSpawn && p.millis() - time >= timer) {
+
+            PVector targetVector = PVector.sub(
+                    newGrassLocation(), this.location);
             targetVector.normalize();
-            targetVector.mult(5);
-            Grass x =  new Grass(this.p);
-            x.setX((int) targetVector.x);
-            x.setY((int) targetVector.y);
-
-            if (p.millis() > grassSpawn + timeintervalSpawn) {
-                grassSpawn = p.millis();
-                Main.allEntities.get(1).arrayOfGrass.add(x);
-                //ReSpawn();
-            }
+            targetVector.mult(100);
+            PVector xy = new PVector();
+            xy = PVector.add(location, targetVector);
+            Grass x = new Grass(p, xy.x, xy.y);
+            Main.allEntities.get(1).arrayOfGrass.add(x);
+            this.time = p.millis();
         }
-
+    }
     public PVector newGrassLocation() {
         //make new vector
         PVector newlocation = new PVector();
