@@ -82,7 +82,7 @@ public class GraphingTheData extends Application {
     public void rabbitPopulationSize() {
 
         Platform.runLater(() -> {
-            System.out.println("NIGGER");
+            System.out.println();
         });
     }
 
