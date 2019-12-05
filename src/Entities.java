@@ -44,7 +44,7 @@ public class Entities {
 
             case "Grass":
                 for (int i = 0; i < entityListSize; i++) {
-                    Grass grass = new Grass(p);
+                    Grass grass = new Grass(p,p.random(100f, 800f),p.random(100f, 800f));
                     arrayOfGrass.add(grass);
                     //make unique ID later
                 }

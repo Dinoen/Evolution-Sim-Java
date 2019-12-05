@@ -21,6 +21,8 @@ public class Rabbit extends Living {
     int setNewTargetTimerDurationTime;
     int setReadyForMatingStartTime;
     int setReadyForMatingDurationTime;
+    int setNewHungerTimerStartTime;
+    int setNewHungerTimerDurationTime;
     int timeSinceBirth;
 
     //make random for random number creation, for positional stuff
@@ -49,7 +51,7 @@ public class Rabbit extends Living {
         //make a timer, with 5 sec of run, standard timer
         startSetTargetTimer(5000);
         //distance the rabbits can see from standard
-        visionRange = 30f;
+        this.visionRange = 50f;
         //defining the type of living, in this case rabbit, for creating different entities in the entities class
         this.typeOfLiving = "Rabbit";
         //This is the start of the movement queue/system, which needs to work together with the priority system later
@@ -179,6 +181,7 @@ public class Rabbit extends Living {
 
         }
         this.display();
+        hungerFunction();
     }
 
     public boolean isSetTargetTimerIsOut() {
@@ -200,6 +203,16 @@ public class Rabbit extends Living {
     public void startMatingTimerForRabbit(int timeToRun) {
         setReadyForMatingStartTime = p.millis();
         setReadyForMatingDurationTime = timeToRun; //make random later
+    }
+
+    public boolean isHungerTimerOut() {
+        int timeElapsed = p.millis() - setNewHungerTimerStartTime;
+        return timeElapsed > setNewHungerTimerDurationTime;
+    }
+
+    public void startHungerTimer(int timeToRun) {
+        setNewHungerTimerStartTime = p.millis();
+        setNewHungerTimerDurationTime = timeToRun; //make random later
     }
 
 
@@ -307,13 +320,16 @@ public class Rabbit extends Living {
 
     public void eatingFunction(Living target, Living mySelf) {
         if (target != null) {
-            if (target.typeOfLiving.equals("Grass")) {
-                PVector targetVector = PVector.sub(((Grass) target).location, ((Rabbit) mySelf).location);
-                targetVector.normalize();
-                targetVector.mult(mySelf.movementSpeed);
-                ((Rabbit) mySelf).velocity.set(targetVector);
-                //if()
-                Main.allEntities.get(1).arrayOfGrass.remove(((Grass) target));
+            if (this.hunger >= 60f) {
+                if (target.typeOfLiving.equals("Grass")) {
+                    PVector targetVector = PVector.sub(((Grass) target).location, ((Rabbit) mySelf).location);
+                    targetVector.normalize();
+                    targetVector.mult(mySelf.movementSpeed);
+                    ((Rabbit) mySelf).velocity.set(targetVector);
+                    //if()
+                    Main.allEntities.get(1).arrayOfGrass.remove(((Grass) target));
+                    this.hunger = this.hunger - 25f;
+                }
             }
         }
     }
@@ -342,7 +358,7 @@ public class Rabbit extends Living {
     //Add the found rabbit to a new "heaven" array
     //remove the found rabbit from ArrayOfRabbits
     public void seeIfRabbitIsOldEnoughToDie() {
-        if (timeSinceBirth + p.random(25000, 30000) < p.millis()) {
+        if (timeSinceBirth + p.random(40000, 45000) < p.millis()) {
             for (int i = 0; i < Main.allEntities.size(); i++) {
                 for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
                     //if the currently looked at rabbits id is equal to the current rabbits id
@@ -357,6 +373,36 @@ public class Rabbit extends Living {
                 }
             }
         }
+    }
+
+    public void hungerFunction() {
+        //set timer 1 sek
+        if (isHungerTimerOut()) {
+            this.hunger = this.hunger + 5f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
+            startHungerTimer(1000);
+            System.out.println(this.hunger);
+        }
+
+
+        //increase hunger, based on the movemenet speed, with a penalty for moving too fast, exponential curve
+        if (this.hunger >= 100) {
+            for (int i = 0; i < Main.allEntities.size(); i++) {
+                for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
+                    //if the currently looked at rabbits id is equal to the current rabbits id
+                    if (Main.allEntities.get(i).getEntitiesRabbits().get(j).ID == this.ID) {
+                        //then add the current rabbit to the array of dead rabbits in the deadEntities ArrayLists Of Arraylists
+                        //and then remove it so it will appear dead
+                        Living x = Main.allEntities.get(i).getEntitiesRabbits().get(j);
+                        Main.allEntities.get(i).getEntitiesRabbits().remove(j);
+                        Main.allDeadEntities.get(0).arrayOfDeadRabbits.add((Rabbit) x);
+                        System.out.println("Rabbit" + this.ID + "Died of hunger");
+                    }
+                }
+            }
+        }
+        //if 100 hunger, move to heaven array
+        //if food is eaten decrease hunger by certain amount EG 10
+
     }
 
 
@@ -401,7 +447,7 @@ public class Rabbit extends Living {
     }
 
     @Override
-    public int getHunger() {
+    public float getHunger() {
         return super.getHunger();
     }
 

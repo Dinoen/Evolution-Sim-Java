@@ -3,7 +3,6 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-
 public class Main extends PApplet {
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
@@ -16,10 +15,11 @@ public class Main extends PApplet {
 
 
     Entities entitiesOfDeadRabbits;
-
+    GraphingTheData updateGraph;
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
+
     //An arraylist which holds all the living animals on the field
     public static ArrayList<Entities> allEntities;
     public static ArrayList<Entities> allDeadEntities;
@@ -44,7 +44,6 @@ public class Main extends PApplet {
         size(widthOfWindow, heightOfWindow);
         //making the movement smooth, i think, comes from processing
         smooth();
-
     }
 
     //Setup, which creates all the elements of the program
@@ -67,8 +66,8 @@ public class Main extends PApplet {
 
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
-        entitiesOfRabbits.createEntities(this, 20, "Rabbit"); //population is the amount of rabbits spawne
-        entitiesOfGrass.createEntities(this, 15, "Grass");
+        entitiesOfRabbits.createEntities(this, 10, "Rabbit"); //population is the amount of rabbits spawne
+        entitiesOfGrass.createEntities(this, 10, "Grass");
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();

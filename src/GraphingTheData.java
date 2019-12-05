@@ -48,12 +48,12 @@ public class GraphingTheData extends Application {
         xAxis.setAnimated(true);
 
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("SpeedGene");
+        yAxis.setLabel("Rabbit Population Size");
         yAxis.setAnimated(true);
 
         //Creating our linechart and setting the title
         LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-        lineChart.setTitle("SpeedGenes Over Time");
+        lineChart.setTitle("Rabbit Population Size");
 
         //initializing the data XYChart
         data = new XYChart.Series<>();
@@ -63,7 +63,7 @@ public class GraphingTheData extends Application {
         lineChart.setAnimated(true);
         root.getChildren().add(lineChart);
 
-        primaryStage.setTitle("Graph For SpeedGenes");
+        primaryStage.setTitle("Graph For Rabbit PopulationSize");
         primaryStage.setScene(scene);
         primaryStage.show();
 
