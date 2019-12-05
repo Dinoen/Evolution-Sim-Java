@@ -231,7 +231,7 @@ public class Rabbit extends Living {
             }
         }
         if (target != null) {
-            System.out.println(target.typeOfLiving);
+            //System.out.println(target.typeOfLiving);
         }
         return target;
     }
