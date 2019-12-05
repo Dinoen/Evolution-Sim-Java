@@ -358,7 +358,7 @@ public class Rabbit extends Living {
     //Add the found rabbit to a new "heaven" array
     //remove the found rabbit from ArrayOfRabbits
     public void seeIfRabbitIsOldEnoughToDie() {
-        if (timeSinceBirth + p.random(40000, 45000) < p.millis()) {
+        if (timeSinceBirth + p.random(60000, 65000) < p.millis()) {
             for (int i = 0; i < Main.allEntities.size(); i++) {
                 for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
                     //if the currently looked at rabbits id is equal to the current rabbits id
@@ -385,7 +385,7 @@ public class Rabbit extends Living {
 
 
         //increase hunger, based on the movemenet speed, with a penalty for moving too fast, exponential curve
-        if (this.hunger >= 100) {
+        if (this.hunger >= 150) {
             for (int i = 0; i < Main.allEntities.size(); i++) {
                 for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
                     //if the currently looked at rabbits id is equal to the current rabbits id

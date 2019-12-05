@@ -6,13 +6,13 @@ public class Grass extends Plant {
     float y;
     PApplet p;
     public PVector location;
-    float timeintervalSpawn;
+    float timeIntervalSpawn;
     float grassSpawn;
     float timeintervalDespawn;
     float grassDespawn;
     public boolean occupied;
 int time;
-int timer = 10000;
+int timer = 7000;
 
     Grass(PApplet p,float x , float y) {
         this.p = p;
@@ -41,7 +41,7 @@ int timer = 10000;
     }
 
     public void grassSpawn() {
-        if (p.millis() > grassSpawn + timeintervalSpawn && p.millis() - time >= timer) {
+        if (p.millis() > grassSpawn + timeIntervalSpawn && p.millis() - time >= timer && Main.allEntities.get(1).arrayOfGrass.size() <150) {
 
             PVector targetVector = PVector.sub(
                     newGrassLocation(), this.location);
