@@ -158,7 +158,7 @@ public class Rabbit extends Living {
         }
 
 
-        p.ellipse(this.location.x, this.location.y, 16, 16);
+        p.ellipse(this.location.x, this.location.y, 16,16);
 
     }//Displaying method
 
@@ -320,7 +320,7 @@ public class Rabbit extends Living {
 
     public void eatingFunction(Living target, Living mySelf) {
         if (target != null) {
-            if (this.hunger >= 60f) {
+            if (this.hunger >= 25f) {
                 if (target.typeOfLiving.equals("Grass")) {
                     PVector targetVector = PVector.sub(((Grass) target).location, ((Rabbit) mySelf).location);
                     targetVector.normalize();

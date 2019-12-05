@@ -15,7 +15,7 @@ public class Main extends PApplet {
 
 
     Entities entitiesOfDeadRabbits;
-    GraphingTheData updateGraph;
+
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
