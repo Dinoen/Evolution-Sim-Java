@@ -30,6 +30,7 @@ class Living {
     Random randomNumber = new Random();
     PVector location;
     int ID;
+    int generationCounter;
 
     public Living() {
 
@@ -249,9 +250,35 @@ class Living {
             System.out.println("Mutation has happened");
             float mutatedMothersSpeed = fatherSpeed + mutatedSpeed;
             return mutatedMothersSpeed;
-        }
-        else {
-            return reCombinationSpeed(fatherSpeed,motherSpeed);
+        } else {
+            return reCombinationSpeed(fatherSpeed, motherSpeed);
         }
     }
+
+    public int setGenerationNumber(int fatherGeneration, int motherGeneration) {
+        int newGenerationNumber;
+        newGenerationNumber = fatherGeneration;
+        if (newGenerationNumber < motherGeneration) {
+            newGenerationNumber = motherGeneration;
+        }
+        newGenerationNumber++;
+
+        return newGenerationNumber;
+    }
+
+    public int returnLastestRabbitGeneration() {
+        int latestGeneration;
+        latestGeneration = 0;
+
+        for (int i = 0; i < Main.allEntities.size(); i++) {
+            // run through all rabbits
+            for (int j = 0; j < Main.allEntities.get(i).getEntitiesRabbits().size(); j++) {
+                if (latestGeneration < this.generationCounter) {
+                    this.generationCounter = latestGeneration;
+                }
+            }
+        }
+        return latestGeneration;
+    }
 }
+

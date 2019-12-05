@@ -16,7 +16,6 @@ public class Main extends PApplet {
     private int durationTime;
 
     Entities entitiesOfDeadRabbits;
-    //GraphingTheData updateGraph;
 
     //instantiating the Environment for the animals
     static Environment theEnvironment;
@@ -39,8 +38,9 @@ public class Main extends PApplet {
     public void settings() {
         int widthOfWindow = 900;
         int heightOfWindow = 900;
+
         //Size of the program window
-        size(widthOfWindow, heightOfWindow);
+       size(widthOfWindow, heightOfWindow);
         //making the movement smooth, i think, comes from processing
         smooth();
     }
