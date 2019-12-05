@@ -32,10 +32,11 @@ public class Rabbit extends Living {
     float visionRange;
     int amountOfChildren;
     int ID;
+    float prove;
 
 
     //constructor, taking all of the inputs it needs to create a new rabbit
-    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid, int generationCounter) {
+    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid, float visionRange) {
         rand = new Random();
         this.p = pApplet;
         //making it so the incoming X AND Y is tied to the rabbit instance
@@ -52,7 +53,7 @@ public class Rabbit extends Living {
         //make a timer, with 5 sec of run, standard timer
         startSetTargetTimer(5000);
         //distance the rabbits can see from standard
-        this.visionRange = 50f;
+        this.visionRange = visionRange;
         //defining the type of living, in this case rabbit, for creating different entities in the entities class
         this.typeOfLiving = "Rabbit";
         //This is the start of the movement queue/system, which needs to work together with the priority system later
@@ -70,6 +71,8 @@ public class Rabbit extends Living {
         timeSinceBirth = p.millis();
         this.ID = ID;
         this.generationCounter = generationCounter;
+
+        this.prove = visionRange;
 
 
     }
@@ -159,6 +162,11 @@ public class Rabbit extends Living {
 
     }//Displaying method
 
+    public void display2() {
+        p.noFill();
+        p.ellipse(this.location.x, this.location.y, this.visionRange, this.visionRange);
+
+    }
     public void update() {
         // a switch case that control behavier
         switch (movingState) {
@@ -179,6 +187,7 @@ public class Rabbit extends Living {
         }
         display();
         hungerFunction();
+        this.display2();
     }
 
     public boolean isSetTargetTimerIsOut() {
@@ -287,7 +296,7 @@ public class Rabbit extends Living {
                                     //creatig a new rabbit
                                     new Rabbit(p, (int) this.location.x + -10, (int) this.location.y + -10,
                                             Entities.entityUniqueID, false, this.topSpeed,
-                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true, setGenerationNumber(mySelf.generationCounter, target.generationCounter)));
+                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true, this.visionRange));
                             //iterate the unique id
                             Entities.entityUniqueID++;
                         }
