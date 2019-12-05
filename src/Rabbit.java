@@ -25,6 +25,7 @@ public class Rabbit extends Living {
     int setNewHungerTimerDurationTime;
     int timeSinceBirth;
 
+
     //make random for random number creation, for positional stuff
     Random rand;
     //visionRange distance the rabbits can see
@@ -34,7 +35,7 @@ public class Rabbit extends Living {
 
 
     //constructor, taking all of the inputs it needs to create a new rabbit
-    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid) {
+    public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid, int generationCounter) {
         rand = new Random();
         this.p = pApplet;
         //making it so the incoming X AND Y is tied to the rabbit instance
@@ -68,6 +69,7 @@ public class Rabbit extends Living {
         this.isKid = isKid;
         timeSinceBirth = p.millis();
         this.ID = ID;
+        this.generationCounter = generationCounter;
 
 
     }
@@ -284,7 +286,7 @@ public class Rabbit extends Living {
                                     //creatig a new rabbit
                                     new Rabbit(p, (int) this.location.x + -10, (int) this.location.y + -10,
                                             Entities.entityUniqueID, false, this.topSpeed,
-                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true));
+                                            reCombinationSpeed(mySelf.movementSpeed, target.movementSpeed), maleOrFemale(), true, setGenerationNumber(mySelf.generationCounter,target.generationCounter)));
                             //iterate the unique id
                             Entities.entityUniqueID++;
                         }
@@ -293,6 +295,7 @@ public class Rabbit extends Living {
                         mySelf.readyForMating = false;
                         //print out the array of rabbit so the new rabbits it counted as well
                         System.out.println(Main.allEntities.get(0).arrayOfRabbits.size());
+                        System.out.println(mySelf.generationCounter);
                     }
                 }
             }
