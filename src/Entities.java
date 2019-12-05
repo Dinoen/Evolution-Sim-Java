@@ -33,12 +33,12 @@ public class Entities {
                 for (int i = 0; i < entityListSize; i++) {
                     //change modulus stuff, bcause its messy AF
                     if (i % 2 == 0) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Male",false);
+                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Male",false, p.random(80,110));
                         arrayOfRabbits.add(rabbit);
                         entityUniqueID++;
                     }
                     if (i % 2 == 1) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Female",false);
+                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Female",false, p.random(80,110));
                         arrayOfRabbits.add(rabbit);
                         entityUniqueID++;
                     }
