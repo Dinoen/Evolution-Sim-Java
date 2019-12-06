@@ -7,30 +7,43 @@ import java.util.Random;
 class Living {
     PApplet p;
     //easy access to attributes of all living things.
-    public int visionrange;
-    public boolean alive;
-    public boolean hungry;
-    public boolean thirsty;
-    public float x;
-    public float y;
-    public float movementSpeed;
-    public int sightDist;
-    public int sizeOfAnimal;
-    public float hunger; // will go from 0 to 100, increasing with activity
-    public int MAXHunger; // 100 at which point they die
-    public int Thirst;  // will go from 0 to 100, increasing with activity
-    public int MAXThirst;
-    public int urgeToReproduce;
-    public int MAXUrgeToReproduce;
-    public String typeOfLiving;
-    public int movingState;
-    public boolean readyForMating;
-    public String gender;
-    boolean isKid;
-    Random randomNumber = new Random();
-    PVector location;
-    int ID;
-    int generationCounter;
+
+    //NO!
+    Random randomNumber = new Random(); //SHOULD BE p.RANDOM
+
+    //ANIMAL
+    public int visionRange; //NOT USED //SHOULD BE USED
+    public boolean hungry; //NOT USED //SHOULD BE USED
+    public boolean thirsty; //NOT USED
+    public float movementSpeed; //NOT USED //SHOULD BE USED
+    public int sightDist; //NOT USED //SHOULD BE USED
+    public int sizeOfAnimal; //NOT USED
+    public float hunger; // will go from 0 to 100, increasing with activity //NOT USED //SHOULD BE USED
+    public int MAXHunger; // 100 at which point they die //NOT USED //SHOULD BE USED
+    public int Thirst;  // will go from 0 to 100, increasing with activity // NOT USED
+    public int MAXThirst; //NOT USED
+    public int movingState; //USED A LOT
+    int generationCounter; //SHOULD BE USED
+
+    //RABBIT SPECIFIC
+    public String gender; //USED A LOT //SHOULD BE ENUM
+    boolean isKid; //USED A LOT
+    public boolean readyForMating; //USED A LOT
+    public int urgeToReproduce; //NOT USED //SHOULD BE USED
+    public int MAXUrgeToReproduce; //NOT USED
+
+
+    //PLANT
+
+
+    //USED BY BOTH
+    public float x; //NOT USED
+    public float y; //NOT USED
+    public boolean alive; //NOT USED //MAYBE SHOULD BE USED
+    public String typeOfLiving; //USED A LOT //SHOULD NOT RELY ON STRING BUT ON THE OBJECT TYPE
+    PVector location; // USED A LOT
+    int ID; //USED A LOT
+
 
     public Living() {
 
@@ -150,11 +163,11 @@ class Living {
     }
 
     public int getVisionrange() {
-        return visionrange;
+        return visionRange;
     }
 
     public void setVisionrange(int visionrange) {
-        this.visionrange = visionrange;
+        this.visionRange = visionrange;
     }
 
     public boolean isAlive() {

@@ -3,15 +3,17 @@ import processing.core.PVector;
 
 public class Grass extends Plant {
 
-    float x;
-    float y;
+    float x; //LIVING
+    float y; //LIVING
     PApplet p;
-    public PVector location;
-    float timeIntervalSpawn;
-    float grassSpawn;
-    float timeintervalDespawn;
-    float grassDespawn;
-    public boolean occupied;
+    public PVector location; //LIVING
+    float timeIntervalSpawn; //TIMER CLASS
+    float grassSpawn; //PLANT ABSTRACT CLASS
+    float timeintervalDespawn; //TIMER CLASS
+    float grassDespawn; //PLANT ABSTRACT CLASS
+    public boolean occupied; //NOT USED
+
+    //TIMER CLASS
     int time;
     int timer = 10000;
 
@@ -26,7 +28,6 @@ public class Grass extends Plant {
 
         typeOfLiving = "Grass";
         this.time = p.millis();
-
 
         occupied = false;
 

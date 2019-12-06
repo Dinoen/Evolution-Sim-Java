@@ -3,6 +3,8 @@ import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.*;
@@ -17,11 +19,15 @@ public class GraphingTheData extends Application {
 
     PApplet p = new PApplet();
     public static boolean openGraphWhenMouse;
+    Stage window;
+    Scene scene1, scene2;
 
     //creating an XYCHART that is called data
     XYChart.Series<Number, Number> data;
+    XYChart.Series<Number, Number> data1;
     //creating the ScheduledExecutorService
     private ScheduledExecutorService scheduledExecutorService;
+    private ScheduledExecutorService scheduledExecutorService1;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,17 +36,23 @@ public class GraphingTheData extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        init(primaryStage);
         //initializing the primary stage function
         openGraphWhenMouse = false;
-        init(primaryStage);
-        //init1(primaryStage);
-        rabbitPopulationSize();
     }
 
     private void init(Stage primaryStage) {
+
+        window = primaryStage;
         HBox root = new HBox();
-        //The scene has its root in the HBox
-        Scene scene = new Scene(root, 450, 330);
+        scene2 = new Scene(root, 450, 330);
+
+        window.setScene(scene2);
+
+        Button button2 = new Button("Go to speed gene graph");
+        button2.setOnAction(e -> window.close());
+        button2.setOnAction(e -> window.setScene(scene2));
+
 
         //Creating two numberAxis x and y. These are animated and the are labelt
         NumberAxis xAxis = new NumberAxis();
@@ -63,9 +75,6 @@ public class GraphingTheData extends Application {
         lineChart.setAnimated(true);
         root.getChildren().add(lineChart);
 
-        primaryStage.setTitle("First Graph");
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(() -> {
@@ -77,44 +86,47 @@ public class GraphingTheData extends Application {
 
         //rabbitPopulationSize();
         //sequentially returning a task object, and we are using fixed rate
-    }
 
-    private void init1(Stage primaryStage) {
-        HBox root = new HBox();
-        Scene scene = new Scene(root,600,600);
+        HBox root1 = new HBox();
+        Scene scene1 = new Scene(root1,450,330);
 
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Time");
-        xAxis.setAnimated(true);
+        Button button1 = new Button("Go to populationSize");
+        button1.setOnAction(e -> window.close());
+        button1.setOnAction(e -> window.setScene(scene1));
+        root.getChildren().addAll(button1);
+        root1.getChildren().addAll(button2);
 
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("The Overall Population");
-        yAxis.setAnimated(true);
+        NumberAxis xAxis1 = new NumberAxis();
+        xAxis1.setLabel("Time");
+        xAxis1.setAnimated(true);
+
+        NumberAxis yAxis1 = new NumberAxis();
+        yAxis1.setLabel("The Overall Population");
+        yAxis1.setAnimated(true);
 
         //Creating our linechart and setting the title
-        LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-        lineChart.setTitle("Graph of Data");
+        LineChart<Number, Number> lineChart1 = new LineChart<Number, Number>(xAxis1, yAxis1);
+        lineChart1.setTitle("Graph of Data");
 
         //initializing the data XYChart
-        data = new XYChart.Series<>();
+        data1 = new XYChart.Series<>();
 
-        lineChart.getData().add(data);
-        lineChart.setAnimated(true);
-        root.getChildren().add(lineChart);
+        lineChart1.getData().add(data1);
+        lineChart1.setAnimated(true);
+        root1.getChildren().add(lineChart1);
 
-        primaryStage.setTitle("First Graph");
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
-        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(() -> {
+        scheduledExecutorService1 = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService1.scheduleAtFixedRate(() -> {
             //here we are sending the data to a que that runsLater or runs when it it supposed to.
             Platform.runLater(() -> {
-                data.getData().add(new XYChart.Data<Number, Number>(returnMillisecSinceBeginning(), rabbitPopulationSize()));
+                data1.getData().add(new XYChart.Data<Number, Number>(returnMillisecSinceBeginning(), rabbitPopulationSize()));
             });
         }, 0, 1, TimeUnit.SECONDS);
 
+        window.show();
     }
+
 
     public int rabbitPopulationSize() {
 

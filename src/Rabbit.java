@@ -11,11 +11,13 @@ public class Rabbit extends Living {
     //papplet creation
     PApplet p;
     //make 3 PVectors
-    PVector location; // our current X AND Y
-    PVector velocity; // OUR ANGLE
-    PVector acceleration; // GETTING TO OUR SPEED, which is created later on
+    PVector location; // our current X AND Y //LIVING
+    PVector velocity; // OUR ANGLE //TODO: MOVE TO ANIMAL
+    PVector acceleration; // GETTING TO OUR SPEED, which is created later on //TODO: MOVE TO ANIMAL
     //create a float controlling topspeed
-    float topSpeed;
+    float topSpeed; //TODO: MOVE TO ANIMAL
+
+    //TIMER CLASS
     //make ints for timers, in real time
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
@@ -26,13 +28,15 @@ public class Rabbit extends Living {
     int timeSinceBirth;
 
 
+    //PROCESSING RANDOM INSTEAD
     //make random for random number creation, for positional stuff
     Random rand;
+
     //visionRange distance the rabbits can see
-    float visionRange;
-    int amountOfChildren;
-    int ID;
-    float prove;
+    float visionRange; //TODO: SHOULD BE MOVED TO ANIMAL
+    int amountOfChildren; //SPECIFIC FOR RABBIT
+    int ID; //LIVING
+    float prove; //VISIONRANGE TODO: MOVED TO ANIMAL
 
 
     //constructor, taking all of the inputs it needs to create a new rabbit

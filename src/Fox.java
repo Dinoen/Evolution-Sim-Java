@@ -6,13 +6,16 @@ import java.util.Random;
 public class Fox extends Living {
 
     PApplet p;
-    float topSpeed;
+    float topSpeed; //ANIMAL
+
+    //TIMER CLASS
     int setNewTargetTimerStartTime;
     int setNewTargetTimerDurationTime;
-    PVector location; // our current X AND Y
-    PVector velocity; // OUR ANGLE
-    PVector acceleration; // GETTING TO OUR SPEED, which is created later on
-    float visionRange;
+
+    PVector location; // our current X AND Y //LIVING
+    PVector velocity; // OUR ANGLE //TODO: SHOULD BE MOVED TO ANIMAL
+    PVector acceleration; // GETTING TO OUR SPEED, which is created later on //TODO: SHOULD BE MOVED TO ANIMAL
+    float visionRange; //TODO: MOVED TO ANIMAL
 
     public Fox(PApplet pApplet, float x, float y, float movementSpeed, float topSpeed) {
         this.p = pApplet;
