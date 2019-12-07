@@ -1,8 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import java.util.Random;
-
 public class Fox extends Living {
 
     PApplet p;
@@ -292,11 +290,6 @@ public class Fox extends Living {
     @Override
     public void setThirsty(boolean thirsty) {
         super.setThirsty(thirsty);
-    }
-
-    @Override
-    public void setRandomNumber(Random randomNumber) {
-        super.setRandomNumber(randomNumber);
     }
 
     @Override

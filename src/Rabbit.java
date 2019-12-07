@@ -3,8 +3,6 @@ import processing.core.PConstants;
 import processing.core.PVector;
 
 import java.util.ArrayList;
-import java.util.Random;
-
 //Rabbit class
 public class Rabbit extends Living {
 
@@ -29,8 +27,7 @@ public class Rabbit extends Living {
 
 
     //PROCESSING RANDOM INSTEAD
-    //make random for random number creation, for positional stuff
-    Random rand;
+    //make random for random number creation, for positional stufF
 
     //visionRange distance the rabbits can see
     float visionRange; //TODO: SHOULD BE MOVED TO ANIMAL
@@ -41,7 +38,6 @@ public class Rabbit extends Living {
 
     //constructor, taking all of the inputs it needs to create a new rabbit
     public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid, float visionRange) {
-        rand = new Random();
         this.p = pApplet;
         //making it so the incoming X AND Y is tied to the rabbit instance
         this.x = x;
@@ -356,8 +352,7 @@ public class Rabbit extends Living {
     //quick function which spits out either a string "Male" or "Female"
     public String maleOrFemale() {
         String gender;
-        Random rand = new Random();
-        if (rand.nextInt(2) == 0) {
+        if (p.random(2) == 0) {
             gender = "Male";
         } else {
             gender = "Female";
@@ -505,11 +500,6 @@ public class Rabbit extends Living {
     @Override
     public void setThirsty(boolean thirsty) {
         super.setThirsty(thirsty);
-    }
-
-    @Override
-    public void setRandomNumber(Random randomNumber) {
-        super.setRandomNumber(randomNumber);
     }
 
     @Override

@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 //Used to be our animal superclass
-import java.util.Random;
+
 
 //superclass, holding all the relevant things for living objects, eg rabbits and foxes
 class Living {
@@ -9,7 +9,7 @@ class Living {
     //easy access to attributes of all living things.
 
     //NO!
-    Random randomNumber = new Random(); //SHOULD BE p.RANDOM
+
 
     //ANIMAL
     public int visionRange; //NOT USED //SHOULD BE USED
@@ -186,10 +186,6 @@ class Living {
         this.thirsty = thirsty;
     }
 
-    public void setRandomNumber(Random randomNumber) {
-        this.randomNumber = randomNumber;
-    }
-
     public boolean isHungry() {
         return hungry;
     }
@@ -232,14 +228,10 @@ class Living {
     //takes two arguments, which is the speed of both parents
     public float reCombinationSpeed(float fatherSpeed, float motherSpeed) {
         //for now it is random, but later it will have a relation for the food / energy expenditure
-        //create a random generator
-        Random rand = new Random();
-        Random mutateRand = new Random();
-        //Make random number from 0-100, so we have a percent chance
-        float ourRandomNumber = rand.nextInt(100);
+        float ourRandomNumber = p.random(100);
         //reusing a random, which is being
         //float rand.nextFloat() makes a float from 0-1
-        float mutatedSpeed = mutateRand.nextFloat();
+        float mutatedSpeed = (p.random(0,100)/100);
 
         //first 45 % chance 0-44, then just return the female original speed
         if (ourRandomNumber <= 44) {
@@ -247,7 +239,7 @@ class Living {
         }
 
         //next 45% chance of the fathers genes being given to the children
-        else if (ourRandomNumber >= 45 && rand.nextInt() <= 89) {
+        else if (ourRandomNumber >= 45 && ourRandomNumber <= 89) {
             return motherSpeed;
         }
 
