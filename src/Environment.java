@@ -1,9 +1,17 @@
 import processing.core.PApplet;
 //another part of procesing
 import processing.core.PConstants;
+import processing.core.PVector;
+
+import java.beans.PropertyVetoException;
 
 public class Environment {
     PApplet p;
+
+    public PApplet PAStage() {return p; }
+
+
+
     //size of the green area // ground area
     int groundWidth;
     int groundHeight;
@@ -27,5 +35,20 @@ public class Environment {
     //update function to be run in the main class, which updates every aspect of the environment
     public void update(){
        displayGround(this.p);
+    }
+
+    public PVector RandomLocation() {
+
+
+//        PVector newlocation = new PVector();
+//        //chose random coordinates from the middle of the screen
+//        newlocation.x = p.width / 2 + p.random(-400, 400);
+//        newlocation.y = p.height / 2 + p.random(-400, 400);
+//        //return the new location
+//        return newlocation;
+
+        return new PVector(
+                p.width / 2 + p.random(-400, 400),
+                p.height / 2 + p.random(-400, 400));
     }
 }

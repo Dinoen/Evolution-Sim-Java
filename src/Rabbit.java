@@ -2,39 +2,38 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
 
+import java.awt.*;
 import java.util.ArrayList;
 //Rabbit class
-public class Rabbit extends Living {
+public class Rabbit extends Animal { // Living {
 
-    //papplet creation
-    PApplet p;
-    //make 3 PVectors
-    PVector location; // our current X AND Y //LIVING
-    PVector velocity; // OUR ANGLE //TODO: MOVE TO ANIMAL
-    PVector acceleration; // GETTING TO OUR SPEED, which is created later on //TODO: MOVE TO ANIMAL
-    //create a float controlling topspeed
-    float topSpeed; //TODO: MOVE TO ANIMAL
+    protected static final Color DEFAULT_RABBIT_COLOR = new Color(255,255,255);
+
+    protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15,15);
+
+
+    protected static final Color MaleRabbitColor = new Dimension(15,15);
+
+
+
+
+
 
     //TIMER CLASS
     //make ints for timers, in real time
-    int setNewTargetTimerStartTime;
-    int setNewTargetTimerDurationTime;
     int setReadyForMatingStartTime;
     int setReadyForMatingDurationTime;
     int setNewHungerTimerStartTime;
     int setNewHungerTimerDurationTime;
-    int timeSinceBirth;
+
+    protected int amountOfChildren; //SPECIFIC FOR RABBIT
 
 
-    //PROCESSING RANDOM INSTEAD
-    //make random for random number creation, for positional stufF
 
-    //visionRange distance the rabbits can see
-    float visionRange; //TODO: SHOULD BE MOVED TO ANIMAL
-    int amountOfChildren; //SPECIFIC FOR RABBIT
-    int ID; //LIVING
-    float prove; //VISIONRANGE TODO: MOVED TO ANIMAL
+    public Rabbit(PApplet papplet, int id, PVector location, float movementSpeed, float topSpeed) {
+        super(papplet, id, location, DEFAULT_FOX_COLOR, DEFAULT_FOX_SIZE, EntityShape.Triangle);
 
+    }
 
     //constructor, taking all of the inputs it needs to create a new rabbit
     public Rabbit(PApplet pApplet, float x, float y, int ID, boolean readyForMating, float topSpeed, float movementSpeed, String gender, boolean isKid, float visionRange) {
@@ -421,180 +420,180 @@ public class Rabbit extends Living {
 
     }
 
-
-    @Override
-    public float getX() {
-        return super.getX();
-    }
-
-    @Override
-    public void setX(int x) {
-        super.setX(x);
-    }
-
-    @Override
-    public float getY() {
-        return super.getY();
-    }
-
-    @Override
-    public void setY(int y) {
-        super.setY(y);
-    }
-
-    @Override
-    public int getSizeOfAnimal() {
-        return super.sizeOfAnimal;
-    }
-
-    @Override
-    public void setSizeOfAnimal(int sizeOfAnimal) {
-        this.sizeOfAnimal = sizeOfAnimal;
-    }
-
-    @Override
-    public float getMovementSpeed() {
-        return super.getMovementSpeed();
-    }
-
-    @Override
-    public void setMovementSpeed(int movementSpeed) {
-        super.setMovementSpeed(movementSpeed);
-    }
-
-    @Override
-    public float getHunger() {
-        return super.getHunger();
-    }
-
-    @Override
-    public void setHunger(int hunger) {
-        super.setHunger(hunger);
-    }
-
-    @Override
-    public int getVisionrange() {
-        return super.getVisionrange();
-    }
-
-    @Override
-    public void setVisionrange(int visionrange) {
-        super.setVisionrange(visionrange);
-    }
-
-    @Override
-    public boolean isAlive() {
-        return super.isAlive();
-    }
-
-    @Override
-    public void setAlive(boolean alive) {
-        super.setAlive(alive);
-    }
-
-    @Override
-    public void setHungery(boolean hungry) {
-        super.setHungery(hungry);
-    }
-
-    @Override
-    public void setThirsty(boolean thirsty) {
-        super.setThirsty(thirsty);
-    }
-
-    @Override
-    public boolean isHungry() {
-        return super.isHungry();
-    }
-
-    @Override
-    public boolean isThirsty() {
-        return super.isThirsty();
-    }
-
-    @Override
-    public int getSightDist() {
-        return super.getSightDist();
-    }
-
-    @Override
-    public void setSightDist(int sightDist) {
-        super.setSightDist(sightDist);
-    }
-
-    @Override
-    public int getMAXHunger() {
-        return super.getMAXHunger();
-    }
-
-    @Override
-    public void setMAXHunger(int MAXHunger) {
-        super.setMAXHunger(MAXHunger);
-    }
-
-    @Override
-    public int getMAXThirst() {
-        return super.getMAXThirst();
-    }
-
-    @Override
-    public void setMAXThirst(int MAXThirst) {
-        super.setMAXThirst(MAXThirst);
-    }
-
-    @Override
-    public int getUrgeToReproduce() {
-        return super.getUrgeToReproduce();
-    }
-
-    @Override
-    public void setUrgeToReproduce(int urgeToReproduce) {
-        super.setUrgeToReproduce(urgeToReproduce);
-    }
-
-    @Override
-    public int getMAXUrgeToReproduce() {
-        return super.getMAXUrgeToReproduce();
-    }
-
-    @Override
-    public void setMAXUrgeToReproduce(int MAXUrgeToReproduce) {
-        super.setMAXUrgeToReproduce(MAXUrgeToReproduce);
-    }
-
-    @Override
-    public void EatFood() {
-        super.EatFood();
-    }//Method for eating
-
-    @Override
-    public void DrinkWater() {
-        super.DrinkWater();
-    }//Method for drinking
-
-    @Override
-    public void SearchForFood() {
-        super.SearchForFood();
-    }
-
-    @Override
-    public void SearchForWater() {
-        super.SearchForWater();
-    }
-
-    @Override
-    public int getThirst() {
-        return super.getThirst();
-    }
-
-    @Override
-    public void setThirst(int thirst) {
-        super.setThirst(thirst);
-    }
-
-    @Override
-    public PVector getLocation() {
-        return location;
-    }
+//
+//    @Override
+//    public float getX() {
+//        return super.getX();
+//    }
+//
+//    @Override
+//    public void setX(int x) {
+//        super.setX(x);
+//    }
+//
+//    @Override
+//    public float getY() {
+//        return super.getY();
+//    }
+//
+//    @Override
+//    public void setY(int y) {
+//        super.setY(y);
+//    }
+//
+//    @Override
+//    public int getSizeOfAnimal() {
+//        return super.sizeOfAnimal;
+//    }
+//
+//    @Override
+//    public void setSizeOfAnimal(int sizeOfAnimal) {
+//        this.sizeOfAnimal = sizeOfAnimal;
+//    }
+//
+//    @Override
+//    public float getMovementSpeed() {
+//        return super.getMovementSpeed();
+//    }
+//
+//    @Override
+//    public void setMovementSpeed(int movementSpeed) {
+//        super.setMovementSpeed(movementSpeed);
+//    }
+//
+//    @Override
+//    public float getHunger() {
+//        return super.getHunger();
+//    }
+//
+//    @Override
+//    public void setHunger(int hunger) {
+//        super.setHunger(hunger);
+//    }
+//
+//    @Override
+//    public int getVisionrange() {
+//        return super.getVisionrange();
+//    }
+//
+//    @Override
+//    public void setVisionrange(int visionrange) {
+//        super.setVisionrange(visionrange);
+//    }
+//
+//    @Override
+//    public boolean isAlive() {
+//        return super.isAlive();
+//    }
+//
+//    @Override
+//    public void setAlive(boolean alive) {
+//        super.setAlive(alive);
+//    }
+//
+//    @Override
+//    public void setHungery(boolean hungry) {
+//        super.setHungery(hungry);
+//    }
+//
+//    @Override
+//    public void setThirsty(boolean thirsty) {
+//        super.setThirsty(thirsty);
+//    }
+//
+//    @Override
+//    public boolean isHungry() {
+//        return super.isHungry();
+//    }
+//
+//    @Override
+//    public boolean isThirsty() {
+//        return super.isThirsty();
+//    }
+//
+//    @Override
+//    public int getSightDist() {
+//        return super.getSightDist();
+//    }
+//
+//    @Override
+//    public void setSightDist(int sightDist) {
+//        super.setSightDist(sightDist);
+//    }
+//
+//    @Override
+//    public int getMAXHunger() {
+//        return super.getMAXHunger();
+//    }
+//
+//    @Override
+//    public void setMAXHunger(int MAXHunger) {
+//        super.setMAXHunger(MAXHunger);
+//    }
+//
+//    @Override
+//    public int getMAXThirst() {
+//        return super.getMAXThirst();
+//    }
+//
+//    @Override
+//    public void setMAXThirst(int MAXThirst) {
+//        super.setMAXThirst(MAXThirst);
+//    }
+//
+//    @Override
+//    public int getUrgeToReproduce() {
+//        return super.getUrgeToReproduce();
+//    }
+//
+//    @Override
+//    public void setUrgeToReproduce(int urgeToReproduce) {
+//        super.setUrgeToReproduce(urgeToReproduce);
+//    }
+//
+//    @Override
+//    public int getMAXUrgeToReproduce() {
+//        return super.getMAXUrgeToReproduce();
+//    }
+//
+//    @Override
+//    public void setMAXUrgeToReproduce(int MAXUrgeToReproduce) {
+//        super.setMAXUrgeToReproduce(MAXUrgeToReproduce);
+//    }
+//
+//    @Override
+//    public void EatFood() {
+//        super.EatFood();
+//    }//Method for eating
+//
+//    @Override
+//    public void DrinkWater() {
+//        super.DrinkWater();
+//    }//Method for drinking
+//
+//    @Override
+//    public void SearchForFood() {
+//        super.SearchForFood();
+//    }
+//
+//    @Override
+//    public void SearchForWater() {
+//        super.SearchForWater();
+//    }
+//
+//    @Override
+//    public int getThirst() {
+//        return super.getThirst();
+//    }
+//
+//    @Override
+//    public void setThirst(int thirst) {
+//        super.setThirst(thirst);
+//    }
+//
+//    @Override
+//    public PVector getLocation() {
+//        return location;
+//    }
 
 }
