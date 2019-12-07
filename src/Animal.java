@@ -2,7 +2,6 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.awt.*;
-import java.beans.PropertyVetoException;
 
 // Superclass for animals
 public abstract class Animal extends Living {
@@ -11,12 +10,20 @@ public abstract class Animal extends Living {
     protected static final int MAX_HUNGER = 100; // This should most likely be somewhere else
 
 
-    protected  void setTopSpeed(float topSpeed) {
-        this.animalTopSpeed = topSpeed;
+    protected  void setTopSpeed(float value) {
+        this.animalTopSpeed = value;
     }
 
-    public void setMovementSpeed(float movementSpeed) {
-        this.movementSpeed = movementSpeed;
+    protected  float getTopSpeed() {
+        return animalTopSpeed;
+    }
+
+
+
+
+
+    public void setMovementSpeed(float value) {
+        this.movementSpeed = value;
     }
 
     public float getMovementSpeed() {
@@ -31,6 +38,14 @@ public abstract class Animal extends Living {
         return visionRange;
     }
 
+    protected PVector getVelocity() {
+        return velocity;
+    }
+
+    protected void setVelocity(PVector value) {
+        this.velocity = value;
+    }
+
     public enum AnimalGender {
         FEMALE,
         MALE
@@ -43,6 +58,8 @@ public abstract class Animal extends Living {
     protected float hunger;
     protected float animalTopSpeed = 100; // TODO: fix values
     protected float movementSpeed = 2; // TODO: fix vallues
+    protected boolean readyForMating = false;
+
 
     // How long an animal can keep its focus ie. Duration of its timer
     private int animalFocusDuration = 5000; // TODO: Fix values
@@ -56,12 +73,12 @@ public abstract class Animal extends Living {
 
     public AnimalGender Gender;
 
-    protected PVector velocity = new PVector(0,0);
+    private PVector velocity = new PVector(0,0);
     protected PVector acceleration = new PVector(0,0);
 
 
     // Controls when this entity randomly change its direction of it has nothing better to do
-    protected ActionTimer DirectionTimer = new ActionTimer(Main.theEnvironment.p.random(2000, 5000);
+    protected ActionTimer DirectionTimer = new ActionTimer((int) Main.theEnvironment.p.random(2000, 5000));
 
 
 
@@ -75,6 +92,12 @@ public abstract class Animal extends Living {
 
     public Animal(PApplet papplet, int id, PVector location, Color color, Dimension size, EntityShape shape) {
         super(papplet, id, location, color, size, shape);
+    }
+
+    public Animal(PApplet papplet, int id, PVector location, Color color, Dimension size, EntityShape shape, AnimalGender gender) {
+        super(papplet, id, location, color, size, shape);
+
+        Gender = gender;
     }
 
 

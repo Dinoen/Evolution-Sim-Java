@@ -48,7 +48,7 @@ public abstract class Entity {
     private  Dimension entitySize;
 
 
-    private EntityShape entityShape;
+    private final EntityShape entityShape;
 
 
     //TODO:  Only used if we want entities to write to the ui
@@ -68,6 +68,7 @@ public abstract class Entity {
 
     // TODO: Fix CenterLocation
     protected Entity(PApplet papplet,int id, Color color) {
+
         this(papplet, id,  Main.CenterLocation,  color);
     }
 
@@ -83,6 +84,8 @@ public abstract class Entity {
         entityLocation = location;
         setEntityColor(color);
         setEntitySize(size);
+        entityShape = shape;
+
 
         Caption = String.format("ID: %d", _id);
     }
@@ -133,6 +136,9 @@ public abstract class Entity {
 
         EntityUpdate(env);
     }
+
+
+
 
     public void display(Environment env) {
         if (this.getDeleted()) return;

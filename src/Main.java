@@ -82,9 +82,9 @@ public class Main extends PApplet {
 
         //Creating the population of the rabbits.
         //createPopulation comes from the population class, and holds all the rabbits in an arraylist
-        entitiesOfRabbits.createEntities(this, 10, "Rabbit"); //population is the amount of rabbits spawne
-        entitiesOfGrass.createEntities(this, 10, "Grass");
-        entitiesOfFoxes.createEntities(this,2,"Fox");
+        entitiesOfRabbits.createEntities(this, 10, Rabbit.class); //population is the amount of rabbits spawne
+        entitiesOfGrass.createEntities(this, 10, Grass.class);
+        entitiesOfFoxes.createEntities(this,2,Fox.class);
 
         //AllEntities list, which holds all the different population lists
         allEntities = new ArrayList<>();
@@ -118,6 +118,11 @@ public class Main extends PApplet {
             entitiesOfRabbits.update();
             entitiesOfGrass.update();
             entitiesOfFoxes.update();
+
+            entitiesOfRabbits.display();
+            entitiesOfGrass.display();
+            entitiesOfFoxes.display();
+
             openGraph.update();
         }
     }

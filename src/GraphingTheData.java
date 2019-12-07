@@ -147,7 +147,7 @@ public class GraphingTheData extends Application {
 
         for (int i = 0; i < Main.allEntities.get(0).getEntities().size(); i++) {
             if (Main.allEntities.get(0).getEntities().get(i) != null) {
-                amount = amount+ Main.allEntities.get(0).getEntities().get(i).movementSpeed;
+                amount = amount+  ((Rabbit) Main.allEntities.get(0).getEntities().get(i)).movementSpeed;
             }
         }
         theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntities().size();

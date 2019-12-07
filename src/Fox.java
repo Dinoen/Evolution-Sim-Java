@@ -2,8 +2,6 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.awt.*;
-import java.beans.PropertyVetoException;
-import java.util.Collection;
 
 public class Fox extends Animal {
 
@@ -39,11 +37,11 @@ public class Fox extends Animal {
         //newLocation();
         //set topspeed, and this just ties the angle we're going to that MAX speed
         //setting the maximum speed to be moving along the velocity vector
-        velocity.limit(animalTopSpeed);
+        getVelocity().limit(animalTopSpeed);
         //adding acceleration
-        velocity.add(acceleration);
+        getVelocity().add(acceleration);
         //adds the velocity (our angle) to our location
-        entityLocation.add(velocity);
+        entityLocation.add(getVelocity());
 
 
         if (this.DirectionTimer.IsDone()) {
@@ -55,18 +53,18 @@ public class Fox extends Animal {
             //multiplying the movementSpeed with the direction
             direction.mult(this.movementSpeed);
             //set the angle to the same angle as the direction
-            velocity.set(direction);
+            getVelocity().set(direction);
 
             this.DirectionTimer.Reset((int) p.random(2000, 5000));
         }
 
         if (this.entityLocation.x >= p.width / 2 + 400 || this.entityLocation.x <= p.width / 2 - 400) {
             //velocity = new PVector(p.width/2 ,p.height/2);
-            velocity.rotate(p.HALF_PI);
+            getVelocity().rotate(p.HALF_PI);
 
         }
         if (entityLocation.y >= p.height / 2 + 400 || this.entityLocation.y <= p.height / 2 - 400) {
-            velocity.rotate(p.HALF_PI);
+            getVelocity().rotate(p.HALF_PI);
         }
 
         stopWhenSeeingRabbit(vision());
@@ -129,7 +127,7 @@ public class Fox extends Animal {
                 PVector targetVector = PVector.sub(target.entityLocation, this.entityLocation);
                 targetVector.normalize();
                 targetVector.mult(this.movementSpeed);
-                this.velocity.set(targetVector);
+                this.getVelocity().set(targetVector);
 
                 // TODO: Interdasting!
                 Main.allEntities.get(0).arrayOfEntities.remove(((Rabbit) target));
