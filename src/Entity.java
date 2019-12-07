@@ -10,7 +10,7 @@ import java.awt.*;
 // This class holds common properties, ie: location and such
 public abstract class Entity {
 
-    // TODO: Make this static final in entity
+
     protected PApplet p;
 
     public enum EntityShape {
@@ -51,16 +51,16 @@ public abstract class Entity {
     private final EntityShape entityShape;
 
 
-    //TODO:  Only used if we want entities to write to the ui
+    // Used if we want entities to write to the ui
     protected String Caption;
 
-    // TODO: Only use when GC is enabled 1
-    private boolean deleted = false;
-    // TODO: Only use when GC is enabled 2
-    public boolean getDeleted() { return deleted; }
-    // TODO: Only use when GC is enabled 3
-    public void Delete() { deleted = true; }
 
+//    private boolean deleted = false;
+
+//    public boolean getDeleted() { return deleted; }
+
+//    public void Delete() { deleted = true; }
+//
 
 
     // Now for the fun stuff
@@ -132,7 +132,7 @@ public abstract class Entity {
     // update named like Processing library suggest
     public final void update(Environment env) {
 
-        if (this.getDeleted()) return;
+        //if (this.getDeleted()) return;
 
         EntityUpdate(env);
     }
@@ -141,7 +141,7 @@ public abstract class Entity {
 
 
     public void display(Environment env) {
-        if (this.getDeleted()) return;
+        //if (this.getDeleted()) return;
 
         PVector currentLocation = this.getLocation();
         Color currentColor = this.getEntityColor();

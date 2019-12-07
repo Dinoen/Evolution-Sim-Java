@@ -4,10 +4,8 @@
     <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Living.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Living.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Rabbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rabbit.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -139,7 +137,7 @@
       <workItem from="1575580385705" duration="107000" />
       <workItem from="1575580526892" duration="50000" />
       <workItem from="1575658442231" duration="6300000" />
-      <workItem from="1575716184324" duration="30577000" />
+      <workItem from="1575716184324" duration="36694000" />
     </task>
     <task id="LOCAL-00001" summary="New Mating.java to test my Github abilities &#10;&#10;(cherry picked from commit db2b4844511cf0139c69d56b59e3d7b01ad0ecf1)">
       <created>1571239987723</created>
@@ -189,5 +187,16 @@
     <MESSAGE value="New Mating.java to test my Github abilities &#10;&#10;(cherry picked from commit db2b4844511cf0139c69d56b59e3d7b01ad0ecf1)" />
     <MESSAGE value="Able to create interactive objects" />
     <option name="LAST_COMMIT_MESSAGE" value="Able to create interactive objects" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Rabbit.java</url>
+          <line>367</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

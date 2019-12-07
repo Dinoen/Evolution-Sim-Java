@@ -13,6 +13,7 @@ public class Grass extends Plant {
     // No matter what, there will not be more grass than this
     private static final int  MAXIMUM_AMOUNT_OF_GRASS = 15;
 
+    private static final  int DEFAULT_GRASS_DESPAWN_TIMER = 15000;
 
 
     // Not used?
@@ -24,6 +25,9 @@ public class Grass extends Plant {
     // Respawn grass
     float timeIntervalSpawn; //TIMER CLASS
     float grassSpawn; //PLANT ABSTRACT CLASS
+
+    protected  ActionTimer DespawnTimer = new ActionTimer(DEFAULT_GRASS_DESPAWN_TIMER);
+
 
     // TODO: Use timer class
     //TIMER CLASS
@@ -89,6 +93,13 @@ public class Grass extends Plant {
 
 
     private void grassSpawn() {
+
+
+        if (DespawnTimer.IsDone()) {
+
+            // My life os over!
+            Main.allEntities.get(1).arrayOfEntities.remove(this);
+        }
 
 
                 int currentAmountOfGrass = Main.allEntities.get(1).arrayOfEntities.size();

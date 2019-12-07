@@ -12,8 +12,10 @@ public class Rabbit extends Animal { // Living {
 
     protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15,15);
 
-    public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 80;
-    public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 200;
+    public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 40;//80
+    public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 60;//200
+
+    public static final float DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL = 40f;
 
 
 
@@ -28,6 +30,7 @@ public class Rabbit extends Animal { // Living {
                 (isKid ? GirlRabbitColor : FemaleRabbitColor));     // else
                                                                     //  if barn then girl else female
     }
+     public ActionTimer MatingInProgressTimer = new ActionTimer(2000);
 
     //TIMER CLASS
     //make ints for timers, in real time
@@ -66,9 +69,15 @@ public class Rabbit extends Animal { // Living {
         readyForMating = readyformating;
         animalTopSpeed = topspeed;
         movementSpeed = movementspeed;
-        this.setIsKid(iskid);
-        visionRange = visionrange;
 
+        this.setIsKid(iskid);
+
+        if (iskid) {
+            this.hunger = 50f;
+        }
+
+
+        visionRange = visionrange;
         movingState = 0;
     }
 
@@ -162,8 +171,19 @@ public class Rabbit extends Animal { // Living {
 
     // TODO: Remember Vision Circle!!!! Generalize to Display
     public void display2() {
+
+        if (this.hunger > DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
+            p.stroke(255,0,0);
+        }
+        else {
+            p.stroke(255,255,255);
+        }
+
+
         p.noFill();
         p.ellipse(this.entityLocation.x, this.entityLocation.y, this.visionRange, this.visionRange);
+
+        p.stroke(0,0,0);
     }
 
     @Override
@@ -184,14 +204,26 @@ public class Rabbit extends Animal { // Living {
                 break;
             case 2:
                 //run the eating function when vision returns a food target
-                eatingFunction(vision());
+                //eatingFunction(vision());
                 wanderingMovement();
                 break;
 
+            case 3:
+                // Mating in progress!
+                CheckMatingPartner();
+                break;
+
+
         }
-//        display();
+
         hungerFunction();
         this.display2();
+
+
+        // test
+        int partnerId = (currentPartnerRabbit != null ? currentPartnerRabbit.getId() : -1);
+        this.Caption = String.format("ID: %d, Hunger: %1f, most: %d, partid: %d", this.getId(), this.hunger, this.movingState, partnerId);
+
     }
 
 //    public void update() {
@@ -296,8 +328,14 @@ public class Rabbit extends Animal { // Living {
                         if ( /*this.typeOfLiving.equals(target.typeOfLiving) &&*/ ((Rabbit) target).movingState != 1 && this.movingState != 1) {
                             //System.out.println("IT IS ANOTHER RABBIT");
                             //if the number is one it is mating if it is 0 it is just wandering around
-                            this.movingState = 1;
-                            ((Rabbit) target).movingState = 1;
+
+                            // TEST
+//                            this.movingState = 1;
+//                            ((Rabbit) target).movingState = 1;
+
+                            // Mate straight away
+                            matingFunction(target);
+
                         }
                     }
                 }
@@ -305,22 +343,43 @@ public class Rabbit extends Animal { // Living {
         }
     }
 
+
+    // Check status of mating
+    private void CheckMatingPartner() {
+        if (this.currentPartnerRabbit == null || MatingInProgressTimer.IsDone()) {
+            // Stop Mating
+            if (this.currentPartnerRabbit != null) {
+                currentPartnerRabbit.movingState = 0;
+                currentPartnerRabbit.currentPartnerRabbit = null;
+                this.currentPartnerRabbit = null;
+            }
+
+            this.movingState = 0;
+        }
+    }
+
+
+    public Rabbit currentPartnerRabbit = null;
+
+
     //this only runs when we see another rabbit, target is the rabbit we se and myself is the rabbit we are, these are inputs
     public void matingFunction(Living target) {
         //get pair of rabbits
         if (target != null) {
             if (target instanceof Rabbit) { //needs to be a rabbit, because we'll get a null pointer exception because grass has no gender
-
-                Rabbit targetRabbit = (Rabbit)target;
-
-                if (this.Gender == AnimalGender.MALE && targetRabbit.Gender == AnimalGender.FEMALE) {
+                if (this.Gender == AnimalGender.MALE && ((Rabbit)target).Gender == AnimalGender.FEMALE) {
                     //check if myself and the target is ready for mating
-                    if (targetRabbit.readyForMating && this.readyForMating) {
+                    if (((Rabbit)target).readyForMating && this.readyForMating) {
+
+                        // Here we save our mating partner so we can check its status
+                        Rabbit currentPartnerRabbit = (Rabbit)target;
+                        currentPartnerRabbit.currentPartnerRabbit = this; // ahem
+
                         //a loop that runs a random amount of times between 0-6 and create the same amount of new rabbits
                         for (int i = 0; i < amountOfChildren; i++) {
                             //will have to check for the array of rabbits insted of 0
                             Main.allEntities.get(0).arrayOfEntities.add(
-                                    //creatig a new rabbit
+                                    //Creating a new rabbit
                                     new Rabbit(
                                             p,
                                             Entity.NextGlobalEntityId(),
@@ -328,7 +387,7 @@ public class Rabbit extends Animal { // Living {
                                             maleOrFemale(),
                                             false,
                                             this.animalTopSpeed,
-                                            reCombinationSpeed(this.movementSpeed, targetRabbit.movementSpeed),
+                                            reCombinationSpeed(this.movementSpeed, currentPartnerRabbit.movementSpeed),
                                             true,
                                             this.visionRange)); // TODO: Change to both parents vision range
 
@@ -342,17 +401,33 @@ public class Rabbit extends Animal { // Living {
                         System.out.println(Main.allEntities.get(0).arrayOfEntities.size());
 
                         //System.out.println(this.generationCounter);
+
+                        // TODO: Clean this
+                        //move around again after 2 sec
+                        this.movingState = 3;
+                        currentPartnerRabbit.movingState = 3;
+                        MatingInProgressTimer.Reset();
+                        currentPartnerRabbit.MatingInProgressTimer.Reset();
+
                     }
                 }
             }
 
-            //move around again after 2 sec
-            //if (isSetTargetTimerIsOut()) {
-            if (DirectionTimer.IsDone() && target instanceof Rabbit) {
-                ((Rabbit)target).movingState = 0;
+        // If mating nosuccess-ful, go back to 0
+            if (this.movingState != 3) {
                 this.movingState = 0;
-                DirectionTimer.Reset(2000);
+
+                if (target != null && target instanceof  Rabbit) {
+                    ((Rabbit)target).movingState =0;
+                }
             }
+
+//            //move around again after 2 sec
+//            if (DirectionTimer.IsDone() /*&& target instanceof Rabbit*/) {
+//                ((Rabbit)target).movingState = 3;
+//                this.movingState = 3;
+//                DirectionTimer.Reset(2000);
+//            }
 
             //mix genes (for speed)
             //spawn two new rabbits
@@ -364,14 +439,16 @@ public class Rabbit extends Animal { // Living {
 
             if (target instanceof Grass) {
                 this.movingState = 2;
-                //((Grass)target).movingState = 2;
+
+                // Eat the grass
+                eatingFunction(target);
             }
         }
     }
 
     public void eatingFunction(Living target) {
         if (target != null) {
-            if (this.hunger >= 60f) {
+            if (this.hunger >= DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
                 if ( target instanceof Grass) {
                     PVector targetVector = PVector.sub(((Grass) target).entityLocation, this.entityLocation);
                     targetVector.normalize();
@@ -438,7 +515,7 @@ public class Rabbit extends Animal { // Living {
         }
 
         //increase hunger, based on the movemenet speed, with a penalty for moving too fast, exponential curve
-        if (this.hunger >= 100) {
+        if (this.hunger >= Animal.MAX_HUNGER) {
 
             for (int j = 0; j < Main.allEntities.get(0).getEntities().size(); j++) {
                 //if the currently looked at rabbits id is equal to the current rabbits id

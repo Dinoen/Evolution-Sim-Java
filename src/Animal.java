@@ -6,7 +6,7 @@ import java.awt.*;
 // Superclass for animals
 public abstract class Animal extends Living {
 
-    // TODO: Figure out how to handle hunger
+
     protected static final int MAX_HUNGER = 100; // This should most likely be somewhere else
 
 
@@ -70,7 +70,7 @@ public abstract class Animal extends Living {
     private int animalFocusDuration = 5000; // TODO: Fix values
 
 
-    // TODO: Lav enumeration
+
     protected int movingState = 0;
 
 
