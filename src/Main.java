@@ -6,12 +6,6 @@ import java.util.ArrayList;
 
 public class Main extends PApplet {
 
-
-    // TODO: Fix This
-    public static PVector CenterLocation = new PVector(0,0);
-
-
-
     //instantiating the population of the rabbits
     Entities entitiesOfRabbits;
     Entities entitiesOfGrass;

@@ -11,7 +11,6 @@ public class Environment {
     public PApplet PAStage() {return p; }
 
 
-
     //size of the green area // ground area
     int groundWidth;
     int groundHeight;

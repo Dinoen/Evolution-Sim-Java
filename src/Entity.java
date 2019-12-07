@@ -39,7 +39,7 @@ public abstract class Entity {
 
 
 
-    protected PVector entityLocation;
+    private PVector entityLocation;
 
 
     private Color entityColor;
@@ -55,23 +55,6 @@ public abstract class Entity {
     protected String Caption;
 
 
-//    private boolean deleted = false;
-
-//    public boolean getDeleted() { return deleted; }
-
-//    public void Delete() { deleted = true; }
-//
-
-
-    // Now for the fun stuff
-
-
-    // TODO: Fix CenterLocation
-    protected Entity(PApplet papplet,int id, Color color) {
-
-        this(papplet, id,  Main.CenterLocation,  color);
-    }
-
     protected Entity(PApplet papplet, int id, PVector location, Color color) {
         this(papplet, id, location, color, DEFAULT_ENTITY_SIZE, DEFAULT_ENTITY_SHAPE);
     }
@@ -81,11 +64,10 @@ public abstract class Entity {
          p = papplet;
 
         _id = id;
-        entityLocation = location;
+        setEntityLocation(location);
         setEntityColor(color);
         setEntitySize(size);
         entityShape = shape;
-
 
         Caption = String.format("ID: %d", _id);
     }
@@ -96,7 +78,16 @@ public abstract class Entity {
 
     public void setEntityLocation(PVector location) {
 
-        // TODO: Check Bounderies of Ground
+        //  Boundery-check
+        if (location.x < 50)
+            location.x = 50;
+        else if (location.x >= p.width / 2 + 400)
+            location.x = p.width / 2 + 400;
+
+        if (location.y < 50)
+            location.y = 50;
+        else if (location.y >= p.height / 2 + 400)
+            location.y = p.height / 2 + 400;
 
         this.entityLocation = location;
     }
@@ -152,6 +143,7 @@ public abstract class Entity {
         env.p.fill(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue());
         env.p.rectMode(PConstants.CENTER);
 
+
         switch (currentShape) {
 
             case Ellipse:
@@ -167,7 +159,7 @@ public abstract class Entity {
                 break;
         }
 
-        // TODO: SKal kun bruges hvis entities skal tegne deres caption
+
         env.p.fill(0);
         env.p.textSize(10);
         env.p.text(Caption, currentLocation.x+15, currentLocation.y);

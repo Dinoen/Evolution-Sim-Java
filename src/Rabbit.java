@@ -17,6 +17,13 @@ public class Rabbit extends Animal { // Living {
 
     public static final float DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL = 40f;
 
+    private static final int DEFAULT_MATING_DURATION = 2000;
+
+
+    // TODO: If time, create inheritance like speed
+    private static final int DEFAULT_RABBIT_MINIMUM_CHILDREN = 0;
+    private static final int DEFAULT_RABBIT_MAXIMUM_CHILDREN = 6;
+
 
 
     protected static final Color MaleRabbitColor = new Color(0,0,255);
@@ -24,13 +31,15 @@ public class Rabbit extends Animal { // Living {
     protected static final Color BoyRabbitColor = new Color(102,255,255);
     protected static final Color GirlRabbitColor = new Color(255,204,255);
 
+
     private static Color GetRabbitColor(AnimalGender gender, boolean isKid) {
         return (gender == AnimalGender.MALE ?                       //if   what gives then
                 (isKid ? BoyRabbitColor : MaleRabbitColor) :        //  if barn then boy else male
                 (isKid ? GirlRabbitColor : FemaleRabbitColor));     // else
                                                                     //  if barn then girl else female
     }
-     public ActionTimer MatingInProgressTimer = new ActionTimer(2000);
+
+    public ActionTimer MatingInProgressTimer = new ActionTimer(DEFAULT_MATING_DURATION);
 
     //TIMER CLASS
     //make ints for timers, in real time
@@ -39,17 +48,17 @@ public class Rabbit extends Animal { // Living {
     int setNewHungerTimerStartTime;
     int setNewHungerTimerDurationTime;
 
-    protected int amountOfChildren = (int)p.random(0,6); //SPECIFIC FOR RABBIT TODO: make this proper
+    protected int amountOfChildren = (int)p.random(DEFAULT_RABBIT_MINIMUM_CHILDREN,DEFAULT_RABBIT_MAXIMUM_CHILDREN);
 
 
-    // TODO: Move to Rabbit
-    //RABBIT SPECIFIC
-    //public String gender; //USED A LOT //SHOULD BE ENUM
+
+
     private boolean _iskid;
 
     public boolean readyForMating; //USED A LOT
-    public int urgeToReproduce; //NOT USED //SHOULD BE USED
-    public int MAXUrgeToReproduce; //NOT USED
+
+//    public int urgeToReproduce; //NOT USED //SHOULD BE USED
+//    public int MAXUrgeToReproduce; //NOT USED
 
 
     public boolean getIsKid() {
@@ -60,7 +69,6 @@ public class Rabbit extends Animal { // Living {
         _iskid = value;
         this.setEntityColor(GetRabbitColor(this.Gender, this.getIsKid()));
     }
-
 
 
     public Rabbit(PApplet papplet, int id, PVector location, AnimalGender gender,  boolean readyformating, float topspeed, float movementspeed,  boolean iskid, float visionrange) {
@@ -89,7 +97,6 @@ public class Rabbit extends Animal { // Living {
         seeIfKidIsOldEnoughToBecomeAdult();
         seeIfRabbitIsOldEnoughToDie();
         //get new location
-        //newLocation();
         //set topspeed, and this just ties the angle we're going to that MAX speed
         //setting the maximum speed to be moving along the velocity vector
         getVelocity().limit(animalTopSpeed); // Danger!!
@@ -97,11 +104,12 @@ public class Rabbit extends Animal { // Living {
         //adding acceleration
         getVelocity().add(acceleration);
         //adds the velocity (our angle) to our location
-        entityLocation.add(getVelocity());
+        //getLocation().add(getVelocity());
+        this.setEntityLocation(PVector.add(getLocation(), getVelocity()));
 
         if (DirectionTimer.IsDone()) {
             //("5 secs");
-            PVector direction = PVector.sub(newLocation(), entityLocation);
+            PVector direction = PVector.sub(newLocation(), getLocation());
             //figure it out for later
             //setting the magnitude of the vector to 1 (making it easier to scale)
             direction.normalize();
@@ -113,12 +121,12 @@ public class Rabbit extends Animal { // Living {
             this.DirectionTimer.Reset((int) p.random(2000, 5000));
         }
 
-        if (this.entityLocation.x >= p.width / 2 + 400 || this.entityLocation.x <= p.width / 2 - 400) {
+        if (this.getLocation().x >= p.width / 2 + 400 || this.getLocation().x <= p.width / 2 - 400) {
             //velocity = new PVector(p.width/2 ,p.height/2);
             getVelocity().rotate(p.HALF_PI);
 
         }
-        if (this.entityLocation.y >= p.height / 2 + 400 || this.entityLocation.y <= p.height / 2 - 400) {
+        if (this.getLocation().y >= p.height / 2 + 400 || this.getLocation().y <= p.height / 2 - 400) {
             getVelocity().rotate(p.HALF_PI);
 
         }
@@ -130,8 +138,8 @@ public class Rabbit extends Animal { // Living {
             startMatingTimerForRabbit(10000);
         }
         //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
-        stopWhenSeeingARabbit(vision());
-        stopWhenSeeingGrass(vision());
+        stopWhenSeeingARabbit(EnhancedVision());
+        stopWhenSeeingGrass(EnhancedVision());
     }
 
     public PVector newLocation() {
@@ -169,7 +177,7 @@ public class Rabbit extends Animal { // Living {
 //    }//Displaying method
 
 
-    // TODO: Remember Vision Circle!!!! Generalize to Display
+
     public void display2() {
 
         if (this.hunger > DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
@@ -181,7 +189,7 @@ public class Rabbit extends Animal { // Living {
 
 
         p.noFill();
-        p.ellipse(this.entityLocation.x, this.entityLocation.y, this.visionRange, this.visionRange);
+        p.ellipse(this.getLocation().x, this.getLocation().y, this.visionRange, this.visionRange);
 
         p.stroke(0,0,0);
     }
@@ -200,7 +208,7 @@ public class Rabbit extends Animal { // Living {
                 break;
             //run mating function
             case 1:
-                matingFunction(vision());
+                matingFunction(EnhancedVision());
                 break;
             case 2:
                 //run the eating function when vision returns a food target
@@ -286,35 +294,35 @@ public class Rabbit extends Animal { // Living {
         setNewHungerTimerDurationTime = timeToRun; //make random later
     }
 
-
-    public Living vision() {
-        //System.out.println(Main.allEntities.get(1).getEntities().ge);
-        //create living thing call target
-        Living target = null;
-        //run through all lists of entities
-        for (int i = 0; i < Main.allEntities.size(); i++) {
-            // run through all rabbits
-            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
-                // checks if the distance is less than the vision range and if the distance is not zero
-                if (Main.allEntities.get(i).getEntities().get(j) != null) {
-                    if (p.dist(this.entityLocation.x, this.entityLocation.y,
-                            Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().x
-                            , Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().y) < this.visionRange &&
-                            p.dist(this.entityLocation.x, this.entityLocation.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
-                                    , Main.allEntities.get(i).getEntities().get(j).getLocation().y) != 0.0f) {
-                        //System.out.println("RABBITS CAN SEE");
-
-                        target = Main.allEntities.get(i).getEntities().get(j);
-
-                    }
-                }
-            }
-        }
-        if (target != null) {
-            //System.out.println(target.typeOfLiving);
-        }
-        return target;
-    }
+//
+//    public Living __vision() {
+//        //System.out.println(Main.allEntities.get(1).getEntities().ge);
+//        //create living thing call target
+//        Living target = null;
+//        //run through all lists of entities
+//        for (int i = 0; i < Main.allEntities.size(); i++) {
+//            // run through all rabbits
+//            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
+//                // checks if the distance is less than the vision range and if the distance is not zero
+//                if (Main.allEntities.get(i).getEntities().get(j) != null) {
+//                    if (p.dist(this.getLocation().x, this.getLocation().y,
+//                            Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().x
+//                            , Main.allEntities.get(i).arrayOfEntities.get(j).getLocation().y) < this.visionRange &&
+//                            p.dist(this.entityLocation.x, this.entityLocation.y, Main.allEntities.get(i).getEntities().get(j).getLocation().x
+//                                    , Main.allEntities.get(i).getEntities().get(j).getLocation().y) != 0.0f) {
+//                        //System.out.println("RABBITS CAN SEE");
+//
+//                        target = Main.allEntities.get(i).getEntities().get(j);
+//
+//                    }
+//                }
+//            }
+//        }
+//        if (target != null) {
+//            //System.out.println(target.typeOfLiving);
+//        }
+//        return target;
+//    }
 
 
     public void stopWhenSeeingARabbit(Living target) {
@@ -383,13 +391,13 @@ public class Rabbit extends Animal { // Living {
                                     new Rabbit(
                                             p,
                                             Entity.NextGlobalEntityId(),
-                                            new PVector(this.entityLocation.x + -10,this.entityLocation.y + -10),
+                                            new PVector(this.getLocation().x + -10,this.getLocation().y + -10),
                                             maleOrFemale(),
                                             false,
                                             this.animalTopSpeed,
                                             reCombinationSpeed(this.movementSpeed, currentPartnerRabbit.movementSpeed),
                                             true,
-                                            this.visionRange)); // TODO: Change to both parents vision range
+                                             this.visionRange)); // TODO: Change to both parents vision range like speed
 
                             //iterate the unique id
                             //Entities.entityUniqueID++;
@@ -402,7 +410,7 @@ public class Rabbit extends Animal { // Living {
 
                         //System.out.println(this.generationCounter);
 
-                        // TODO: Clean this
+                        // TODO: Clean this (create setter and getter: øvelse til imorgen)
                         //move around again after 2 sec
                         this.movingState = 3;
                         currentPartnerRabbit.movingState = 3;
@@ -450,7 +458,7 @@ public class Rabbit extends Animal { // Living {
         if (target != null) {
             if (this.hunger >= DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
                 if ( target instanceof Grass) {
-                    PVector targetVector = PVector.sub(((Grass) target).entityLocation, this.entityLocation);
+                    PVector targetVector = PVector.sub(((Grass) target).getLocation(), this.getLocation());
                     targetVector.normalize();
                     targetVector.mult(this.movementSpeed);
                     this.getVelocity().set(targetVector);
