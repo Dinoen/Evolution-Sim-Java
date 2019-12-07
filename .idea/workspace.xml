@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/GraphingTheData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GraphingTheData.java" afterDir="false" />
-    </list>
+    <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,8 +115,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GraphingTheData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+            <state relative-caret-position="170">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#3385#3401#0" expanded="true" />
               </folding>
@@ -392,7 +390,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="949" />
     <option name="y" value="-11" />
     <option name="width" value="983" />
@@ -430,7 +428,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575709570047" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1575710242452" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/processing-3.4/core/library/core.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -508,7 +506,7 @@
       <workItem from="1575580286759" duration="72000" />
       <workItem from="1575580385705" duration="107000" />
       <workItem from="1575580526892" duration="50000" />
-      <workItem from="1575658442231" duration="5637000" />
+      <workItem from="1575658442231" duration="6300000" />
     </task>
     <task id="LOCAL-00001" summary="New Mating.java to test my Github abilities &#10;&#10;(cherry picked from commit db2b4844511cf0139c69d56b59e3d7b01ad0ecf1)">
       <created>1571239987723</created>
@@ -528,7 +526,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42567000" />
+    <option name="totallyTimeSpent" value="43230000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
@@ -905,8 +903,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GraphingTheData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#3385#3401#0" expanded="true" />
           </folding>
