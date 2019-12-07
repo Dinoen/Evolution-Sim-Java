@@ -12,6 +12,10 @@ public class Rabbit extends Animal { // Living {
 
     protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15,15);
 
+    public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 80;
+    public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 200;
+
+
 
     protected static final Color MaleRabbitColor = new Color(0,0,255);
     protected static final Color FemaleRabbitColor = new Color(241,41,71);
@@ -35,6 +39,26 @@ public class Rabbit extends Animal { // Living {
     protected int amountOfChildren = (int)p.random(0,6); //SPECIFIC FOR RABBIT TODO: make this proper
 
 
+    // TODO: Move to Rabbit
+    //RABBIT SPECIFIC
+    //public String gender; //USED A LOT //SHOULD BE ENUM
+    private boolean _iskid;
+
+    public boolean readyForMating; //USED A LOT
+    public int urgeToReproduce; //NOT USED //SHOULD BE USED
+    public int MAXUrgeToReproduce; //NOT USED
+
+
+    public boolean getIsKid() {
+        return _iskid;
+    }
+
+    public void setIsKid(boolean value) {
+        _iskid = value;
+        this.setEntityColor(GetRabbitColor(this.Gender, this.getIsKid()));
+    }
+
+
 
     public Rabbit(PApplet papplet, int id, PVector location, AnimalGender gender,  boolean readyformating, float topspeed, float movementspeed,  boolean iskid, float visionrange) {
         super(papplet, id, location, GetRabbitColor(gender, iskid), DEFAULT_RABBIT_SIZE, EntityShape.Ellipse, gender);
@@ -42,7 +66,7 @@ public class Rabbit extends Animal { // Living {
         readyForMating = readyformating;
         animalTopSpeed = topspeed;
         movementSpeed = movementspeed;
-        this.isKid = iskid;
+        this.setIsKid(iskid);
         visionRange = visionrange;
 
         movingState = 0;
@@ -91,7 +115,7 @@ public class Rabbit extends Animal { // Living {
         }
         //make the adults have sex again
         if (isReadyForMatingAgain()) {
-            if (!this.isKid) {
+            if (!this.getIsKid()) {
                 this.readyForMating = true;
             }
             startMatingTimerForRabbit(10000);
@@ -306,13 +330,13 @@ public class Rabbit extends Animal { // Living {
                                             this.animalTopSpeed,
                                             reCombinationSpeed(this.movementSpeed, targetRabbit.movementSpeed),
                                             true,
-                                            this.visionRange));
+                                            this.visionRange)); // TODO: Change to both parents vision range
 
                             //iterate the unique id
                             //Entities.entityUniqueID++;
                         }
                         //change there ready for mating false so they cant mate for 2 sec
-                        target.readyForMating = false;
+                        ((Rabbit)target).readyForMating = false;
                         this.readyForMating = false;
                         //print out the array of rabbit so the new rabbits it counted as well
                         System.out.println(Main.allEntities.get(0).arrayOfEntities.size());
@@ -354,7 +378,10 @@ public class Rabbit extends Animal { // Living {
                     targetVector.mult(this.movementSpeed);
                     this.getVelocity().set(targetVector);
                     //if()
+
                     Main.allEntities.get(1).arrayOfEntities.remove(((Grass) target));
+
+
                     this.hunger = this.hunger - 25f;
                 }
             }
@@ -375,7 +402,7 @@ public class Rabbit extends Animal { // Living {
     public void seeIfKidIsOldEnoughToBecomeAdult() {
         // timesincebirth is the start of the kids life, and if 10 seconds have elapsed then the kids become adults
         if (this.birthDayTime + 10000 < p.millis()) {
-            this.isKid = false;
+            this.setIsKid(false);
         }
     }
 
@@ -405,11 +432,10 @@ public class Rabbit extends Animal { // Living {
     public void hungerFunction() {
         //set timer 1 sek
         if (isHungerTimerOut()) {
-            this.hunger = this.hunger + 5f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
+            this.hunger = this.hunger + 2f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
             startHungerTimer(1000);
             //System.out.println(this.hunger);
         }
-
 
         //increase hunger, based on the movemenet speed, with a penalty for moving too fast, exponential curve
         if (this.hunger >= 100) {
@@ -433,4 +459,6 @@ public class Rabbit extends Animal { // Living {
         //if food is eaten decrease hunger by certain amount EG 10
 
     }
+
+
 }

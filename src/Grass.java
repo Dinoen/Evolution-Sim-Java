@@ -10,6 +10,10 @@ public class Grass extends Plant {
 
     private static final Dimension DEFAULT_GRASS_SIZE = new Dimension(15,15);
 
+    // No matter what, there will not be more grass than this
+    private static final int  MAXIMUM_AMOUNT_OF_GRASS = 15;
+
+
 
     // Not used?
 //    float timeintervalDespawn; //TIMER CLASS
@@ -34,7 +38,7 @@ public class Grass extends Plant {
 
         grassSpawn = p.millis();
 //        grassDespawn = p.millis();
-//
+
          this.time = p.millis();
 //        occupied = false;
     }
@@ -83,23 +87,40 @@ public class Grass extends Plant {
 //        p.ellipse(x, y, 15, 15);
 //    }
 
+
     private void grassSpawn() {
-        if (p.millis() > grassSpawn + timeIntervalSpawn && p.millis() - time >= timer && Main.allEntities.get(1).arrayOfEntities.size() < 150) {
+
+
+                int currentAmountOfGrass = Main.allEntities.get(1).arrayOfEntities.size();
+
+                while (currentAmountOfGrass++ < MAXIMUM_AMOUNT_OF_GRASS) {
+                    PVector targetVector = PVector.sub(Main.theEnvironment.RandomLocation(), entityLocation);
+                    targetVector.normalize();
+                    targetVector.mult(100);
+                    PVector xy = new PVector();
+                    xy = PVector.add(entityLocation, targetVector);
+
+                    Grass x = Grass.Create(p, 1).get(0);
+                    Main.allEntities.get(1).arrayOfEntities.add(x);
+                }
+
+//                p.millis() > grassSpawn + timeIntervalSpawn &&
+//                p.millis() - time >= timer && Main.allEntities.get(1).arrayOfEntities.size() < 150) {
 
 //            PVector targetVector = PVector.sub(
 //                    newGrassLocation() , this.location);
-            PVector targetVector = PVector.sub(Main.theEnvironment.RandomLocation(), entityLocation);
-            targetVector.normalize();
-            targetVector.mult(100);
-            PVector xy = new PVector();
-            xy = PVector.add(entityLocation, targetVector);
+//            PVector targetVector = PVector.sub(Main.theEnvironment.RandomLocation(), entityLocation);
+//            targetVector.normalize();
+//            targetVector.mult(100);
+//            PVector xy = new PVector();
+//            xy = PVector.add(entityLocation, targetVector);
+//
+//            //Grass x = new Grass(p, xy.x, xy.y);
+//            Grass x = Grass.Create(p, 1).get(0);
+//
+//            Main.allEntities.get(1).arrayOfEntities.add(x);
+//            this.time = p.millis();
 
-            //Grass x = new Grass(p, xy.x, xy.y);
-            Grass x = Grass.Create(p, 1).get(0);
-
-            Main.allEntities.get(1).arrayOfEntities.add(x);
-            this.time = p.millis();
-        }
     }
 
     //
@@ -132,37 +153,16 @@ public class Grass extends Plant {
     @Override
     protected void EntityUpdate(Environment env) {
 
-        // TODO: Breaking change - display
-        // It will be displayed later
-        //display();
 
+        // Grass will spawn when eaten, so no need to update it
         grassSpawn();
+
+
         //  if (p.millis() > grassDespawn + timeintervalDespawn) {
         //    grassDespawn();
         //  grassDespawn = p.millis();
         //}
-
     }
-
-
-//    public void update() {
-//        display();
-//        grassSpawn();
-//        //  if (p.millis() > grassDespawn + timeintervalDespawn) {
-//        //    grassDespawn();
-//        //  grassDespawn = p.millis();
-//        //}
-//    }
-
-//    @Override
-//    public PVector getLocation() {
-//        return location;
-//    }
-//
-//    public String getTypeOfLiving() {
-//        return typeOfLiving;
-//    }
-
 }
 
 

@@ -55,10 +55,15 @@ public abstract class Animal extends Living {
     // keyword: protected -> only sub classes can see and change properties
     // TODO: This should most likely be somewhere else
     protected float visionRange;
-    protected float hunger;
+    protected float hunger; // level of hunger 0-100
     protected float animalTopSpeed = 100; // TODO: fix values
     protected float movementSpeed = 2; // TODO: fix vallues
     protected boolean readyForMating = false;
+    protected float fearLevel;
+    protected float matingLevel;
+    protected float hungerLevel;
+
+
 
 
     // How long an animal can keep its focus ie. Duration of its timer

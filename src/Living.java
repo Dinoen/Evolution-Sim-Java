@@ -35,13 +35,6 @@ public abstract class Living extends Entity {
     //public int movingState; //USED A LOT
     //int generationCounter; //SHOULD BE USED
 
-    // TODO: Move to Rabbit
-    //RABBIT SPECIFIC
-    //public String gender; //USED A LOT //SHOULD BE ENUM
-    boolean isKid; //USED A LOT
-    public boolean readyForMating; //USED A LOT
-    public int urgeToReproduce; //NOT USED //SHOULD BE USED
-    public int MAXUrgeToReproduce; //NOT USED
 
 
 
