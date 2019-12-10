@@ -1,106 +1,69 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class Grass extends Plant {
 
-    float x; //LIVING
-    float y; //LIVING
-    PApplet p;
-    public PVector location; //LIVING
-    float timeIntervalSpawn; //TIMER CLASS
-    float grassSpawn; //PLANT ABSTRACT CLASS
-    float timeintervalDespawn; //TIMER CLASS
-    float grassDespawn; //PLANT ABSTRACT CLASS
-    public boolean occupied; //NOT USED
+    private static final Color DEFAULT_GRASS_COLOR = new Color(0,230,0);
 
-    //TIMER CLASS
-    int time;
-    int timer = 10000;
+    private static final Dimension DEFAULT_GRASS_SIZE = new Dimension(15,15);
 
-    Grass(PApplet p, float x, float y) {
-        this.p = p;
-        this.x = x;
-        this.y = y;
-        location = new PVector(this.x, this.y);
-        grassSpawn = p.millis();
+    // No matter what, there will not be more grass than this
+    private static final int  MAXIMUM_AMOUNT_OF_GRASS = 15;
 
-        grassDespawn = p.millis();
+    private static final  int DEFAULT_GRASS_DESPAWN_TIMER = 15000;
 
-        typeOfLiving = "Grass";
-        this.time = p.millis();
 
-        occupied = false;
+    protected  ActionTimer DespawnTimer = new ActionTimer(DEFAULT_GRASS_DESPAWN_TIMER);
 
+    public Grass(PApplet papplet, int id, PVector location) {
+        super(papplet, id, location, DEFAULT_GRASS_COLOR, DEFAULT_GRASS_SIZE, EntityShape.Ellipse);
+    }
+
+
+    public static ArrayList<Grass> Create(PApplet p, int count) {
+
+        ArrayList<Grass> grass = new ArrayList<>(count);
+
+        for (int i = 0; i < count; i++) {
+            grass.add(new Grass(p, Entity.NextGlobalEntityId(), Main.theEnvironment.RandomLocation()));
+        }
+
+        return grass;
+    }
+
+
+    private void grassSpawn() {
+
+        if (DespawnTimer.IsDone()) {
+
+            // My life os over!
+            Main.allEntities.get(1).arrayOfEntities.remove(this);
+        }
+
+
+                int currentAmountOfGrass = Main.allEntities.get(1).arrayOfEntities.size();
+
+                while (currentAmountOfGrass++ < MAXIMUM_AMOUNT_OF_GRASS) {
+                    PVector targetVector = PVector.sub(Main.theEnvironment.RandomLocation(), getLocation());
+                    targetVector.normalize();
+                    targetVector.mult(100);
+                    PVector xy = new PVector();
+                    xy = PVector.add(getLocation(), targetVector);
+
+                    Grass x = Grass.Create(p, 1).get(0);
+                    Main.allEntities.get(1).arrayOfEntities.add(x);
+                }
     }
 
 
     @Override
-    public void display() {
-        p.stroke(0);
-        p.fill(0, 230, 0);
-        p.ellipse(x, y, 15, 15);
-    }
-
-    public void grassSpawn() {
-        if (p.millis() > grassSpawn + timeIntervalSpawn && p.millis() - time >= timer && Main.allEntities.get(1).arrayOfEntities.size() < 150) {
-
-            PVector targetVector = PVector.sub(
-                    newGrassLocation(), this.location);
-            targetVector.normalize();
-            targetVector.mult(100);
-            PVector xy = new PVector();
-            xy = PVector.add(location, targetVector);
-            Grass x = new Grass(p, xy.x, xy.y);
-            Main.allEntities.get(1).arrayOfEntities.add(x);
-            this.time = p.millis();
-        }
-    }
-
-    public PVector newGrassLocation() {
-        //make new vector
-        PVector newlocation = new PVector();
-        //chose random coordinates from the middle of the screen
-        newlocation.x = p.width / 2 + p.random(-400, 400);
-        newlocation.y = p.height / 2 + p.random(-400, 400);
-        //return the new location
-        return newlocation;
-
-    }
-
-
-    /*public void grassDespawn() {
-
-        if (!Main.allEntities.get(1).getEntitiesGrass().isEmpty()) {
-
-            for (int i = 0; i < (int) p.random(0, 4); i++) {
-
-                Main.allEntities.get(1).getEntitiesGrass().remove((int) p.random(0, Main.allEntities.get(1).getEntitiesGrass().size()));
-
-                System.out.println("nej");
-            }
-        }
-
-    }*/
-
-
-    public void update() {
-        display();
+    protected void EntityUpdate(Environment env) {
+        // Grass will spawn when eaten, so no need to update it
         grassSpawn();
-        //  if (p.millis() > grassDespawn + timeintervalDespawn) {
-        //    grassDespawn();
-        //  grassDespawn = p.millis();
-        //}
     }
-
-    @Override
-    public PVector getLocation() {
-        return location;
-    }
-
-    public String getTypeOfLiving() {
-        return typeOfLiving;
-    }
-
 }
 
 

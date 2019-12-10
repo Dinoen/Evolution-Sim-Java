@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 //population class which holds the different populations of animals / living things.
 public class Entities {
@@ -18,64 +19,64 @@ public class Entities {
         //OTHER ARRAYS OF STUFF OF FOOD FX.
     }
 
-    public void createEntities(PApplet p, int entityListSize, String typeOfEntities) {
-        //if the type is rabbits
+    public void createEntities(PApplet p, int entityListSize, Class entityClass) {
 
-        String EntityType = typeOfEntities;
-        //Switchcase controlling what kind of list we're making
-        switch (EntityType) {
-            case "Rabbit":
-                //run amount of times of the size of the population
-                for (int i = 0; i < entityListSize; i++) {
-                    //change modulus stuff, bcause its messy AF
-                    if (i % 2 == 0) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Male",false, p.random(80,110));
-                        arrayOfEntities.add(rabbit);
-                        entityUniqueID++;
-                    }
-                    if (i % 2 == 1) {
-                        Rabbit rabbit = new Rabbit(p, p.random(100f, 800f), p.random(100f, 800f), entityUniqueID, true, p.random(1f,5f), p.random(0.5f,2f), "Female",false, p.random(80,110));
-                        arrayOfEntities.add(rabbit);
-                        entityUniqueID++;
-                    }
-                }
-                break;
+        //Check entityclass to see  what kind of list we're making
+        if (entityClass == Rabbit.class) {
+            //run amount of times of the size of the population
+            for (int i = 0; i < entityListSize; i++) {
+                Rabbit randomRabbit =
+                        new Rabbit(
+                                p,
+                                Entity.NextGlobalEntityId(),
+                                Main.theEnvironment.RandomLocation(),
+                                Rabbit.maleOrFemale(),
+                                true,
+                                5,                      // topspeed
+                                p.random(0.5f, 2f),  // animalSpeed
+                                false,                   // IsKid
+                                p.random(Rabbit.RABBIT_DEFAULT_VISION_RANGE_MIN, Rabbit.RABBIT_DEFAULT_VISION_RANGE_MAX)    // VisionRange
+                        );
+                arrayOfEntities.add(randomRabbit);
+            }
+        } else if (entityClass == Grass.class) {
 
-            case "Grass":
-                for (int i = 0; i < entityListSize; i++) {
-                    Grass grass = new Grass(p,p.random(100f, 800f),p.random(100f, 800f));
-                    arrayOfEntities.add(grass);
-                    //make unique ID later
-                }
-                break;
+            for (int i = 0; i < entityListSize; i++) {
+                //Grass grass = new Grass(p,p.random(100f, 800f),p.random(100f, 800f));
+                Grass grass = new Grass(p, Entity.NextGlobalEntityId(), Main.theEnvironment.RandomLocation());
+                arrayOfEntities.add(grass);
+                //make unique ID later
+            }
+        } else if (entityClass == Fox.class) {
 
-            case "Fox":
-                for (int i = 0; i < entityListSize; i++) {
-                    Fox fox = new Fox(p,p.random(100f,800f),p.random(100f,800f),1f,5f);
-                    arrayOfEntities.add(fox);
-                    //make unique ID later
-                }
-                break;
 
-            default:
-                //Errormessaging
-                break;
+            for (int i = 0; i < entityListSize; i++) {
+                //Fox fox = new Fox(p,p.random(100f,800f),p.random(100f,800f),1f,5f);
+                Fox fox = new Fox(p, Entity.NextGlobalEntityId(), Main.theEnvironment.RandomLocation(), 1f, 5f);
+                arrayOfEntities.add(fox);
+                //make unique ID later
+            }
+        } else {
         }
     }
+
     //update function which runs in the main class, and updates the positions of the entities.
     //Layering the update functions in the classes
     public void update() {
 
         for (int i = 0; i < arrayOfEntities.size(); i++) {
-                arrayOfEntities.get(i).update();
-
+            ((Living) arrayOfEntities.get(i)).update(Main.theEnvironment);
         }
-        for (int i = 0; i < arrayOfEntities.size(); i++) {
 
-            arrayOfEntities.get(i).update();
-        }
 
     }
+
+    public void display() {
+        for (int i = 0; i < arrayOfEntities.size(); i++) {
+            ((Living) arrayOfEntities.get(i)).display(Main.theEnvironment);
+        }
+    }
+
     //one of these getter per arraylist
     public ArrayList<Living> getEntities() {
         return arrayOfEntities;
