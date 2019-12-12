@@ -422,7 +422,7 @@ public class Rabbit extends Animal { // Living {
     //Add the found rabbit to a new "heaven" array
     //remove the found rabbit from ArrayOfRabbits
     public void seeIfRabbitIsOldEnoughToDie() {
-        if (this.birthDayTime + p.random(40000, 45000) < p.millis()) {
+        if (this.birthDayTime + p.random(55000, 60000) < p.millis()) {
             for (int i = 0; i < Main.allEntities.size(); i++) {
                 for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
                     //if the currently looked at rabbits id is equal to the current rabbits id

@@ -161,13 +161,13 @@ public abstract class Animal extends Living {
         else if (ourRandomNumber >= 61 && ourRandomNumber <= 80) {
             System.out.println("Mutation has happened");
             //make new float called mutatedFathersSpeed
-            float mutatedFathersSpeed = fatherSpeed +- mutatedSpeed;
+            float mutatedFathersSpeed = fatherSpeed + mutatedSpeed;
             return mutatedFathersSpeed;
         }
         //Last 5 % of the percent chance from the start of the function
         else if (ourRandomNumber >= 81) {
             System.out.println("Mutation has happened");
-            float mutatedMothersSpeed = motherSpeed +- mutatedSpeed;
+            float mutatedMothersSpeed = motherSpeed + mutatedSpeed;
             return mutatedMothersSpeed;
         } else {
             return reCombinationSpeed(fatherSpeed, motherSpeed);

@@ -4,10 +4,8 @@
     <list default="true" id="0246c624-2e9c-464a-a1a5-3ef2343b3fe3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Fox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Fox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Rabbit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rabbit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/createGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/createGraph.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +137,7 @@
       <workItem from="1575580526892" duration="50000" />
       <workItem from="1575658442231" duration="6300000" />
       <workItem from="1575716184324" duration="40490000" />
-      <workItem from="1576154815959" duration="15313000" />
+      <workItem from="1576154815959" duration="16416000" />
     </task>
     <task id="LOCAL-00001" summary="New Mating.java to test my Github abilities &#10;&#10;(cherry picked from commit db2b4844511cf0139c69d56b59e3d7b01ad0ecf1)">
       <created>1571239987723</created>
