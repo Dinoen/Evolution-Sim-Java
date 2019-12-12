@@ -78,7 +78,7 @@ public class createGraph {
 
         for (int i = 0; i < Main.allEntities.get(0).getEntities().size(); i++) {
             if (Main.allEntities.get(0).getEntities().get(i) != null) {
-                amount = amount + Main.allEntities.get(0).getEntities().get(i).movementSpeed;
+                amount = amount + (((Animal)Main.allEntities.get(0).arrayOfEntities.get(i)).getMovementSpeed());
             }
         }
         theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntities().size();
