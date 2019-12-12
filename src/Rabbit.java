@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PVector;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.RandomAccess;
 
@@ -11,30 +12,31 @@ import java.util.RandomAccess;
 
 public class Rabbit extends Animal { // Living {
 
-    protected static final Color DEFAULT_RABBIT_COLOR = new Color(255,255,255);
-    protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15,15);
+    protected static final Color DEFAULT_RABBIT_COLOR = new Color(255, 255, 255);
+    protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15, 15);
     //public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 60;//80
     //public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 80;//200
-    public static final int  RABBIT_DEFAULT_VISION_RANGE = 70;
-    public static int  RABBIT_DEFAULT_STARTING_GENERATION = 0;
+    public static final int RABBIT_DEFAULT_VISION_RANGE = 70;
+    public static int RABBIT_DEFAULT_STARTING_GENERATION = 0;
     public static final float DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL = 40f;
     private static final int DEFAULT_MATING_DURATION = 2000;
     private static final int DEFAULT_RABBIT_MINIMUM_CHILDREN = 0;
     private static final int DEFAULT_RABBIT_MAXIMUM_CHILDREN = 6;
-    protected static final Color MaleRabbitColor = new Color(0,0,255);
-    protected static final Color FemaleRabbitColor = new Color(241,41,71);
-    protected static final Color BoyRabbitColor = new Color(102,255,255);
-    protected static final Color GirlRabbitColor = new Color(255,204,255);
+    protected static final Color MaleRabbitColor = new Color(0, 0, 255);
+    protected static final Color FemaleRabbitColor = new Color(241, 41, 71);
+    protected static final Color BoyRabbitColor = new Color(102, 255, 255);
+    protected static final Color GirlRabbitColor = new Color(255, 204, 255);
 
 
     private static Color GetRabbitColor(AnimalGender gender, boolean isKid) {
         return (gender == AnimalGender.MALE ?                       //if   what gives then
                 (isKid ? BoyRabbitColor : MaleRabbitColor) :        //  if barn then boy else male
                 (isKid ? GirlRabbitColor : FemaleRabbitColor));     // else
-                                                                    //  if barn then girl else female
+        //  if barn then girl else female
     }
 
     public ActionTimer MatingInProgressTimer = new ActionTimer(DEFAULT_MATING_DURATION);
+    public ActionTimer RunFromFox = new ActionTimer(100); //TIMER FOR CHECKING AFTER FOXES BEING NEAR
 
     //TIMER CLASS
     //make ints for timers, in real time
@@ -43,7 +45,7 @@ public class Rabbit extends Animal { // Living {
     int setNewHungerTimerStartTime;
     int setNewHungerTimerDurationTime;
 
-    protected int amountOfChildren = (int)p.random(DEFAULT_RABBIT_MINIMUM_CHILDREN,DEFAULT_RABBIT_MAXIMUM_CHILDREN);
+    protected int amountOfChildren = (int) p.random(DEFAULT_RABBIT_MINIMUM_CHILDREN, DEFAULT_RABBIT_MAXIMUM_CHILDREN);
     private boolean _iskid;
     public boolean readyForMating; //USED A LOT
 
@@ -58,7 +60,7 @@ public class Rabbit extends Animal { // Living {
     }
 
 
-    public Rabbit(PApplet papplet, int id, PVector location, AnimalGender gender,  boolean readyformating, float topspeed, float movementspeed,  boolean iskid, float visionrange, int generationNumber) {
+    public Rabbit(PApplet papplet, int id, PVector location, AnimalGender gender, boolean readyformating, float topspeed, float movementspeed, boolean iskid, float visionrange, int generationNumber) {
         super(papplet, id, location, GetRabbitColor(gender, iskid), DEFAULT_RABBIT_SIZE, EntityShape.Ellipse, gender);
 
         readyForMating = readyformating;
@@ -126,6 +128,7 @@ public class Rabbit extends Animal { // Living {
         //We will have a target instead of a random position. Location - currentposition. Then normalize and scale it.
         stopWhenSeeingARabbit(EnhancedVision());
         stopWhenSeeingGrass(EnhancedVision());
+        turnAwayWhenSeeingFox(EnhancedVision());
     }
 
     public PVector newLocation() {
@@ -143,17 +146,16 @@ public class Rabbit extends Animal { // Living {
     public void display2() {
 
         if (this.hunger > DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
-            p.stroke(255,0,0);
-        }
-        else {
-            p.stroke(255,255,255);
+            p.stroke(255, 0, 0);
+        } else {
+            p.stroke(255, 255, 255);
         }
 
 
         p.noFill();
         p.ellipse(this.getLocation().x, this.getLocation().y, this.visionRange, this.visionRange);
 
-        p.stroke(0,0,0);
+        p.stroke(0, 0, 0);
     }
 
     @Override
@@ -193,7 +195,7 @@ public class Rabbit extends Animal { // Living {
 
     }
 
-    private  ActionTimer ReadyForMatingTimer;
+    private ActionTimer ReadyForMatingTimer;
     private ActionTimer HungerTimer;
 
 
@@ -216,7 +218,6 @@ public class Rabbit extends Animal { // Living {
         setNewHungerTimerStartTime = p.millis();
         setNewHungerTimerDurationTime = timeToRun; //make random later
     }
-
 
 
     public void stopWhenSeeingARabbit(Living target) {
@@ -269,12 +270,12 @@ public class Rabbit extends Animal { // Living {
         //get pair of rabbits
         if (target != null) {
             if (target instanceof Rabbit) { //needs to be a rabbit, because we'll get a null pointer exception because grass has no gender
-                if (this.Gender == AnimalGender.MALE && ((Rabbit)target).Gender == AnimalGender.FEMALE) {
+                if (this.Gender == AnimalGender.MALE && ((Rabbit) target).Gender == AnimalGender.FEMALE) {
                     //check if myself and the target is ready for mating
-                    if (((Rabbit)target).readyForMating && this.readyForMating) {
+                    if (((Rabbit) target).readyForMating && this.readyForMating) {
 
                         // Here we save our mating partner so we can check its status
-                        Rabbit currentPartnerRabbit = (Rabbit)target;
+                        Rabbit currentPartnerRabbit = (Rabbit) target;
                         currentPartnerRabbit.currentPartnerRabbit = this; // ahem
 
                         //a loop that runs a random amount of times between 0-6 and create the same amount of new rabbits
@@ -285,23 +286,22 @@ public class Rabbit extends Animal { // Living {
                                     new Rabbit(
                                             p,
                                             Entity.NextGlobalEntityId(),
-                                            new PVector(this.getLocation().x + -10,this.getLocation().y + -10),
+                                            new PVector(this.getLocation().x + -10, this.getLocation().y + -10),
                                             maleOrFemale(),
                                             false,
                                             this.animalTopSpeed,
                                             reCombinationSpeed(this.movementSpeed, currentPartnerRabbit.movementSpeed),
                                             true,
-                                             this.visionRange,
-                                            setGenerationNumber(this.generationCounter,currentPartnerRabbit.generationCounter))); //
+                                            this.visionRange,
+                                            setGenerationNumber(this.generationCounter, currentPartnerRabbit.generationCounter))); //
 
 
                         }
                         //change there ready for mating false so they cant mate for 2 sec
-                        ((Rabbit)target).readyForMating = false;
+                        ((Rabbit) target).readyForMating = false;
                         this.readyForMating = false;
                         //print out the array of rabbit so the new rabbits it counted as well
                         System.out.println(Main.allEntities.get(0).arrayOfEntities.size());
-
 
 
                         //move around again after 2 sec
@@ -314,12 +314,12 @@ public class Rabbit extends Animal { // Living {
                 }
             }
 
-        // If mating nosuccess-ful, go back to 0
+            // If mating nosuccess-ful, go back to 0
             if (this.movingState != 3) {
                 this.movingState = 0;
 
-                if (target != null && target instanceof  Rabbit) {
-                    ((Rabbit)target).movingState =0;
+                if (target != null && target instanceof Rabbit) {
+                    ((Rabbit) target).movingState = 0;
                 }
             }
 
@@ -348,10 +348,29 @@ public class Rabbit extends Animal { // Living {
         }
     }
 
+    public void turnAwayWhenSeeingFox(Living target) {
+        if (target != null) {
+            if (RunFromFox.IsDone()) {
+                if (target instanceof Fox) {
+                    getVelocity().rotate(p.HALF_PI);
+                    PVector direction = PVector.sub(newLocation(), getLocation());
+                    //figure it out for later
+                    //setting the magnitude of the vector to 1 (making it easier to scale)
+                    direction.normalize();
+                    //multiplying the movementSpeed with the direction
+                    direction.mult(this.movementSpeed);
+                    //set the angle to the same angle as the direction
+                    getVelocity().set(direction);
+                }
+                RunFromFox.Reset();
+            }
+        }
+    }
+
     public void eatingFunction(Living target) {
         if (target != null) {
             if (this.hunger >= DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL) {
-                if ( target instanceof Grass) {
+                if (target instanceof Grass) {
                     PVector targetVector = PVector.sub(((Grass) target).getLocation(), this.getLocation());
                     targetVector.normalize();
                     targetVector.mult(this.movementSpeed);
@@ -370,23 +389,26 @@ public class Rabbit extends Animal { // Living {
     //quick function which spits out either a string "Male" or "Female"
     public static AnimalGender maleOrFemale() {
         AnimalGender gender;
-        if ((int)Main.theEnvironment.p.random(0,2) == 1) {
+        if ((int) Main.theEnvironment.p.random(0, 2) == 1) {
             gender = AnimalGender.MALE;
         } else {
             gender = AnimalGender.FEMALE;
         }
         return gender;
     }
-    public static AnimalGender male(){
+
+    public static AnimalGender male() {
         AnimalGender gender;
         gender = AnimalGender.MALE;
         return gender;
     }
-    public static AnimalGender female(){
+
+    public static AnimalGender female() {
         AnimalGender gender;
         gender = AnimalGender.FEMALE;
         return gender;
     }
+
     //
     public void seeIfKidIsOldEnoughToBecomeAdult() {
         // timesincebirth is the start of the kids life, and if 10 seconds have elapsed then the kids become adults
@@ -421,7 +443,7 @@ public class Rabbit extends Animal { // Living {
     public void hungerFunction() {
         //set timer 1 sek
         if (isHungerTimerOut()) {
-            this.hunger = this.hunger + 2.5f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
+            this.hunger = this.hunger + 3f + this.movementSpeed * 1.2f; //needs to be tied to movementspeed somehow
             startHungerTimer(1000);
             //System.out.println(this.hunger);
         }

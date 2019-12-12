@@ -75,7 +75,7 @@ public abstract class Animal extends Living {
 
     // Controls when this entity randomly change its direction of it has nothing better to do
     protected ActionTimer DirectionTimer = new ActionTimer((int) Main.theEnvironment.p.random(DEFAULT_ANIMAL_CHANGEDIRECTION_TIMER_MIN, DEFAULT_ANIMAL_CHANGEDIRECTION_TIMER_MAX));
-    protected ActionTimer FoxEatTimer = new ActionTimer(1000);
+    protected ActionTimer FoxEatTimer = new ActionTimer(100);
 
 
 
@@ -145,29 +145,29 @@ public abstract class Animal extends Living {
         float ourRandomNumber = p.random(100);
         //reusing a random, which is being
         //float rand.nextFloat() makes a float from 0-1
-        float mutatedSpeed = (p.random(0,100)/100);
+        float mutatedSpeed = (p.random(0,50)/100); //random number from 0 to 0.50
 
         //first 45 % chance 0-44, then just return the female original speed
-        if (ourRandomNumber <= 44) {
+        if (ourRandomNumber <= 30) {
             return fatherSpeed;
         }
 
         //next 45% chance of the fathers genes being given to the children
-        else if (ourRandomNumber >= 45 && ourRandomNumber <= 89) {
+        else if (ourRandomNumber >= 31 && ourRandomNumber <= 60) {
             return motherSpeed;
         }
 
         //the last 10 percent from original random
-        else if (ourRandomNumber >= 90 && ourRandomNumber <= 94) {
+        else if (ourRandomNumber >= 61 && ourRandomNumber <= 80) {
             System.out.println("Mutation has happened");
             //make new float called mutatedFathersSpeed
-            float mutatedFathersSpeed = motherSpeed + mutatedSpeed;
+            float mutatedFathersSpeed = fatherSpeed +- mutatedSpeed;
             return mutatedFathersSpeed;
         }
         //Last 5 % of the percent chance from the start of the function
-        else if (ourRandomNumber >= 95) {
+        else if (ourRandomNumber >= 81) {
             System.out.println("Mutation has happened");
-            float mutatedMothersSpeed = fatherSpeed + mutatedSpeed;
+            float mutatedMothersSpeed = motherSpeed +- mutatedSpeed;
             return mutatedMothersSpeed;
         } else {
             return reCombinationSpeed(fatherSpeed, motherSpeed);

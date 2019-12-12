@@ -10,7 +10,7 @@ public class Fox extends Animal {
 
     protected static final Dimension DEFAULT_FOX_SIZE = new Dimension(20, 20);
 
-    private static final float DEFAULT_FOX_VISION_RANGE = 20;
+    private static final float DEFAULT_FOX_VISION_RANGE = 30;
 
     public Fox(PApplet papplet, int id, PVector location, float movementSpeed, float topSpeed) {
         super(papplet, id, location, DEFAULT_FOX_COLOR, DEFAULT_FOX_SIZE, EntityShape.Triangle);
