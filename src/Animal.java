@@ -145,7 +145,7 @@ public abstract class Animal extends Living {
         float ourRandomNumber = p.random(100);
         //reusing a random, which is being
         //float rand.nextFloat() makes a float from 0-1
-        float mutatedSpeed = (p.random(0,50)/100); //random number from 0 to 0.50
+        float mutatedSpeed = (p.random(-50,50)/100); //random number from 0 to 0.50
 
         //first 45 % chance 0-44, then just return the female original speed
         if (ourRandomNumber <= 30) {

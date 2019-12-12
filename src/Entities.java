@@ -33,7 +33,9 @@ public class Entities {
                                 Rabbit.male(),
                                 true,
                                 5,                      // topspeed
-                                p.random(0.5f, 2f),  // animalSpeed
+
+                                1,
+                               //p.random(0.5f, 2f),  // animalSpeed
                                 false,                   // IsKid
                                 Rabbit.RABBIT_DEFAULT_VISION_RANGE,
                                 0// VisionRange
@@ -48,8 +50,9 @@ public class Entities {
                                 Main.theEnvironment.RandomLocation(),
                                 Rabbit.female(),
                                 true,
-                                5,                      // topspeed
-                                p.random(0.5f, 2f),  // animalSpeed
+                                5,// topspeed
+                                1,
+                               //p.random(0.5f, 2f),  // animalSpeed
                                 false,                   // IsKid
                                 Rabbit.RABBIT_DEFAULT_VISION_RANGE,
                                 0// VisionRange
