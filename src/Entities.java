@@ -35,7 +35,8 @@ public class Entities {
                                 5,                      // topspeed
                                 p.random(0.5f, 2f),  // animalSpeed
                                 false,                   // IsKid
-                                p.random(Rabbit.RABBIT_DEFAULT_VISION_RANGE_MIN, Rabbit.RABBIT_DEFAULT_VISION_RANGE_MAX)    // VisionRange
+                                p.random(Rabbit.RABBIT_DEFAULT_VISION_RANGE_MIN, Rabbit.RABBIT_DEFAULT_VISION_RANGE_MAX),
+                                0// VisionRange
                         );
                 arrayOfEntities.add(randomRabbit);
             }

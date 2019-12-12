@@ -75,15 +75,9 @@ public abstract class Animal extends Living {
 
     // Controls when this entity randomly change its direction of it has nothing better to do
     protected ActionTimer DirectionTimer = new ActionTimer((int) Main.theEnvironment.p.random(DEFAULT_ANIMAL_CHANGEDIRECTION_TIMER_MIN, DEFAULT_ANIMAL_CHANGEDIRECTION_TIMER_MAX));
+    protected ActionTimer FoxEatTimer = new ActionTimer(2000);
 
 
-//    public Animal(PApplet papplet, int id, Color color) {
-//        super(papplet, id, color);
-//    }
-//
-//    public Animal(PApplet papplet, int id, PVector location,  Color color) {
-//        super(papplet, id, location, color);
-//    }
 
     // Used by fox who does not have specific gender
     public Animal(PApplet papplet, int id, PVector location, Color color, Dimension size, EntityShape shape) {

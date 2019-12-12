@@ -7,9 +7,10 @@ import java.awt.*;
 //superclass, holding all the relevant things for living objects, eg rabbits and foxes
 public abstract class Living extends Entity {
 
-    protected  final  int birthDayTime = p.millis();
+    protected final int birthDayTime = p.millis();
+    protected int generationCounter;
 
-    public Living(PApplet papplet, int id, PVector location,  Color color) {
+    public Living(PApplet papplet, int id, PVector location, Color color) {
         super(papplet, id, location, color);
     }
 
@@ -17,31 +18,29 @@ public abstract class Living extends Entity {
         super(papplet, id, location, color, size, shape);
     }
 
-// TODO: Generation Number
-//    public int setGenerationNumber(int fatherGeneration, int motherGeneration) {
-//        int newGenerationNumber;
-//        newGenerationNumber = fatherGeneration;
-//        if (newGenerationNumber < motherGeneration) {
-//            newGenerationNumber = motherGeneration;
-//        }
-//        newGenerationNumber++;
-//
-//        return newGenerationNumber;
-//    }
-//
-//    public int returnLastestRabbitGeneration() {
-//        int latestGeneration;
-//        latestGeneration = 0;
-//
-//        for (int i = 0; i < Main.allEntities.size(); i++) {
-//            // run through all rabbits
-//            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
-//                if (latestGeneration < this.generationCounter) {
-//                    this.generationCounter = latestGeneration;
-//                }
-//            }
-//        }
-//        return latestGeneration;
-//    }
+    public int setGenerationNumber(int fatherGeneration, int motherGeneration) {
+        int newGenerationNumber;
+        newGenerationNumber = fatherGeneration;
+        if (newGenerationNumber < motherGeneration) {
+            newGenerationNumber = motherGeneration;
+        }
+        newGenerationNumber++;
+        return newGenerationNumber;
+    }
+
+    public int getLastestRabbitGeneration() {
+        int latestGeneration;
+        latestGeneration = 0;
+
+        for (int i = 0; i < Main.allEntities.size(); i++) {
+            // run through all rabbits
+            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
+                if (latestGeneration < this.generationCounter) {
+                    latestGeneration = this.generationCounter ;
+                }
+            }
+        }
+        return latestGeneration;
+    }
 }
 

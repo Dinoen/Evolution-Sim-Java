@@ -75,7 +75,7 @@ public class GraphingTheData extends Application {
         return theRabbitPopulation;
     }
 
-    //we return and int that is the poopulation size of the rabbits
+    //we return and int that is the population size of the rabbits
     public float getTheAverageSpeedGene() {
         float amount = 0;
         float theSpeedGenesAverage;

@@ -6,9 +6,9 @@ import java.awt.*;
 public class Fox extends Animal {
 
 
-    protected static final Color DEFAULT_FOX_COLOR = new Color(152,86,41);
+    protected static final Color DEFAULT_FOX_COLOR = new Color(152, 86, 41);
 
-    protected static final Dimension DEFAULT_FOX_SIZE = new Dimension(20,20);
+    protected static final Dimension DEFAULT_FOX_SIZE = new Dimension(20, 20);
 
     private static final float DEFAULT_FOX_VISION_RANGE = 15;
 
@@ -34,8 +34,6 @@ public class Fox extends Animal {
 
         //getLocation().add(getVelocity());
         this.setEntityLocation(PVector.add(getLocation(), getVelocity()));
-
-
 
 
         if (this.DirectionTimer.IsDone()) {
@@ -73,18 +71,20 @@ public class Fox extends Animal {
     }
 
     private void huntingRabbit(Living target) {
+
         if (target != null) {
-            if (target instanceof Rabbit) {
-                PVector targetVector = PVector.sub(target.getLocation(), this.getLocation());
-                targetVector.normalize();
-                targetVector.mult(this.movementSpeed);
-                this.getVelocity().set(targetVector);
+            if (this.FoxEatTimer.IsDone()) {
+                if (target instanceof Rabbit) {
+                    PVector targetVector = PVector.sub(target.getLocation(), this.getLocation());
+                    targetVector.normalize();
+                    targetVector.mult(this.movementSpeed);
+                    this.getVelocity().set(targetVector);
 
-                Main.allEntities.get(0).arrayOfEntities.remove(((Rabbit) target));
+                    Main.allEntities.get(0).arrayOfEntities.remove(((Rabbit) target));
 
-                // TODO: Hunger for fox
-                //this.hunger = this.hunger - 25f;
-                this.movingState = 0;
+                    this.movingState = 0;
+                }
+                this.FoxEatTimer.Reset();
             }
         }
     }
@@ -107,10 +107,10 @@ public class Fox extends Animal {
 
     public void display2() {
 
-        p.stroke( 208, 78, 26);
+        p.stroke(208, 78, 26);
         p.noFill();
         p.ellipse(this.getLocation().x, this.getLocation().y, this.visionRange, this.visionRange);
-        p.stroke(0,0,0);
+        p.stroke(0, 0, 0);
     }
 
 }

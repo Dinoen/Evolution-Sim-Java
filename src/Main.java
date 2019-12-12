@@ -118,6 +118,7 @@ public class Main extends PApplet {
             entitiesOfFoxes.display();
 
             openGraph.update();
+
         }
     }
 }

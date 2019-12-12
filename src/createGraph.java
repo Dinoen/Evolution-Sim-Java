@@ -23,7 +23,7 @@ public class createGraph {
 
     createGraph() {
 
-        root = new HBox(1000);
+        root = new HBox();
         xAxis = new NumberAxis();
         xAxis.setLabel("Time");
         xAxis.setAnimated(true);
