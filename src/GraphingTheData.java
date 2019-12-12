@@ -33,8 +33,8 @@ public class GraphingTheData extends Application {
     private void init(Stage primaryStage) {
 
         window = primaryStage;
-        graph1 = new createGraph();
-        graph2 = new createGraph();
+        graph1 = new createGraph("Average Speed Gene");
+        graph2 = new createGraph("Rabbit Population Size");
         scene2 = new Scene(graph1.root, 450, 330);
         scene1 = new Scene(graph2.root, 450, 330);
 

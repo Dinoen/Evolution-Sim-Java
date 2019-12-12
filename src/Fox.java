@@ -10,7 +10,7 @@ public class Fox extends Animal {
 
     protected static final Dimension DEFAULT_FOX_SIZE = new Dimension(20, 20);
 
-    private static final float DEFAULT_FOX_VISION_RANGE = 15;
+    private static final float DEFAULT_FOX_VISION_RANGE = 20;
 
     public Fox(PApplet papplet, int id, PVector location, float movementSpeed, float topSpeed) {
         super(papplet, id, location, DEFAULT_FOX_COLOR, DEFAULT_FOX_SIZE, EntityShape.Triangle);
@@ -73,7 +73,7 @@ public class Fox extends Animal {
     private void huntingRabbit(Living target) {
 
         if (target != null) {
-            if (this.FoxEatTimer.IsDone()) {
+            //if (this.FoxEatTimer.IsDone()) {
                 if (target instanceof Rabbit) {
                     PVector targetVector = PVector.sub(target.getLocation(), this.getLocation());
                     targetVector.normalize();
@@ -84,10 +84,10 @@ public class Fox extends Animal {
 
                     this.movingState = 0;
                 }
-                this.FoxEatTimer.Reset();
+             //   this.FoxEatTimer.Reset();
             }
         }
-    }
+
 
     @Override
     protected void EntityUpdate(Environment env) {

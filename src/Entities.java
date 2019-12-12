@@ -24,18 +24,34 @@ public class Entities {
         //Check entityclass to see  what kind of list we're making
         if (entityClass == Rabbit.class) {
             //run amount of times of the size of the population
-            for (int i = 0; i < entityListSize; i++) {
+            for (int i = 0; i < entityListSize/2; i++) {
                 Rabbit randomRabbit =
                         new Rabbit(
                                 p,
                                 Entity.NextGlobalEntityId(),
                                 Main.theEnvironment.RandomLocation(),
-                                Rabbit.maleOrFemale(),
+                                Rabbit.male(),
                                 true,
                                 5,                      // topspeed
                                 p.random(0.5f, 2f),  // animalSpeed
                                 false,                   // IsKid
-                                p.random(Rabbit.RABBIT_DEFAULT_VISION_RANGE_MIN, Rabbit.RABBIT_DEFAULT_VISION_RANGE_MAX),
+                                Rabbit.RABBIT_DEFAULT_VISION_RANGE,
+                                0// VisionRange
+                        );
+                arrayOfEntities.add(randomRabbit);
+            }
+            for (int i = 0; i < entityListSize/2; i++) {
+                Rabbit randomRabbit =
+                        new Rabbit(
+                                p,
+                                Entity.NextGlobalEntityId(),
+                                Main.theEnvironment.RandomLocation(),
+                                Rabbit.female(),
+                                true,
+                                5,                      // topspeed
+                                p.random(0.5f, 2f),  // animalSpeed
+                                false,                   // IsKid
+                                Rabbit.RABBIT_DEFAULT_VISION_RANGE,
                                 0// VisionRange
                         );
                 arrayOfEntities.add(randomRabbit);

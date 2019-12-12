@@ -9,28 +9,18 @@ import java.util.RandomAccess;
 // TODO: Make so the vision range is being passed on like speed gene
 // TODO: Make so the amount of children is a gene being passed on
 
-
 public class Rabbit extends Animal { // Living {
 
     protected static final Color DEFAULT_RABBIT_COLOR = new Color(255,255,255);
-
     protected static final Dimension DEFAULT_RABBIT_SIZE = new Dimension(15,15);
-
-    public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 60;//80
-    public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 80;//200
+    //public static final int  RABBIT_DEFAULT_VISION_RANGE_MIN = 60;//80
+    //public static final int  RABBIT_DEFAULT_VISION_RANGE_MAX = 80;//200
+    public static final int  RABBIT_DEFAULT_VISION_RANGE = 70;
     public static int  RABBIT_DEFAULT_STARTING_GENERATION = 0;
-
     public static final float DEFAULT_RABBIT_LOOK_FOR_FOOD_LEVEL = 40f;
-
     private static final int DEFAULT_MATING_DURATION = 2000;
-
-
-
     private static final int DEFAULT_RABBIT_MINIMUM_CHILDREN = 0;
     private static final int DEFAULT_RABBIT_MAXIMUM_CHILDREN = 6;
-
-
-
     protected static final Color MaleRabbitColor = new Color(0,0,255);
     protected static final Color FemaleRabbitColor = new Color(241,41,71);
     protected static final Color BoyRabbitColor = new Color(102,255,255);
@@ -54,16 +44,8 @@ public class Rabbit extends Animal { // Living {
     int setNewHungerTimerDurationTime;
 
     protected int amountOfChildren = (int)p.random(DEFAULT_RABBIT_MINIMUM_CHILDREN,DEFAULT_RABBIT_MAXIMUM_CHILDREN);
-
-
-
-
     private boolean _iskid;
-
     public boolean readyForMating; //USED A LOT
-
-//    public int urgeToReproduce; //NOT USED //SHOULD BE USED
-//    public int MAXUrgeToReproduce; //NOT USED
 
 
     public boolean getIsKid() {
@@ -94,8 +76,6 @@ public class Rabbit extends Animal { // Living {
         visionRange = visionrange;
         movingState = 0;
     }
-
-
 
     //basic movement function
     //@Override
@@ -315,8 +295,6 @@ public class Rabbit extends Animal { // Living {
                                             setGenerationNumber(this.generationCounter,currentPartnerRabbit.generationCounter))); //
 
 
-                            //iterate the unique id
-                            //Entities.entityUniqueID++;
                         }
                         //change there ready for mating false so they cant mate for 2 sec
                         ((Rabbit)target).readyForMating = false;
@@ -399,6 +377,16 @@ public class Rabbit extends Animal { // Living {
         }
         return gender;
     }
+    public static AnimalGender male(){
+        AnimalGender gender;
+        gender = AnimalGender.MALE;
+        return gender;
+    }
+    public static AnimalGender female(){
+        AnimalGender gender;
+        gender = AnimalGender.FEMALE;
+        return gender;
+    }
     //
     public void seeIfKidIsOldEnoughToBecomeAdult() {
         // timesincebirth is the start of the kids life, and if 10 seconds have elapsed then the kids become adults
@@ -433,7 +421,7 @@ public class Rabbit extends Animal { // Living {
     public void hungerFunction() {
         //set timer 1 sek
         if (isHungerTimerOut()) {
-            this.hunger = this.hunger + 2f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
+            this.hunger = this.hunger + 2.5f * this.movementSpeed * 1.5f; //needs to be tied to movementspeed somehow
             startHungerTimer(1000);
             //System.out.println(this.hunger);
         }

@@ -11,7 +11,7 @@ public class Grass extends Plant {
     private static final Dimension DEFAULT_GRASS_SIZE = new Dimension(15,15);
 
     // No matter what, there will not be more grass than this
-    private static final int  MAXIMUM_AMOUNT_OF_GRASS = 15;
+    private static final int  MAXIMUM_AMOUNT_OF_GRASS = 20;
 
     private static final  int DEFAULT_GRASS_DESPAWN_TIMER = 15000;
 

@@ -19,9 +19,9 @@ public class createGraph {
     LineChart<Number, Number> lineChart;
     private ScheduledExecutorService scheduledExecutorService;
     private ScheduledExecutorService scheduledExecutorService1;
+    private String nameOfGraph;
 
-
-    createGraph() {
+    createGraph(String value) {
 
         root = new HBox();
         xAxis = new NumberAxis();
@@ -29,7 +29,7 @@ public class createGraph {
         xAxis.setAnimated(true);
 
         yAxis = new NumberAxis();
-        yAxis.setLabel("Average Of Rabbit Speed Genes");
+        yAxis.setLabel(this.nameOfGraph = value);
         yAxis.setAnimated(true);
 
         //Creating our linechart and setting the title
