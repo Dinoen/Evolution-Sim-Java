@@ -1,8 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PVector;
-
 import java.awt.*;
-
 
 //superclass, holding all the relevant things for living objects, eg rabbits and foxes
 public abstract class Living extends Entity {
@@ -26,21 +24,6 @@ public abstract class Living extends Entity {
         }
         newGenerationNumber++;
         return newGenerationNumber;
-    }
-
-    public int getLastestRabbitGeneration() {
-        int latestGeneration;
-        latestGeneration = 0;
-
-        for (int i = 0; i < Main.allEntities.size(); i++) {
-            // run through all rabbits
-            for (int j = 0; j < Main.allEntities.get(i).getEntities().size(); j++) {
-                if (latestGeneration < this.generationCounter) {
-                    latestGeneration = this.generationCounter ;
-                }
-            }
-        }
-        return latestGeneration;
     }
 }
 

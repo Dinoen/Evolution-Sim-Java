@@ -1,7 +1,4 @@
-import javafx.util.Pair;
 import processing.core.PApplet;
-import processing.core.PVector;
-
 import java.util.ArrayList;
 
 public class Main extends PApplet {
@@ -12,17 +9,10 @@ public class Main extends PApplet {
     Entities entitiesOfFoxes;
     InteractiveObject openGraph;
     InteractiveObject startTheProgram;
-
     static int stateOfProgram = 0;
-    GraphingTheData updateGraph;
-    private int startTime;
-    private int durationTime;
-
     Entities entitiesOfDeadRabbits;
-
     //instantiating the Environment for the animals
     static Environment theEnvironment;
-
     //An arraylist which holds all the living animals on the field
     public static ArrayList<Entities> allEntities;
     public static ArrayList<Entities> allDeadEntities;
@@ -74,9 +64,8 @@ public class Main extends PApplet {
         //instatiating the environment, with the sizes from above
         theEnvironment = new Environment(this, theGroundWidth, theGroundHeight);
 
-        //Creating the population of the rabbits.
-        //createPopulation comes from the population class, and holds all the rabbits in an arraylist
-        entitiesOfRabbits.createEntities(this, 20, Rabbit.class); //population is the amount of rabbits spawne
+        //createPopulation comes from the entities (population) class, and holds all the rabbits in an arraylist
+        entitiesOfRabbits.createEntities(this, 20, Rabbit.class);
         entitiesOfGrass.createEntities(this, 35, Grass.class);
         entitiesOfFoxes.createEntities(this,3,Fox.class);
 
@@ -90,21 +79,14 @@ public class Main extends PApplet {
         allEntities.add(1,entitiesOfGrass);
         allEntities.add(2,entitiesOfFoxes);
         allDeadEntities.add(entitiesOfDeadRabbits);
-
     }
-
     //Drawing, Runs every frame
     public void draw() {
         //Grey background, which removes the tails of the moving elements
         background(0, 0, 0);
         //Running the update function in the environment class, updating the positions of stuff in environment
         //update function is a collection of the methods needing to be updated
-
-        if(stateOfProgram == 0) {
-            startTheProgram.update();
-
-        }
-
+        if(stateOfProgram == 0) { startTheProgram.update(); }
         if(stateOfProgram == 1) {
             theEnvironment.update();
             //update function is a collection of the methods needing to be updated
@@ -116,9 +98,7 @@ public class Main extends PApplet {
             entitiesOfRabbits.display();
             entitiesOfGrass.display();
             entitiesOfFoxes.display();
-
             openGraph.update();
-
         }
     }
 }

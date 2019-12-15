@@ -17,21 +17,18 @@ public class GraphingTheData extends Application {
     //creating the ScheduledExecutorService
     createGraph graph1;
     createGraph graph2;
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         init(primaryStage);
         //initializing the primary stage function
         openGraphWhenMouse = false;
     }
 
     private void init(Stage primaryStage) {
-
         window = primaryStage;
         graph1 = new createGraph("Average Speed Gene");
         graph2 = new createGraph("Rabbit Population Size");
@@ -59,40 +56,5 @@ public class GraphingTheData extends Application {
         graph2.returnMillisecSinceBeginning();
 
         window.show();
-    }
-
-
-    public int rabbitPopulationSize() {
-
-        int theRabbitPopulation = 0;
-
-        for (int i = 0; i < Main.allEntities.get(0).arrayOfEntities.size(); i++) {
-            if(Main.allEntities.get(0).arrayOfEntities.size() != 0) {
-                theRabbitPopulation = Main.allEntities.get(0).arrayOfEntities.size();
-            }
-        }
-
-        return theRabbitPopulation;
-    }
-
-    //we return and int that is the population size of the rabbits
-    public float getTheAverageSpeedGene() {
-        float amount = 0;
-        float theSpeedGenesAverage;
-
-
-        for (int i = 0; i < Main.allEntities.get(0).getEntities().size(); i++) {
-            if (Main.allEntities.get(0).getEntities().get(i) != null) {
-                amount = amount+  ((Rabbit) Main.allEntities.get(0).getEntities().get(i)).movementSpeed;
-            }
-        }
-        theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntities().size();
-        return theSpeedGenesAverage;
-    }
-
-    //returning the time since the program has started
-    public int returnMillisecSinceBeginning() {
-        int theTimeInMinutes = (p.millis() / 1000);
-        return theTimeInMinutes;
     }
 }

@@ -4,13 +4,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
 import processing.core.PApplet;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class createGraph {
-
     PApplet p = new PApplet();
     XYChart.Series<Number, Number> data;
     HBox root;
@@ -22,12 +20,10 @@ public class createGraph {
     private String nameOfGraph;
 
     createGraph(String value) {
-
         root = new HBox();
         xAxis = new NumberAxis();
         xAxis.setLabel("Time");
         xAxis.setAnimated(true);
-
         yAxis = new NumberAxis();
         yAxis.setLabel(this.nameOfGraph = value);
         yAxis.setAnimated(true);
@@ -65,7 +61,6 @@ public class createGraph {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
-
     public int returnMillisecSinceBeginning() {
         int theTimeInMinutes = (p.millis() / 1000);
         return theTimeInMinutes;
@@ -75,13 +70,15 @@ public class createGraph {
         float amount = 0;
         float theSpeedGenesAverage;
 
-
         for (int i = 0; i < Main.allEntities.get(0).getEntities().size(); i++) {
+
             if (Main.allEntities.get(0).getEntities().get(i) != null) {
                 amount = amount + (((Rabbit)Main.allEntities.get(0).arrayOfEntities.get(i)).getMovementSpeed());
             }
         }
         theSpeedGenesAverage = amount / Main.allEntities.get(0).getEntities().size();
+        System.out.println(theSpeedGenesAverage);
+
         return theSpeedGenesAverage;
     }
 
